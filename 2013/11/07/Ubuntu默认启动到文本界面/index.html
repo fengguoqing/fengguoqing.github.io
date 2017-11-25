@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/11 | Frank&#39;s Blog</title>
+  <title>Ubuntu默认启动到文本界面 | Frank&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Frank&#39;s Blog">
-<meta property="og:url" content="https://fengguoqing.github.io/archives/2017/11/index.html">
+  <meta name="description" content="使用虚拟机安装ubuntu之后感觉机器有点吃力，为了缓解这种压力，直接启动到文本界面，然后使用Xshell或者putty等工具登录，相当的happy。设置方法如下：  $ sudo vim /etc/default/grub - GRUB_CMDLINE_LINUX_DEFAULT=&amp;quot;quiet sp">
+<meta name="keywords" content="日常记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu默认启动到文本界面">
+<meta property="og:url" content="https://fengguoqing.github.io/2013/11/07/Ubuntu默认启动到文本界面/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="使用虚拟机安装ubuntu之后感觉机器有点吃力，为了缓解这种压力，直接启动到文本界面，然后使用Xshell或者putty等工具登录，相当的happy。设置方法如下：  $ sudo vim /etc/default/grub - GRUB_CMDLINE_LINUX_DEFAULT=&amp;quot;quiet splash&amp;quot; + GRUB_CMDLINE_LINUX_DEFAULT=&amp;qu">
+<meta property="og:updated_time" content="2017-11-25T10:41:07.675Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Frank&#39;s Blog">
+<meta name="twitter:title" content="Ubuntu默认启动到文本界面">
+<meta name="twitter:description" content="使用虚拟机安装ubuntu之后感觉机器有点吃力，为了缓解这种压力，直接启动到文本界面，然后使用Xshell或者putty等工具登录，相当的happy。设置方法如下：  $ sudo vim /etc/default/grub - GRUB_CMDLINE_LINUX_DEFAULT=&amp;quot;quiet splash&amp;quot; + GRUB_CMDLINE_LINUX_DEFAULT=&amp;qu">
   
     <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
   
@@ -59,39 +64,69 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/25/hello-world/" class="archive-article-date">
-  <time datetime="2017-11-25T13:44:08.275Z" itemprop="datePublished">Nov 25</time>
+        <section id="main"><article id="post-Ubuntu默认启动到文本界面" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/11/07/Ubuntu默认启动到文本界面/" class="article-date">
+  <time datetime="2013-11-07T02:50:18.000Z" itemprop="datePublished">2013-11-07</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/25/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      Ubuntu默认启动到文本界面
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 使用虚拟机安装ubuntu之后感觉机器有点吃力，为了缓解这种压力，直接启动到文本界面，然后使用Xshell或者putty等工具登录，相当的happy。设置方法如下： </p>
+<pre><code>$ sudo vim /etc/default/grub
+- GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash&quot;
++ GRUB_CMDLINE_LINUX_DEFAULT=&quot;text&quot;
+$ sudo update-grub
+$ sudo reboot
+</code></pre><p> &nbsp;重启完之后就直接进入了文件界面，虚拟机的开销就会减小很多了。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengguoqing.github.io/2013/11/07/Ubuntu默认启动到文本界面/" data-id="cjafik5f90000t5j1lwvnuu5q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常记录/">日常记录</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/12/02/生成和打上patch的方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          生成和打上patch的方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/11/02/基于linux-3-10的yaffs2移植/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">基于linux 3.10的yaffs2移植</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

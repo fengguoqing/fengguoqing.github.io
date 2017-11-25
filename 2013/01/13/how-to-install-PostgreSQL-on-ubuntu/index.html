@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/11 | Frank&#39;s Blog</title>
+  <title>how to install PostgreSQL on ubuntu | Frank&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Frank&#39;s Blog">
-<meta property="og:url" content="https://fengguoqing.github.io/archives/2017/11/index.html">
+  <meta name="description" content="1. This installs the database server/client, some extra utility scripts and the pgAdmin GUI application for working with the database.   &amp;nbsp;&amp;nbsp;&am">
+<meta name="keywords" content="教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="how to install PostgreSQL on ubuntu">
+<meta property="og:url" content="https://fengguoqing.github.io/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="1. This installs the database server/client, some extra utility scripts and the pgAdmin GUI application for working with the database.   &amp;nbsp;&amp;nbsp;&amp;nbsp; $ sudo apt-get install postgresql postgresq">
+<meta property="og:updated_time" content="2017-11-25T10:41:07.679Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Frank&#39;s Blog">
+<meta name="twitter:title" content="how to install PostgreSQL on ubuntu">
+<meta name="twitter:description" content="1. This installs the database server/client, some extra utility scripts and the pgAdmin GUI application for working with the database.   &amp;nbsp;&amp;nbsp;&amp;nbsp; $ sudo apt-get install postgresql postgresq">
   
     <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
   
@@ -59,39 +64,78 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/25/hello-world/" class="archive-article-date">
-  <time datetime="2017-11-25T13:44:08.275Z" itemprop="datePublished">Nov 25</time>
+        <section id="main"><article id="post-how-to-install-PostgreSQL-on-ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/" class="article-date">
+  <time datetime="2013-01-12T16:29:56.000Z" itemprop="datePublished">2013-01-13</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/25/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      how to install PostgreSQL on ubuntu
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 1. This installs the database server/client, some extra utility scripts and the pgAdmin GUI application for working with the database. </p>
+<p> &nbsp;&nbsp;&nbsp; $ sudo apt-get install postgresql postgresql-client postgresql-contrib<br> &nbsp;&nbsp;&nbsp; $ sudo apt-get install pgadmin3 </p>
+<p> 2. Now we need to reset the password for the ‘postgres’ admin account for the server, substitute in the password you want to use for your administrator account. </p>
+<p> &nbsp;&nbsp;&nbsp; $ sudo su postgres -c psql template1<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; template1=# ALTER USER postgres WITH PASSWORD ‘password’;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; template1=# \q </p>
+<p> 3. That alters the password for within the database, now we need to do the same for the unix user ‘postgres’. </p>
+<p> &nbsp;&nbsp;&nbsp; $ sudo passwd -d postgres<br> &nbsp;&nbsp;&nbsp; $ sudo su postgres -c passwd </p>
+<p> 4. Set-up the PostgreSQL admin pack that enables better logging and monitoring within pgAdmin. </p>
+<p> &nbsp;&nbsp;&nbsp; $ sudo su postgres -c psql &lt; /usr/share/postgresql/9.1/extension/adminpack–1.0.sql </p>
+<p> 5. Edit the postgresql.conf file.<br> &nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp; $ sudo gedit /etc/postgresql/9.1/main/postgresql.conf </p>
+<p> Change the line:<br> &nbsp;&nbsp;&nbsp; #listen_addresses = ‘localhost’<br> to<br> &nbsp;&nbsp;&nbsp; listen_addresses = ‘*’<br> and also change the line:<br> &nbsp;&nbsp;&nbsp; #password_encryption = on<br> to<br> &nbsp;&nbsp;&nbsp; password_encryption = on </p>
+<p> 6. Define who can access the server. This is all done using the pg_hba.conf. </p>
+<p> &nbsp;&nbsp;&nbsp; $ sudo gedit /etc/postgresql/8.3/main/pg_hba.conf </p>
+<p> add this text to the bottom of the file:<br> &nbsp;&nbsp;&nbsp; host&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ip address]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [subnet mask]&nbsp; md5<br> add in your subnet mask (i.e. 255.255.255.0) and the IP address of your server (i.e. 138.250.192.115).<br> Note:if you have some password error, please change all “md5” to “trust” in this file. </p>
+<p> 7. Now all you have to do is restart the server. </p>
+<p> &nbsp;&nbsp;&nbsp; $ sudo /etc/init.d/postgresql restart </p>
+<p> Reference:<br> <a href="http://hocuspokus.net/2008/05/install-postgresql-on-ubuntu-804/" target="_blank" rel="noopener">http://hocuspokus.net/2008/05/install-postgresql-on-ubuntu-804/</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengguoqing.github.io/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/" data-id="cjafihjkn0000rdj1oisnzhxl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教程/">教程</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/02/08/笔记本使用手机流量上网/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          笔记本使用手机流量上网
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/01/12/ACPI-DEBUG方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ACPI DEBUG方法</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

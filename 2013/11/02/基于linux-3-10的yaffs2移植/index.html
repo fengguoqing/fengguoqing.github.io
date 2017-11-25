@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>基于linux 3.10的yaffs2移植 | Frank&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。 1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给li">
+<meta name="keywords" content="linux移植">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于linux 3.10的yaffs2移植">
+<meta property="og:url" content="https://fengguoqing.github.io/2013/11/02/基于linux-3-10的yaffs2移植/index.html">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。 1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。 $ git clone git://www.ale">
+<meta property="og:updated_time" content="2017-11-25T10:41:07.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于linux 3.10的yaffs2移植">
+<meta name="twitter:description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。 1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。 $ git clone git://www.ale">
+  
+    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Frank&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-基于linux-3-10的yaffs2移植" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/11/02/基于linux-3-10的yaffs2移植/" class="article-date">
+  <time datetime="2013-11-02T05:07:41.000Z" itemprop="datePublished">2013-11-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于linux 3.10的yaffs2移植
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。</p>
+<p>1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。</p>
+<pre><code>$ git clone git://www.aleph1.co.uk/yaffs2
+$ cd yaffs2/
+$ ./patch-ker.sh c m ../linux3.10-mini2440`&lt;/pre&gt; 
+
+2\. 然后在linux的源代码fs中多了一个yaffs2的文件夹，到此yaffs2文件系统就已经添加到linux3.10中了。在Linux内核源代码根目录运行：make menuconfig，移动上下按键进行配置：
+
+&lt;pre&gt;`File Systems
+    ---&amp;gt; Miscellaneous filesystems
+        ---&amp;gt; [*]YAFFS2 file system support`&lt;/pre&gt; 并按空格选中它，这样我们就在内核中添加了yaffs2文件系统的支持，按“Exit”退出内核配置。 
+
+3\. 编译linux源代码。
+
+&lt;pre&gt;`$ make zImage
+scripts/kconfig/conf --silentoldconfig Kconfig
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+make[1]: `include/generated/mach-types.h&apos; is up to date.
+  CALL    scripts/checksyscalls.sh
+  CC      scripts/mod/devicetable-offsets.s
+  GEN     scripts/mod/devicetable-offsets.h
+  HOSTCC  scripts/mod/file2alias.o
+  HOSTLD  scripts/mod/modpost
+  CHK     include/generated/compile.h
+  CC      fs/yaffs2/yaffs_ecc.o
+  CC      fs/yaffs2/yaffs_vfs.o
+fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:
+fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast
+fs/yaffs2/yaffs_vfs.c: In function &apos;init_yaffs_fs&apos;:
+fs/yaffs2/yaffs_vfs.c:3398: error: implicit declaration of function &apos;create_proc_entry&apos;
+fs/yaffs2/yaffs_vfs.c:3399: warning: assignment makes pointer from integer without a cast
+fs/yaffs2/yaffs_vfs.c:3402: error: dereferencing pointer to incomplete type
+fs/yaffs2/yaffs_vfs.c:3403: error: dereferencing pointer to incomplete type
+fs/yaffs2/yaffs_vfs.c:3404: error: dereferencing pointer to incomplete type
+make[2]: *** [fs/yaffs2/yaffs_vfs.o] Error 1
+make[1]: *** [fs/yaffs2] Error 2
+make: *** [fs] Error 2`&lt;/pre&gt; 
+
+编译fs/yaffs2/yaffs_vfs.c时出现错误，function &apos;create_proc_entry&apos;没有申明。Google之后才知道原来这个接口在linux-3.10被删除了，应该使用proc_create代替。
+
+参考：[What&apos;s coming in 3.10, part 2](https://lwn.net/Articles/549737/)
+
+4\. 修改fs/yaffs2/yaffs_vfs.c
+
+&lt;pre&gt;`@@ -3384,12 +3384,6 @@ static struct file_system_to_install fs_to_install[] = {
+        {NULL, 0}
+ };
+
++static const struct file_operations yaffs_fops = {
++        .owner = THIS_MODULE,
++        .read = yaffs_proc_read,
++        .write = yaffs_proc_write,
++};
++
+ static int __init init_yaffs_fs(void)
+ {
+        int error = 0;
+@@ -3401,9 +3395,9 @@ static int __init init_yaffs_fs(void)
+        mutex_init(&amp;amp;yaffs_context_lock);
+
+        /* Install the proc_fs entries */
++       my_proc_entry = proc_create(&quot;yaffs&quot;,
++                                         S_IRUGO | S_IFREG, YPROC_ROOT, &amp;amp;yaffs_fops);
++#if 0
+-       my_proc_entry = create_proc_entry(&quot;yaffs&quot;,
+-                                         S_IRUGO | S_IFREG, YPROC_ROOT);
+-
+        if (my_proc_entry) {
+                my_proc_entry-&amp;gt;write_proc = yaffs_proc_write;
+                my_proc_entry-&amp;gt;read_proc = yaffs_proc_read;
+@@ -3411,7 +3405,7 @@ static int __init init_yaffs_fs(void)
+        } else {
+                return -ENOMEM;
+         }
++#endif
+-
+        /* Now add the file system entries */
+
+        fsinst = fs_to_install;`&lt;/pre&gt; 
+
+5\. 修改之后保存，然后再编译就可以成功了。
+
+&lt;pre&gt;`$ make zImage
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+make[1]: `include/generated/mach-types.h&apos; is up to date.
+  CALL    scripts/checksyscalls.sh
+  CC      scripts/mod/devicetable-offsets.s
+  GEN     scripts/mod/devicetable-offsets.h
+  HOSTCC  scripts/mod/file2alias.o
+  HOSTLD  scripts/mod/modpost
+  CHK     include/generated/compile.h
+  CC      fs/yaffs2/yaffs_vfs.o
+fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:
+fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast
+fs/yaffs2/yaffs_vfs.c: At top level:
+fs/yaffs2/yaffs_vfs.c:3389: warning: initialization from incompatible pointer type
+fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer type
+  CC      fs/yaffs2/yaffs_guts.o
+  CC      fs/yaffs2/yaffs_checkptrw.o
+  CC      fs/yaffs2/yaffs_packedtags1.o
+  CC      fs/yaffs2/yaffs_packedtags2.o
+  CC      fs/yaffs2/yaffs_nand.o
+  CC      fs/yaffs2/yaffs_tagscompat.o
+  CC      fs/yaffs2/yaffs_tagsmarshall.o
+  CC      fs/yaffs2/yaffs_mtdif.o
+  CC      fs/yaffs2/yaffs_nameval.o
+  CC      fs/yaffs2/yaffs_attribs.o
+  CC      fs/yaffs2/yaffs_allocator.o
+  CC      fs/yaffs2/yaffs_yaffs1.o
+  CC      fs/yaffs2/yaffs_yaffs2.o
+  CC      fs/yaffs2/yaffs_bitmap.o
+  CC      fs/yaffs2/yaffs_summary.o
+  CC      fs/yaffs2/yaffs_verify.o
+  LD      fs/yaffs2/yaffs.o
+  LD      fs/yaffs2/built-in.o
+  LD      fs/built-in.o
+  LINK    vmlinux
+  LD      vmlinux.o
+  MODPOST vmlinux.o
+  GEN     .version
+  CHK     include/generated/compile.h
+  UPD     include/generated/compile.h
+  CC      init/version.o
+  LD      init/built-in.o
+  KSYM    .tmp_kallsyms1.o
+  KSYM    .tmp_kallsyms2.o
+  LD      vmlinux
+  SORTEX  vmlinux
+  SYSMAP  System.map
+  OBJCOPY arch/arm/boot/Image
+  Kernel: arch/arm/boot/Image is ready
+  GZIP    arch/arm/boot/compressed/piggy.gzip
+  AS      arch/arm/boot/compressed/piggy.gzip.o
+  LD      arch/arm/boot/compressed/vmlinux
+  OBJCOPY arch/arm/boot/zImage
+  Kernel: arch/arm/boot/zImage is ready
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengguoqing.github.io/2013/11/02/基于linux-3-10的yaffs2移植/" data-id="cjafiktbc0000tpj1aumtg35c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux移植/">linux移植</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/11/07/Ubuntu默认启动到文本界面/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ubuntu默认启动到文本界面
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/29/如何架设Git服务器/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何架设Git服务器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/11/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
+          </li>
+        
+          <li>
+            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Frank Feng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

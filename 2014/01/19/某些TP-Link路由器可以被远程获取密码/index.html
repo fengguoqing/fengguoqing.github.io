@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>某些TP-Link路由器可以被远程获取密码 | Frank&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )Hello everyone, I just wanted to discuss some vulnerability I found and exploited for G">
+<meta name="keywords" content="系统安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="某些TP-Link路由器可以被远程获取密码">
+<meta property="og:url" content="https://fengguoqing.github.io/2014/01/19/某些TP-Link路由器可以被远程获取密码/index.html">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES wo">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175934_qaNU.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175934_svCo.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175935_6pIO.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175935_U9nN.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175936_vM18.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175936_PIlE.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175936_ypc5.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175937_NJ9G.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175937_vATX.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175938_gdlc.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif">
+<meta property="og:updated_time" content="2017-11-25T10:41:07.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="某些TP-Link路由器可以被远程获取密码">
+<meta name="twitter:description" content="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES wo">
+<meta name="twitter:image" content="http://static.oschina.net/uploads/img/201401/19175934_qaNU.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Frank&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-某些TP-Link路由器可以被远程获取密码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/" class="article-date">
+  <time datetime="2014-01-19T09:59:38.000Z" itemprop="datePublished">2014-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      某些TP-Link路由器可以被远程获取密码
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE"><a href="#HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE" class="headerlink" title="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )"></a>HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )</h4><p>Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES won’t attack your home/business network .</p>
+<p>Well, in Algeria the main ISP ( Algerie Telecom ) provide you with a router when you pay for an internet plan. So you can conclude that every subscriber is using that router . TD-W8951ND is one of them, I did some ip scanning and I found that every router is using ZYXEL embedded firmware.</p>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis :"></a><strong>Analysis :</strong></h3><p>Let’s download an update and take a look at it and try to find some vulnerabilities. ( <a href="http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar" target="_blank" rel="noopener">http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar </a>)</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175934_8zu4.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175934_qaNU.jpg" alt="lif" title="lif"></a></p>
+<p>The ras file is in LIF format !! … &nbsp; &nbsp;<br>Hmmm let’s put that file for Binwalk test for God’s sake ! ( check :<a href="http://code.google.com/p/binwalk/wiki/Installation" target="_blank" rel="noopener">http://code.google.com/p/binwalk/wiki/Installation</a> for more informations on how to install it ).</p>
+<p>This is what Binwalk told me about that file : &nbsp; &nbsp;<br><a href="http://static.oschina.net/uploads/img/201401/19175934_veKb.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175934_svCo.jpg" alt="zynos" title="zynos"></a></p>
+<p>You can clearly see and confirm that the router is using zynos firmware. We can also see that there is two blocks of LZMA compressed data … let’s extract them and have a look. &nbsp; &nbsp;<br><a href="http://static.oschina.net/uploads/img/201401/19175935_0q2n.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175935_6pIO.jpg" alt="extract1" title="extract1"></a></p>
+<p>The problem is that when I tried to decompress the two blocks I get an error : ” Compressed data is corrupt “</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175935_xf7b.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175935_U9nN.jpg" alt="error" title="error"></a></p>
+<p>Hmm, first the “ras” file was in LIF format .. and now the lzma compress blocks are corrupted !! &nbsp; &nbsp;<br>I googled this and tried to find a solution for this, <strong>FOUND NOTHING</strong> . How am I going to solve this ?? &nbsp; &nbsp;<br>One idea came in my mind .. “Strings” command and here is what I got :</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175935_cqNB.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175936_vM18.jpg" alt="strings" title="strings"></a></p>
+<p>Aaaah ! so the blocks aren’t compressed with LZMA or anything ! and the whole “ras” firmware file is just big chunk of data in clear text. &nbsp; &nbsp;<br>Ok, let’s try and find some useful STRINGS …</p>
+<p>After some time searching “I” didn’t find the useful thing that will help us find vulnerabilities on the firmware !!</p>
+<p>I didn’t give up … &nbsp; &nbsp;<br>I just was thinking and questioning :</p>
+<ul>
+<li><p>Me: What do you want from this firmware file !</p>
+</li>
+<li><p>Me: I want to find remote vulnerabilities that will help me extract the “admin” password.</p>
+</li>
+<li><p>Me: Does the web interface let you save the current configuration ? </p>
+</li>
+</ul>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175936_Jez1.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175936_PIlE.jpg" alt="rom-save" title="rom-save"></a></p>
+<ul>
+<li><p>Me: yes !!</p>
+</li>
+<li><p>Me: Is the page password protected ? </p>
+</li>
+</ul>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175936_T61n.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175936_ypc5.jpg" alt="password-protected" title="password-protected"></a></p>
+<ul>
+<li>Me: No !!! I tired to access that page on a different IP and it didn’t require a passowrd ! </li>
+</ul>
+<p>Ok, enough questions haha ..</p>
+<p>Now, when I activated TamperData and clicked “ROMFILE SAVE”&amp;#160; I’ve found out that the rom-0 file is located on “IP/rom-0″ and the directory isn’t password protected or anything.</p>
+<p>So we are able to download the configuration file which contains the “admin” password. I took a look at rom-0 file and couldn’t figure out how to reverse-engineer it, and when you don’t know something it’s not a shame to ask for help .. and that’s what I did ! &nbsp; &nbsp;<br>I contacted “<strong>Craig</strong>” from <a href="http://devttys0.com/" target="_blank" rel="noopener">devttys0.com</a>, he is an expect when it comes to hacking embdded devices . He’s a great guy and he replied to my email and pointed me to <a href="http://50.57.229.26/zynos.php" target="_blank" rel="noopener">http://50.57.229.26/zynos.php</a>which is a free rom-0 file decompressor .</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175937_whRc.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175937_NJ9G.jpg" alt="decompress" title="decompress"></a></p>
+<p>When you upload and submit the rom-0 file there, the php page replies back with the configuration in clear text ( <strong>INCLUDING THE PASSWORD</strong> ) .</p>
+<p>So what i need to do now is to automate the process of :</p>
+<ul>
+<li><p>Download rom-0 file.</p>
+</li>
+<li><p>Upload it to <a href="http://50.57.229.26/zynos.php" target="_blank" rel="noopener">http://50.57.229.26/zynos.php</a></p>
+</li>
+<li><p>get the repy back and extract the admin password from it.</p>
+</li>
+<li><p>loop this process to a range of ip addresses. </p>
+</li>
+</ul>
+<p>And that’s exactly what I did, I opened an OLD OLD poc python script of mine that accessed routers via telnet using the default passwords. So what I just need to do now is to add some functionality to it.</p>
+<p>Well I thought about&amp;#160; this, and I’m posting this script online <strong>ONLY FOR EDUCATIONAL PURPOSES.</strong></p>
+<p>You can find the scripts here : <a href="https://github.com/MrNasro/zynos-attacker/" target="_blank" rel="noopener">https://github.com/MrNasro/zynos-attacker/</a></p>
+<p>Demo :</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175937_xoJZ.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175937_vATX.jpg" alt="demo" title="demo"></a></p>
+<p><strong>PS : I OWN ALL THE IP RANGE I WAS SCANNING ” FOR SURE <img src="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif" alt=";)"> “</strong></p>
+<h3 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention :"></a>Prevention :</h3><p>Now ! how do you prevent attackers from downloading your rom-0 configuration file and manipulating your router ? This is pretty simple if you think about it .. &nbsp; &nbsp;<br>You just have to forward port 80 on the router to and inused IP address on your network : &nbsp; &nbsp;<br><a href="http://static.oschina.net/uploads/img/201401/19175937_XPrm.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175938_gdlc.jpg" alt="forward" title="forward"></a></p>
+<p><strong>THATS ALL, </strong>or if you want to play a little with attackers that are using scripts too .. just forward port 80 to you local http server and put a LARGE file in the root directory and name it rom-0 .. just let them download like 1GB rom-0 file haha haha .. I have also automated the process of port forwarding and I’m running the scripts daily just to prevent hackers from attacking weak users …</p>
+<p>In the next post I’ll demonstrate how would a malicious hacker exploit this to hack TONS of networks and get a meterpreter/reverse_shell on every PC on the target network ..</p>
+<p>Hope you enjoyed this analysis, if you have anything to add or any questions to ask don’t hesitate to contact me ! <strong>BE THEIR HERO, HAPPY HACKING <img src="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif" alt=";)"></strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengguoqing.github.io/2014/01/19/某些TP-Link路由器可以被远程获取密码/" data-id="cjafilrgr0000ulj1jqhyrrcz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          解决三星手机WIFI“此网络不可用。证书已到期”方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/12/02/生成和打上patch的方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">生成和打上patch的方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/11/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
+          </li>
+        
+          <li>
+            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Frank Feng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

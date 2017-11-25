@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在ubuntu上安装redmine | Frank&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。 首先按照官方网站的步骤来安装，但是仍旧会碰到各种各样的问题。  1. 下载Redmine源代码这里利用git下载： git&amp;amp;nbsp;clo">
+<meta name="keywords" content="教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在ubuntu上安装redmine">
+<meta property="og:url" content="https://fengguoqing.github.io/2014/04/20/在ubuntu上安装redmine/index.html">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。 首先按照官方网站的步骤来安装，但是仍旧会碰到各种各样的问题。  1. 下载Redmine源代码这里利用git下载： git&amp;amp;nbsp;clone&amp;amp;nbsp;https://github.com/redmine/redmi">
+<meta property="og:updated_time" content="2017-11-25T10:41:07.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在ubuntu上安装redmine">
+<meta name="twitter:description" content="最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。 首先按照官方网站的步骤来安装，但是仍旧会碰到各种各样的问题。  1. 下载Redmine源代码这里利用git下载： git&amp;amp;nbsp;clone&amp;amp;nbsp;https://github.com/redmine/redmi">
+  
+    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Frank&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-在ubuntu上安装redmine" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/20/在ubuntu上安装redmine/" class="article-date">
+  <time datetime="2014-04-20T08:33:52.000Z" itemprop="datePublished">2014-04-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在ubuntu上安装redmine
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。</p>
+<p>首先按照<a href="http://www.redmine.org/projects/redmine/wiki/RedmineInstall" target="_blank" rel="noopener">官方网站</a>的步骤来安装，但是仍旧会碰到各种各样的问题。</p>
+<p><span id="OSC_h4_1"></span></p>
+<h4 id="1-下载Redmine源代码"><a href="#1-下载Redmine源代码" class="headerlink" title="1. 下载Redmine源代码"></a>1. 下载Redmine源代码</h4><p>这里利用git下载：</p>
+<pre><code>git&amp;nbsp;clone&amp;nbsp;https://github.com/redmine/redmine`&lt;/pre&gt; 
+
+&lt;span id=&quot;OSC_h4_2&quot;&gt;&lt;/span&gt;
+
+#### 2\. 安装配置MySQL
+
+已经安装过MySQL就不需要执行下面的命令：
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`sudo&amp;nbsp;apt-get&amp;nbsp;install&amp;nbsp;mysql-server&amp;nbsp;mysql-client`&lt;/pre&gt; 
+
+&lt;span style=&quot;font-family: verdana,sans-serif; font-size: 12px; line-height: 15.6px; background-color: rgb(248, 245, 238);&quot;&gt;&lt;/span&gt;配置redmine数据库和用户：
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`mysql&amp;nbsp;-u&amp;nbsp;root&amp;nbsp;-p`&lt;/pre&gt; 
+
+&lt;pre class=&quot;brush:sql;toolbar: true; auto-links: false;&quot;&gt;`CREATE&amp;nbsp;DATABASE&amp;nbsp;redmine&amp;nbsp;CHARACTER&amp;nbsp;SET&amp;nbsp;utf8;
+CREATE&amp;nbsp;USER&amp;nbsp;&apos;redmine&apos;@&apos;localhost&apos;&amp;nbsp;IDENTIFIED&amp;nbsp;BY&amp;nbsp;&apos;my_password&apos;;
+GRANT&amp;nbsp;ALL&amp;nbsp;PRIVILEGES&amp;nbsp;ON&amp;nbsp;redmine.*&amp;nbsp;TO&amp;nbsp;&apos;redmine&apos;@&apos;localhost&apos;;`&lt;/pre&gt; 
+
+&lt;span id=&quot;OSC_h4_3&quot;&gt;&lt;/span&gt;
+
+#### 3\. 数据库连接配置
+
+首先要将redmine源码中&amp;nbsp;config/database.yml.example复制一份改名为config/database.yml。
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`cp&amp;nbsp;&amp;nbsp;config/database.yml.example&amp;nbsp;config/database.yml`&lt;/pre&gt; 
+
+&lt;span style=&quot;line-height: 22.5px;&quot;&gt;然后再&lt;span style=&quot;line-height: 22.5px;&quot;&gt;根据刚刚创建的redmine数据库&lt;/span&gt;修改&lt;/span&gt;&lt;span style=&quot;line-height: 22.5px;&quot;&gt;config/database.yml：&lt;/span&gt;
+
+&lt;pre class=&quot;brush:xml;toolbar: true; auto-links: false;&quot;&gt;`production:
+&amp;nbsp;&amp;nbsp;adapter:&amp;nbsp;mysql
+&amp;nbsp;&amp;nbsp;database:&amp;nbsp;redmine
+&amp;nbsp;&amp;nbsp;host:&amp;nbsp;localhost
+&amp;nbsp;&amp;nbsp;username:&amp;nbsp;redmine
+&amp;nbsp;&amp;nbsp;password:&amp;nbsp;&quot;my_password&quot;
+&amp;nbsp;&amp;nbsp;encoding:&amp;nbsp;utf8`&lt;/pre&gt; 
+
+&lt;span id=&quot;OSC_h4_4&quot;&gt;&lt;/span&gt;
+
+#### 4\. 安装依赖包
+
+首先得安装ruby和gem,然后使用gem安装bundler，最后通过bundle根据redmine下面的Gemfile安装所有需要安装的软件包。
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`sudo&amp;nbsp;apt-get&amp;nbsp;install&amp;nbsp;ruby&amp;nbsp;rubygems&amp;nbsp;ruby1.8-dev&amp;nbsp;ruby1.9.1-dev&amp;nbsp;libmysqlclient-dev&amp;nbsp;imagemagick&amp;nbsp;libmagickwand-dev
+cd&amp;nbsp;redmine
+/*&amp;nbsp;由于有GFW的存在，需要使用国内的gem源才能下载，先删除官方源，然后添加淘宝的源&amp;nbsp;*/
+gem&amp;nbsp;sources&amp;nbsp;-r&amp;nbsp;http://rubygems.org/
+gem&amp;nbsp;source&amp;nbsp;-a&amp;nbsp;http://ruby.taobao.org
+sudo&amp;nbsp;gem&amp;nbsp;install&amp;nbsp;bundler&amp;nbsp;-V
+bundle&amp;nbsp;install&amp;nbsp;--without&amp;nbsp;development&amp;nbsp;test`&lt;/pre&gt; 
+
+&lt;span id=&quot;OSC_h4_5&quot;&gt;&lt;/span&gt;
+
+#### &lt;span style=&quot;line-height: 22.5px;&quot;&gt;5\. Redmine配置&lt;/span&gt;
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`rake&amp;nbsp;generate_secret_token
+RAILS_ENV=production&amp;nbsp;rake&amp;nbsp;db:migrate
+RAILS_ENV=production&amp;nbsp;rake&amp;nbsp;redmine:load_default_data`&lt;/pre&gt; 
+
+&lt;span id=&quot;OSC_h4_6&quot;&gt;&lt;/span&gt;
+
+#### 6\. 文件系统权限设置
+
+在Redmine下建立文件夹并设置相应权限
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`mkdir&amp;nbsp;-p&amp;nbsp;tmp&amp;nbsp;tmp/pdf&amp;nbsp;public/plugin_assets
+sudo&amp;nbsp;chmod&amp;nbsp;-R&amp;nbsp;755&amp;nbsp;files&amp;nbsp;log&amp;nbsp;tmp&amp;nbsp;public/plugin_assets`&lt;/pre&gt; 
+
+&lt;span id=&quot;OSC_h4_7&quot;&gt;&lt;/span&gt;
+
+#### 7\. 运行测试
+
+至此Redmine就安装完成了，现在就可以运行测试了。运行下面的命令进行测试：
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`ruby&amp;nbsp;script/rails&amp;nbsp;server&amp;nbsp;webrick&amp;nbsp;-e&amp;nbsp;production`&lt;/pre&gt; 
+
+运行上面的服务之后，我们就可以在浏览器中输入http://IP:3000 来测试。如果安装成功就会出现下面的网站界面：
+
+![](http://static.oschina.net/uploads/space/2014/0420/161230_YGrG_579952.png)
+
+&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;初始用户名/密码：admin/admin&lt;/span&gt;
+
+&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;但是这样启动之后中断窗口是不能关闭的，如果要像服务一样启动，得添加-d参数：
+&lt;/span&gt;
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`ruby&amp;nbsp;script/server&amp;nbsp;webrick&amp;nbsp;-e&amp;nbsp;production&amp;nbsp;-d`&lt;/pre&gt; 
+
+&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;&lt;/span&gt;&lt;/span&gt;如果想要关闭服务，可以通过查看该服务的PID来关闭：
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`cat&amp;nbsp;redmine/tmp/pids/server.pid
+kill&amp;nbsp;-9&amp;nbsp;[PID]`&lt;/pre&gt; 
+
+&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;&lt;/span&gt;最后在使用redmine过程中发现网络连接很慢，按理说，是局域网内的访问应该很快的，后来调查之后发现是webrick捣的鬼，改用thin就好了。
+
+先在Gemfile文件中添加thin，然后再用bundle安装一下就可以了。
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`vim&amp;nbsp;Gemfile
++#gem&amp;nbsp;&apos;mongrel&apos;,&amp;nbsp;&apos;1.2.0.pre2&apos;
++gem&amp;nbsp;&apos;thin&apos;
+bundle&amp;nbsp;install&amp;nbsp;--without&amp;nbsp;development&amp;nbsp;test`&lt;/pre&gt; 
+
+&lt;span style=&quot;font-size: 12.5px;&quot;&gt;&lt;/span&gt;安装之后重新启动redmine服务，访问就快很多了。
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`ruby&amp;nbsp;script/rails&amp;nbsp;server&amp;nbsp;thin&amp;nbsp;-e&amp;nbsp;production&amp;nbsp;-d`&lt;/pre&gt; 
+
+&lt;span id=&quot;OSC_h4_8&quot;&gt;&lt;/span&gt;
+
+#### 8\. 邮件服务配置
+
+邮件服务配置需要修改config/configuration.yml，我的一个可以成功发送邮件的配置是：
+
+&lt;pre class=&quot;brush:xml;toolbar: true; auto-links: false;&quot;&gt;`#&amp;nbsp;default&amp;nbsp;configuration&amp;nbsp;options&amp;nbsp;for&amp;nbsp;all&amp;nbsp;environments
+default:
+&amp;nbsp;&amp;nbsp;#&amp;nbsp;Outgoing&amp;nbsp;emails&amp;nbsp;configuration&amp;nbsp;(see&amp;nbsp;examples&amp;nbsp;above)
+&amp;nbsp;&amp;nbsp;email_delivery:
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;delivery_method:&amp;nbsp;:smtp
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;smtp_settings:
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;address:&amp;nbsp;localhost
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;port:&amp;nbsp;25
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;domain:&amp;nbsp;example.com
+#&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;authentication:&amp;nbsp;:login
+#&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;user_name:&amp;nbsp;&quot;redmine@example.net&quot;
+#&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;password:&amp;nbsp;&quot;redmine&quot;
+</code></pre><p>然后重启redmine服务，在管理&gt;&gt;配置&gt;&gt;邮件通知 中选择发送测试邮件进行测试。</p>
+<p><span id="OSC_h4_9"></span></p>
+<h4 id="9-结语"><a href="#9-结语" class="headerlink" title="9. 结语"></a>9. 结语</h4><p>在整个安装的过程中碰到了很多问题，大部分都是缺少依赖包的，在前面的安装中都已经提示出来了。</p>
+<p><span style="font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);"><br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengguoqing.github.io/2014/04/20/在ubuntu上安装redmine/" data-id="cjafimvv50000vhj1e5lncri7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教程/">教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/25/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux kernel make menuconfig 时出错处理方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/11/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
+          </li>
+        
+          <li>
+            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Frank Feng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

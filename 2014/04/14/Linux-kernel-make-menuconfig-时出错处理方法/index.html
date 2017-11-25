@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/11 | Frank&#39;s Blog</title>
+  <title>Linux kernel make menuconfig 时出错处理方法 | Frank&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Frank&#39;s Blog">
-<meta property="og:url" content="https://fengguoqing.github.io/archives/2017/11/index.html">
+  <meta name="description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误： $&amp;amp;nbsp;make&amp;amp;nbsp;menuconfig &amp;amp;nbsp;&amp;amp;nbsp;HOSTLD&amp;amp;nbsp;&amp;amp;nbsp;scripts/kc">
+<meta name="keywords" content="linux移植">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux kernel make menuconfig 时出错处理方法">
+<meta property="og:url" content="https://fengguoqing.github.io/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误： $&amp;amp;nbsp;make&amp;amp;nbsp;menuconfig &amp;amp;nbsp;&amp;amp;nbsp;HOSTLD&amp;amp;nbsp;&amp;amp;nbsp;scripts/kconfig/mconf scripts/kconfig/mconf.o:&amp;amp;nbsp;In&amp;amp;nbsp;functi">
+<meta property="og:updated_time" content="2017-11-25T10:41:07.675Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Frank&#39;s Blog">
+<meta name="twitter:title" content="Linux kernel make menuconfig 时出错处理方法">
+<meta name="twitter:description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误： $&amp;amp;nbsp;make&amp;amp;nbsp;menuconfig &amp;amp;nbsp;&amp;amp;nbsp;HOSTLD&amp;amp;nbsp;&amp;amp;nbsp;scripts/kconfig/mconf scripts/kconfig/mconf.o:&amp;amp;nbsp;In&amp;amp;nbsp;functi">
   
     <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
   
@@ -59,39 +64,83 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/25/hello-world/" class="archive-article-date">
-  <time datetime="2017-11-25T13:44:08.275Z" itemprop="datePublished">Nov 25</time>
+        <section id="main"><article id="post-Linux-kernel-make-menuconfig-时出错处理方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/" class="article-date">
+  <time datetime="2014-04-14T09:53:42.000Z" itemprop="datePublished">2014-04-14</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/25/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      Linux kernel make menuconfig 时出错处理方法
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误：</p>
+<pre><code>$&amp;nbsp;make&amp;nbsp;menuconfig
+&amp;nbsp;&amp;nbsp;HOSTLD&amp;nbsp;&amp;nbsp;scripts/kconfig/mconf
+scripts/kconfig/mconf.o:&amp;nbsp;In&amp;nbsp;function&amp;nbsp;`show_help&apos;:
+mconf.c:(.text+0x8a4):&amp;nbsp;undefined&amp;nbsp;reference&amp;nbsp;to&amp;nbsp;`stdscr&apos;
+scripts/kconfig/lxdialog/checklist.o:&amp;nbsp;In&amp;nbsp;function&amp;nbsp;`print_arrows&apos;:
+checklist.c:(.text+0x41):&amp;nbsp;undefined&amp;nbsp;reference&amp;nbsp;to&amp;nbsp;`wmove&apos;
+checklist.c:(.text+0x61):&amp;nbsp;undefined&amp;nbsp;reference&amp;nbsp;to&amp;nbsp;`acs_map&apos;
+......
+menubox.c:(.text+0x3a9):&amp;nbsp;undefined&amp;nbsp;reference&amp;nbsp;to&amp;nbsp;`wrefresh&apos;
+scripts/kconfig/lxdialog/menubox.o:&amp;nbsp;In&amp;nbsp;function&amp;nbsp;`print_buttons&apos;:
+menubox.c:(.text+0x4ef):&amp;nbsp;undefined&amp;nbsp;reference&amp;nbsp;to&amp;nbsp;`wrefresh&apos;
+collect2:&amp;nbsp;ld&amp;nbsp;returned&amp;nbsp;1&amp;nbsp;exit&amp;nbsp;status
+make[1]:&amp;nbsp;***&amp;nbsp;[scripts/kconfig/mconf]&amp;nbsp;Error&amp;nbsp;1
+make:&amp;nbsp;***&amp;nbsp;[menuconfig]&amp;nbsp;Error&amp;nbsp;2`&lt;/pre&gt; 
+
+&lt;span style=&quot;line-height: 23px;&quot;&gt;由于缺少必要的package，所以出现了编译问题。&lt;/span&gt;
+
+&lt;span style=&quot;font-size: 12.5px;&quot;&gt;出现这个问题的处理方法：&lt;/span&gt;
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`sudo&amp;nbsp;apt-get&amp;nbsp;install&amp;nbsp;build-essential&amp;nbsp;libncurses5&amp;nbsp;libncurses5-dev
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengguoqing.github.io/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/" data-id="cjafihzia0000rnj14pamffw9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux移植/">linux移植</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/04/20/在ubuntu上安装redmine/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          在ubuntu上安装redmine
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">解决三星手机WIFI“此网络不可用。证书已到期”方法</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

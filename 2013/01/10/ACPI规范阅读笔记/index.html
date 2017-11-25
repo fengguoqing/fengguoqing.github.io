@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ACPI规范阅读笔记 | Frank&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、 ACPI主要包含以下几个部分：  系统电源管理 &amp;nbsp; 设备电源管理 &amp;nbsp; 处理器电源管理 &amp;nbsp; 即插即用 &amp;nbsp; 处理系统事件 &amp;nbsp; 电池管理 &amp;nbsp; 热量管理 &amp;nbsp; 2、 ACPI规范不是仅仅针对某一项调">
+<meta name="keywords" content="功耗">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ACPI规范阅读笔记">
+<meta property="og:url" content="https://fengguoqing.github.io/2013/01/10/ACPI规范阅读笔记/index.html">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="1、 ACPI主要包含以下几个部分：  系统电源管理 &amp;nbsp; 设备电源管理 &amp;nbsp; 处理器电源管理 &amp;nbsp; 即插即用 &amp;nbsp; 处理系统事件 &amp;nbsp; 电池管理 &amp;nbsp; 热量管理 &amp;nbsp; 2、 ACPI规范不是仅仅针对某一项调节，而是要协调各个部分，综合管理，使其达到最佳状态。 &amp;nbsp; 3、 ACPI是一种工业级的接口协议，它同时规范了硬件和软件的接口，">
+<meta property="og:updated_time" content="2017-11-25T10:41:07.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ACPI规范阅读笔记">
+<meta name="twitter:description" content="1、 ACPI主要包含以下几个部分：  系统电源管理 &amp;nbsp; 设备电源管理 &amp;nbsp; 处理器电源管理 &amp;nbsp; 即插即用 &amp;nbsp; 处理系统事件 &amp;nbsp; 电池管理 &amp;nbsp; 热量管理 &amp;nbsp; 2、 ACPI规范不是仅仅针对某一项调节，而是要协调各个部分，综合管理，使其达到最佳状态。 &amp;nbsp; 3、 ACPI是一种工业级的接口协议，它同时规范了硬件和软件的接口，">
+  
+    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Frank&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ACPI规范阅读笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/01/10/ACPI规范阅读笔记/" class="article-date">
+  <time datetime="2013-01-10T14:09:58.000Z" itemprop="datePublished">2013-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ACPI规范阅读笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span>1、 </span><span>ACPI</span><span style="text-indent: -18pt">主要包含以下几个部分：</span> </p>
+<p><span style="font-family: ; mso-ascii-font-family: calibri; mso-ascii-theme-font: minor-latin; mso-hansi-font-family: calibri; mso-hansi-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast">系统电源管理</span><span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-ascii-font-family: calibri; mso-ascii-theme-font: minor-latin; mso-hansi-font-family: calibri; mso-hansi-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast">设备电源管理</span><span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-ascii-font-family: calibri; mso-ascii-theme-font: minor-latin; mso-hansi-font-family: calibri; mso-hansi-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast">处理器电源管理</span><span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-ascii-font-family: calibri; mso-ascii-theme-font: minor-latin; mso-hansi-font-family: calibri; mso-hansi-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast">即插即用</span><span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-ascii-font-family: calibri; mso-ascii-theme-font: minor-latin; mso-hansi-font-family: calibri; mso-hansi-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast">处理系统事件</span><span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-ascii-font-family: calibri; mso-ascii-theme-font: minor-latin; mso-hansi-font-family: calibri; mso-hansi-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast">电池管理</span><span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-ascii-font-family: calibri; mso-ascii-theme-font: minor-latin; mso-hansi-font-family: calibri; mso-hansi-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast">热量管理</span><span></span></p>
+<p><span>&nbsp;</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">2、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">ACPI</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">规范不是仅仅针对某一项调节，而是要协调各个部分，综合管理，使其达到最佳状态。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">&nbsp;</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">3、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">ACPI</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">是一种工业级的接口协议，它同时规范了硬件和软件的接口，使得<span>OS</span>可以直接配置和电源管理所有设备以及整个系统。操作系统可以收集用户、应用、硬件等各方面信息做出综合判断以及执行。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">&nbsp;</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">4、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">支持传统<span>BIOS</span>电源管理的电脑从传统模式启动然后等到<span>ACPI OS</span>启动之后转换到工作状态。而不支持传统模式的电脑如（<span>RISC</span>：<span>ARM</span>）直接冲<span>G3</span>直接到<span>G0</span>。<span></span></span></p>
+<p><span>&nbsp;</span></p>
+<p><span style="mso-fareast-font-family: calibri; mso-fareast-theme-font: minor-latin; mso-bidi-font-family: calibri; mso-bidi-theme-font: minor-latin"><span style="mso-list: ignore">5、 </span></span><span>&nbsp;</span></p>
+<p><strong><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">ACPI</span>**</strong><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">的几个状态<span></span></span>**</p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">ACPI</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">规范定义了一台兼容<span>ACPI</span>的计算机系统可以有以下七个状态（所谓的全局状态）：<span></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">l<span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">G0(S0)</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">正常工作状态：计算机的正常工作状态<span>-</span>操作系统和应用程序都在运行。<span>CPU(s)</span>执行指令。 在这个状态下<span>(</span>即没有进入<span>G1</span>睡眠<span>)</span>，<span>CPU</span>和硬盘、<span>DVD</span>驱动器等等这些的设备可以一再的进入和从低能源状态回来，叫做<span>C0-Cn</span>和<span>D0-D3</span>。<span>(</span>例如膝上型计算机，当使用电池运行的时候通常关掉所有当前未使用的设备，一些桌面型计算机也这么做来减少噪声。<span>)</span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">&nbsp;</span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">l<span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">G1 </span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">睡眠 细分为从<span>S1</span>到<span>S4</span>这四种状态。系统从这几种状态被唤醒到<span>G0</span>运行（唤醒等待时间）所需的时间最短的是<span>S1</span>，较短的是<span>S2</span>和<span>S3</span>，不太短的是<span>S4</span>。 <span></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">S1</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">：最耗电的睡眠模式。处理器的所有寄存器被刷新，并且<span>CPU</span>停止执行指令。<span>CPU</span>和内存的电源一直维持着，一些设备如果没有被使用那么就会被停止供电。这种模式通常指上电待机或者简单叫做<span>POS</span>，特别在<span>BIOS</span>设置界面上。一些新式的计算机不再支持<span>S1</span>；老式的电脑对<span>S1</span>支持可能要比<span>S3</span>好。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><br></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">S2</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">：一个比<span>S1</span>更深的睡眠状态，不过已经不给<span>CPU</span>供电了；然而，通常这种模式并不被采用。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><br></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp;</span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">S3 </span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">：在<span>BIOS</span>中叫做<span>“</span>挂到内存<span>“ (Suspend to RAM/STR)</span>，在<span>Windows XP</span>以后的<span>Windows</span>版本和一些<span>Linux</span>发行版中叫做<span>“</span>待机<span>(Standby)”</span>， 在<span>Windows Vista</span>和<span>Mac OS X</span>则叫做<span>“</span>睡眠<span>(Sleep)”</span>，虽然<span>ACPI</span>规范仅仅提到术语<span>“S3”</span>和<span>“</span>睡眠<span>(Sleep)”</span>。在这个状态下，主存储器<span>(RAM)</span>仍然有电源供给，尽管它也是几乎唯一的有电源供给的原件。因为操作系统、 所有应用程序和被打开的文档等等的状态都是保存在主存储器中，用户可以把工作恢复到正好上次他们保持的状态<span>-</span>计算机从<span>S3</span>状态回来时主存储器的内容和它进 入<span>S3</span>状态时候的内容是相同象的。<span>(</span>规范中提到了<span>S3</span>和<span>S2</span>是相当类似的，只有更多的组件在<span>S3</span>状态下会被关掉电源。<span>) </span>相比较<span>S4</span>来说<span>S3</span>有两个好处；计算机恢复的过程比重启要快，第二，如果任何正在运行的应用程序<span>(</span>被打开的文档等等<span>)</span>有私有信息在里面，这些信息是不会被 写到硬盘上的。然而，在系统不能被唤醒比如遇到了电源故障的时候，高速缓冲存储器可能会被<span>flushed</span>来防止数据毁坏。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><br></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">S4</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">： 在<span>Windows</span>中叫休眠， 在<span>Mac OS X</span>中叫作安全睡眠，也称为挂到硬盘，虽然<span>ACPI</span>规范中只提到了一个术语<span>S4</span>（<span>main article: Hibernate(OS feature))</span>。在这个状态下，所有主存储器的内容被储存在非挥发性存储器，例如硬盘， 保护操作系统当前的状态，包括所有应用程序<span>,</span>打开的文档等<span>.</span>这意味着从<span>S4</span>恢复后，用户可以恢复到原本的工作状态，采用的方法和<span>S3</span>是一样的。<span>S4</span>和<span>S3 </span>之间的差异是，除了把主存储器中的内容移进移出所消耗的时间以外<span>,</span>在<span>S3</span>状态下的时候如果一旦停电了<span>,</span>所有主存储器上的数据就会丢失<span>,</span>包括所有的没有保存 的文档<span>,</span>而在<span>S4</span>状态下则没有影响<span>.S4</span>和其他的<span>S</span>状态有很大不同<span>,</span>事实上更类似<span>G2Soft Off</span>状态和<span>G3 Mechanical Off</span>状态<span>,</span>而不是<span>S1-S3.</span>在<span>S4</span>状态下的系统同样可进入<span>G3(Mechanical Off)</span>状态<span>,</span>并且保留<span>S4</span>时候的状态信息<span>.</span>所以它可以恢复到以前的运行状态在关掉电源之后<span>.</span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span><br></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">l<span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">G2</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">（<span>S5</span>）<span>Soft Off–G2</span>，<span>S5</span>，和<span>Soft Off</span>都是相同的叫法。<span>G2</span>和<span>G3Mechanical Off</span>几乎是相同的，但有些部件仍然带电，使计算机仍然可以被键盘、时钟、<span>modem</span>（电话唤醒）、<span>LAN</span>（网络唤醒）还有<span>USB</span>设备所唤醒。在启动系统从<span>G2</span>恢复到<span>G0</span>正常工作模式的过程中，无论是<span>G3 Mechanical Off</span>还是<span>G2</span>都得运行启动程序来启动操作系统。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><br></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">此外，当操作系统在不支持<span>ACPI</span>的情况下运行，这种状态被定义为<span>Legacy</span>。在这个状态下，硬件和电源不是通过<span>ACPI</span>来管理的，实际上已经禁用了<span>ACPI</span>。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">（参考资料：<span>ACPI</span>规范<span>3.0b</span>版的链接在下面<span> External links, </span>查看<span>chapter 7.3.4)</span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span><br></span></span></p>
+<p><strong><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">设备电源状态<span>(Device Power State)</span></span></strong><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">设备状态对于用户来说往往是不可见的，比如当一个设备已经没有电源供应的时候，可能整个系统还是在工作状态，光驱应该是一个很好的例子吧。设备状态是与设备相关的状态，他们的定义和以下四个因素有关：<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">1.<span style="line-height: normal; font-family: ">&nbsp;&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">设备消耗多少能源<span>?</span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">2.<span style="line-height: normal; font-family: ">&nbsp;&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">硬件保存多少设备的上下文信息<span>?</span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">3.<span style="line-height: normal; font-family: ">&nbsp;&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">设备要恢复工作，其驱动程序要作什么工作<span>?</span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">4.<span style="line-height: normal; font-family: ">&nbsp;&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">延迟是多少<span>?</span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">设备状态有一下几个：<span></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp;</span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">D0 Fully-On </span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">是（正常）工作状态，电源消耗量最多，设备是完全被相应的，并且设备保留了全部的设备状态<span>/</span>环境。<span></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">D1 </span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">和<span> D2</span>是中间电源状态，它的定义根据设备的不同而有所不同。<span></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">D3 Off</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">是设备电源关闭所以对总线来说是没有相应的。设备状态<span>/</span>环境全部丢失，操作系统会重新初始化设备当重新给它加电的时候。这个状态下的设备恢复到<span>D0</span>相比之下需要最长的时间。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">&nbsp;</span></p>
+<p><strong><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">处理器电源状态<span>(Processor Power State)</span></span></strong><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">处理器电源状态（<span>C0</span>到<span>C3</span>状态，后面还有<span>Cn</span>）是指在<span>G0</span>状态下（只对<span>G0</span>状态有效，在其他状态下不予讨论）的处理器电能消耗和温度管理的状态。只有<span>C0</span>状态下<span>CPU</span>才会执行指令，<span>C1</span>到<span>Cn</span>状态下<span>CPU</span>都处于各种不同程度的睡眠状态（<span>Sleeping States</span>），在这睡眠状态下，<span>CPU</span>都有一个恢复到<span>C0</span>的唤醒时间（<span>latency</span>），它是和<span>CPU</span>的电能消耗有关的，通常，用电能量越小意味着得花更长的时间恢复到<span>C0</span>状态，也就是唤醒时间越长。当在<span>C0</span>状态下时，<span>ACPI</span>允许通过定义节流阀（<span>throttling</span>）过程，和通过改变多性能状态（<span>multiple performance states</span>，<span>P-states</span>）来改变处理器的性能。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><br></span></p>
+<p><strong><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">各个状态的定义如下所示：</span></strong><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">C0</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">是正常工作状态，当处理器处于这种状态下的时候，它能正常处理指令。<span></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">C1</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">（通常称为<span>Halt</span>）拥有最短的唤醒时间，这个延时必须短到操作系统软件使用<span>CPU</span>的时候不会考虑到唤醒时间方面的因素。一些处理器，比如说奔腾<span>4</span>（<span>Pentium 4</span>），支持<span>C1E</span>（<span>Enhanced C1 state</span>）这样的低电能消耗技术。这个状态是不被软件所见的。<span></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">C2 (</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">通常称为<span>Stop-Clock)</span>，这个状态下处理器维持着所有的软件所见的状态信息，但是需要更长的时间来恢复到<span>C0</span>。这个状态下情况最坏的硬件唤醒时间是由<span>ACPI</span>固件提供，并且操作系统软件可以利用这些信息来决定是采用<span>C1</span>而不是<span>C2</span>状态，<span>C2</span>比<span>C1</span>更省电。<span></span></span></p>
+<p><span style="font-family: ; mso-fareast-font-family: wingdings; mso-bidi-font-family: wingdings; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"><span style="line-height: normal; font-family: ">&nbsp; </span></span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">C3 (</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">通常称为<span>Sleep)</span>，相比<span>C1</span>和<span>C2</span>更省电了。这个状态下情况最坏的硬件唤醒时间是由<span>ACPI</span>固件提供，并且操作系统软件可以利用这些信息来决定是采用<span>C2</span>而不是<span>C3</span>状态，当处于<span>C3</span>状态时，处理器缓存保留了<a href="http://static.oschina.net/uploads/img/201301/10220949_UUzr.jpg" title="clip_image001[6]" target="_blank" rel="noopener">![clip_image001[6]</a>](<a href="http://static.oschina.net/uploads/img/201301/10220949_CcMU.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/10220949_CcMU.jpg</a>)</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">所有的状态信息，但是忽略所有的侦听。操作系统软件负责保证缓存数据的一致性。</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"></span></p>
+<p><span><a href="http://static.oschina.net/uploads/img/201301/10220950_eHZ6.jpg" title="clip_image003[6]" target="_blank" rel="noopener">![clip_image003[6]</a>](<a href="http://static.oschina.net/uploads/img/201301/10220950_USkm.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/10220950_USkm.jpg</a>)</span><span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">c5-c0-c5</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt; mso-no-proof: yes"><a href="http://static.oschina.net/uploads/img/201301/10220951_Ds0z.jpg" title="clip_image005[6]" target="_blank" rel="noopener">![clip_image005[6]</a>](<a href="http://static.oschina.net/uploads/img/201301/10220950_B2wF.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/10220950_B2wF.jpg</a>)</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">c0-c4-c0</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">下面简单的说一下，<span>CPU </span>信号解锁 随后到来是<span> STPCLK# </span>之后<span>CPU </span>信号被锁定。 南桥发出<span>DPSLP# </span>意思为：深度睡眠，<span>DPSLP</span>＃是由<span>CH9</span>南桥发出。当信号低，处理器进入深度睡眠状态会关闭处理器的处理器核心时钟。 接着来的是<span>STP_CPU#</span>，但是<span>CPU</span>的 时钟信号还是一直保持着的。随着唤醒的来了，信号逐一解锁，<span>CPU </span>开始接受信号 正常工作。<span>C0 TO C5/C6 </span>不同的时候会关闭<span>VCORE,</span>多了一些信号。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">6、 </span></span><a href="http://static.oschina.net/uploads/img/201301/10220953_psLc.png" title="clip_image007[6]" target="_blank" rel="noopener">![clip_image007[6]</a>](<a href="http://static.oschina.net/uploads/img/201301/10220952_kRhU.png" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/10220952_kRhU.png</a>)<span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"></span></p>
+<p><span style="font-family: ; color: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">注：<span>D0</span>和<span>C0</span>状态都可以分为<span>P0-Pn</span>，性能和耗电量逐渐递减。<span></span></span></p>
+<p><a href="http://static.oschina.net/uploads/img/201301/10220955_atSR.jpg" title="clip_image009[6]" target="_blank" rel="noopener">![clip_image009[6]</a>](<a href="http://static.oschina.net/uploads/img/201301/10220954_VFHg.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/10220954_VFHg.jpg</a>)<span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">7、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">ACPI Table</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">会被载入到内存中，<span>BIOS</span>和<span>OS</span>都可以去读取和修改它。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">8、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">ACPI</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">将硬件分为两类<span>:FIXED</span>，<span>GENERIC</span>。在<span>FIXED</span>范围内的硬件必须满足<span>ACPI</span>编程和行为标准<span>.</span>在<span>GENERIC</span>范围内的硬件在实现时有一定程度的灵活性。<span>FIXED</span>编程模型要求在特定的地址位置定义寄存器，而<span>GENERIC</span>编程模型则允许寄存器被安排在更广泛的地址空间。<span>ACPI</span>驱动器可以直接操作<span>FIXED</span>寄存器空间，而<span>ACPI</span>依赖<span>0EM</span>厂商提供的“伪码”<span>(ASL</span>码<span>)</span>来操作<span>GENERIC</span>寄存器空间。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">9、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">每一睡眠状态都指定<span>:</span>谁负责保持系统上下文，谁负责唤醒序列。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">10、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">当<span>OS</span>既支持传统又支持<span>ACPI</span>时，启动首先进入传统模式然后再由操作系统转为<span>ACPI</span>模式。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">11、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">R00T SYSTEM DESCRIPTION PONITER</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">结构位于系统的内存空间，由<span>BIOS</span>建立，这个结构中有<span>ROOT SYSTEM DESCRIPTION TABLE</span>的地址，<span>RSDT</span>表中有指向其他表的指针，这些表向操作系统提供了基本系统实现和配置信息。<span>RSDT</span>中的指针指向内存中的其他表。<span>RSDT</span>的地址由<span>RSDP</span>提供，而<span>RSDP</span>保存在<span>Extended BIOS Data Area (EBDA), or in the BIOS read-only memory space</span>，<span>OSPM</span>只有通过搜索特定魔数即<span>“RSD PTR “</span>字符串来确定<span>RSDP</span>，<span>RSDT</span>总是第一个表，它指向<span>FACP(FIXED ACPI TABLE)</span>，<span>FACP</span>表包括许多描述硬件<span>FIXED ACPI</span>特性的固定长度的入口。<span></span></span></p>
+<p><span style="mso-no-proof: yes"><a href="http://static.oschina.net/uploads/img/201301/10220955_B2bv.jpg" title="clip_image011[6]" target="_blank" rel="noopener">![clip_image011[6]</a>](<a href="http://static.oschina.net/uploads/img/201301/10220955_vfwY.jpg)[![clip_image013[6]](http://static.oschina.net/uploads/img/201301/10220957_X1GX.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/10220955_vfwY.jpg)[![clip_image013[6]](http://static.oschina.net/uploads/img/201301/10220957_X1GX.jpg</a> “clip_image013<a href="http://static.oschina.net/uploads/img/201301/10220956_lj8O.jpg" target="_blank" rel="noopener">6]”)</a></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">&nbsp;</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore"></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">12、 </span></span><a href="http://static.oschina.net/uploads/img/201301/10220958_aFdV.jpg" title="clip_image015[6]" target="_blank" rel="noopener">![clip_image015[6]</a>](<a href="http://static.oschina.net/uploads/img/201301/10220957_OB3c.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/10220957_OB3c.jpg</a>)</p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">SCI_EN</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">决定了中断是由<span>SMI</span>处理还是<span>SCI</span>来处理。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">&nbsp;</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">13、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">“^”</span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">代表父路径，“<span>\”</span>代表根路径<span>root</span>，“<span>.”</span>路径分割符。<span></span></span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">&nbsp;</span></p>
+<p><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt"><span style="mso-list: ignore">14、 </span></span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">BNUM </span><span style="font-family: ; mso-bidi-font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-font-kerning: 0pt">：<span>0x7F2EBC46,</span>最后一位决定电池是否存在，<span>B1ST</span>第三位决定。然而要刷新<span>BNUM</span>必须首先执行<span>Method (_REG, 2, NotSerialized)</span>或者<span>Method (_Q33, 0, NotSerialized)</span>才可以。目前亟需要弄清楚这些方法是如何调用的，什么时候调用的。</span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengguoqing.github.io/2013/01/10/ACPI规范阅读笔记/" data-id="cjafih7c80000r1j1p58hjdae" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/功耗/">功耗</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/01/12/mini2440基于uboot的TFTP下载教程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mini2440基于uboot的TFTP下载教程
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/11/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
+          </li>
+        
+          <li>
+            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
+          </li>
+        
+          <li>
+            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
+          </li>
+        
+          <li>
+            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Frank Feng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
