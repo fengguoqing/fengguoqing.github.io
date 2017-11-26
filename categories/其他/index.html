@@ -43,7 +43,7 @@
   <input class="theme_preload_comment" value="false">
 </div>
 <body>
-<aside class="nav">
+<aside class="nav mobile">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -80,6 +80,8 @@
     <li class="all active">全部文章</li>
     
     <li data-rel="安全"> 安全 </li>
+    
+    <li data-rel="其他"> 其他 </li>
     
 </ul>
 <div class="left-bottom">
@@ -143,6 +145,10 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color5">Linux内核调试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">redmine</a>
     </li>
     
     <div class="clearfix"></div>
@@ -214,12 +220,12 @@
             <span class="post-date" title="2013-01-12 00:04:34">2013/01/12</span>
         </a>
         
-        <a  class=""
-           href="/2017/11/26/在ubuntu上安装redmine/"
-           data-tag=""
+        <a  class="其他 "
+           href="/2014/04/20/在ubuntu上安装redmine/"
+           data-tag="redmine"
            data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2017-11-26 09:54:36">2017/11/26</span>
+            <span class="post-title" title="在ubuntu上安装redmine">在ubuntu上安装redmine</span>
+            <span class="post-date" title="2014-04-20 16:33:52">2014/04/20</span>
         </a>
         
         <a  class=""
@@ -298,50 +304,10 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-在ubuntu上安装redmine" class="article article-type-post" itemscope itemprop="blogPost">
+        <article class="index">
+            <div class="toc-ref">
     
-    <div class="article-meta">
-        
-        
-        
-        
-    </div>
-    <div class="article-meta">
-        
-        创建时间:<time class="date" title='更新时间: 2017-11-26 09:58:42'>2017-11-26 09:54</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        
-        <span id="busuanzi_container_page_pv">
-            阅读:<span id="busuanzi_value_page_pv">
-                <span class="count-comment">
-                    <span class="spinner">
-                      <div class="cube1"></div>
-                      <div class="cube2"></div>
-                    </span>
-                </span>
-            </span>
-        </span>
-        
-        
-        <span class="top-comment" title="跳转至评论区">
-            <a href="#comments">
-                评论:<span class="count-comment">
-                    <span class="spinner">
-                      <div class="cube1"></div>
-                      <div class="cube2"></div>
-                    </span>
-                </span>
-            </a>
-        </span>
-        
-    </div>
-    
-    <div class="toc-ref">
-    
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在ubuntu上安装redmine"><span class="toc-text">在ubuntu上安装redmine</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-下载Redmine源代码"><span class="toc-text">1. 下载Redmine源代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-安装配置MySQL"><span class="toc-text">2. 安装配置MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-数据库连接配置"><span class="toc-text">3. 数据库连接配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-安装依赖包"><span class="toc-text">4. 安装依赖包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Redmine配置"><span class="toc-text">5. Redmine配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-文件系统权限设置"><span class="toc-text">6. 文件系统权限设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-运行测试"><span class="toc-text">7. 运行测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-邮件服务配置"><span class="toc-text">8. 邮件服务配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-结语"><span class="toc-text">9. 结语</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-Blog"><span class="toc-text">Why Blog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对博客的理解"><span class="toc-text">对博客的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于叶落阁"><span class="toc-text">关于叶落阁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#博客平台"><span class="toc-text">博客平台</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -354,94 +320,32 @@
     }
 </style>
 </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>时间：2014-04-20 16:33:52<br>分类：工作日志<br>标签：redmine</p>
-<h1 id="在ubuntu上安装redmine"><a href="#在ubuntu上安装redmine" class="headerlink" title="在ubuntu上安装redmine"></a>在ubuntu上安装redmine</h1><p>最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。  </p>
-<p>首先按照<a href="http://www.redmine.org/projects/redmine/wiki/RedmineInstall" target="_blank" rel="noopener">官方网站</a>的步骤来安装，但是仍旧会碰到各种各样的问题。</p>
-<h2 id="1-下载Redmine源代码"><a href="#1-下载Redmine源代码" class="headerlink" title="1. 下载Redmine源代码"></a>1. 下载Redmine源代码</h2><p>这里利用git下载：</p>
-<pre><code>git clone https://github.com/redmine/redmine
-</code></pre><h2 id="2-安装配置MySQL"><a href="#2-安装配置MySQL" class="headerlink" title="2. 安装配置MySQL"></a>2. 安装配置MySQL</h2><p>已经安装过MySQL就不需要执行下面的命令：  </p>
-<pre><code>sudo apt-get install mysql-server mysql-client
-</code></pre><p>配置redmine数据库和用户：</p>
-<pre><code>mysql -u root -p
-CREATE DATABASE redmine CHARACTER SET utf8;
-CREATE USER &apos;redmine&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;my_password&apos;;
-GRANT ALL PRIVILEGES ON redmine.* TO &apos;redmine&apos;@&apos;localhost&apos;;&lt;/pre&gt;
-</code></pre><h2 id="3-数据库连接配置"><a href="#3-数据库连接配置" class="headerlink" title="3. 数据库连接配置"></a>3. 数据库连接配置</h2><p>首先要将redmine源码中 config/database.yml.example复制一份改名为config/database.yml。</p>
-<pre><code>cp  config/database.yml.example config/database.yml
-</code></pre><p>根据刚刚创建的redmine数据库修改config/database.yml</p>
-<pre><code>production:
-    adapter: mysql
-    database: redmine
-    host: localhost
-    username: redmine
-    password: &quot;my_password&quot;
-</code></pre><h2 id="4-安装依赖包"><a href="#4-安装依赖包" class="headerlink" title="4. 安装依赖包"></a>4. 安装依赖包</h2><p>首先得安装ruby和gem,然后使用gem安装bundler，最后通过bundle根据redmine下面的Gemfile安装所有需要安装的软件包。</p>
-<pre><code>sudo apt-get install ruby rubygems ruby1.8-dev ruby1.9.1-dev libmysqlclient-dev imagemagick libmagickwand-dev
-cd redmine
-</code></pre><p>/<em> 由于有GFW的存在，需要使用国内的gem源才能下载，先删除官方源，然后添加淘宝的源 </em>/<br>    gem sources -r <a href="http://rubygems.org/" target="_blank" rel="noopener">http://rubygems.org/</a><br>    gem source -a <a href="http://ruby.taobao.org" target="_blank" rel="noopener">http://ruby.taobao.org</a><br>    sudo gem install bundler -V<br>    bundle install –without development test</p>
-<h2 id="5-Redmine配置"><a href="#5-Redmine配置" class="headerlink" title="5. Redmine配置"></a>5. Redmine配置</h2><pre><code>rake generate_secret_token
-RAILS_ENV=production rake db:migrate
-RAILS_ENV=production rake redmine:load_default_data
-</code></pre><h2 id="6-文件系统权限设置"><a href="#6-文件系统权限设置" class="headerlink" title="6. 文件系统权限设置"></a>6. 文件系统权限设置</h2><p>在Redmine下建立文件夹并设置相应权限  </p>
-<pre><code>mkdir -p tmp tmp/pdf public/plugin_assets
-sudo chmod -R 755 files log tmp public/plugin_assets
-</code></pre><h2 id="7-运行测试"><a href="#7-运行测试" class="headerlink" title="7. 运行测试"></a>7. 运行测试</h2><p>至此Redmine就安装完成了，现在就可以运行测试了。运行下面的命令进行测试：</p>
-<pre><code>ruby script/rails server webrick -e production
-</code></pre><p>运行上面的服务之后，我们就可以在浏览器中输入<a href="http://IP:3000" target="_blank" rel="noopener">http://IP:3000</a> 来测试。如果安装成功就会出现下面的网站界面：<br><img src="http://static.oschina.net/uploads/space/2014/0420/161230_YGrG_579952.png" alt=""><br>初始用户名/密码：admin/admin<br>但是这样启动之后中断窗口是不能关闭的，如果要像服务一样启动，得添加-d参数：</p>
-<pre><code>ruby script/server webrick -e production -d
-</code></pre><p>如果想要关闭服务，可以通过查看该服务的PID来关闭：</p>
-<pre><code>cat redmine/tmp/pids/server.pid
-kill -9 [PID]
-</code></pre><p>最后在使用redmine过程中发现网络连接很慢，按理说，是局域网内的访问应该很快的，后来调查之后发现是webrick捣的鬼，改用thin就好了。</p>
-<p>先在Gemfile文件中添加thin，然后再用bundle安装一下就可以了。</p>
-<pre><code>vim Gemfile
-+#gem &apos;mongrel&apos;, &apos;1.2.0.pre2&apos;
-+gem &apos;thin&apos;
-bundle install --without development test
-</code></pre><p>安装之后重新启动redmine服务，访问就快很多了。  </p>
-<pre><code>ruby script/rails server thin -e production -d
-</code></pre><h2 id="8-邮件服务配置"><a href="#8-邮件服务配置" class="headerlink" title="8. 邮件服务配置"></a>8. 邮件服务配置</h2><p>邮件服务配置需要修改config/configuration.yml，我的一个可以成功发送邮件的配置是：</p>
-<pre><code># default configuration options for all environments
-default:
-# Outgoing emails configuration (see examples above)
-email_delivery:
-delivery_method: :smtp
-smtp_settings:
-address: localhost
-port: 25
-domain: example.com
-# authentication: :login
-# user_name: &quot;redmine@example.net&quot;
-# password: &quot;redmine&quot;
-</code></pre><p>然后重启redmine服务，在管理&gt;&gt;配置&gt;&gt;邮件通知 中选择发送测试邮件进行测试。</p>
-<h2 id="9-结语"><a href="#9-结语" class="headerlink" title="9. 结语"></a>9. 结语</h2><p>在整个安装的过程中碰到了很多问题，大部分都是缺少依赖包的，在前面的安装中都已经提示出来了。</p>
+            <h1 id="Why-Blog"><a href="#Why-Blog" class="headerlink" title="Why Blog"></a>Why Blog</h1><h2 id="对博客的理解"><a href="#对博客的理解" class="headerlink" title="对博客的理解"></a>对博客的理解</h2><p>喜欢写Blog的人，会经历三个阶段。</p>
+<blockquote>
+<p>第一阶段，刚接触Blog，觉得很新鲜，试着选择一个免费空间来写。</p>
+<p>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</p>
+<p>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</p>
+</blockquote>
+<p>我们每个人的在网络上产生的数据越来越多，这些信息是我们在互联网上存在过的痕迹，值得我们认真对待。但是它们被分散分布在各个网站上。很多时候我们很难将它们聚合在一起，而且各个网站的信息排布方式也没有办法自由控制，所以我们需要一个可以由自己主宰的空间——博客。</p>
+<p>通过博客，我们可以记录自己的生活和成长的轨迹。它不像 Twitter 那样碎片化，也不像 Facebook 那样关系化，它是私人的空间。</p>
+<h2 id="关于叶落阁"><a href="#关于叶落阁" class="headerlink" title="关于叶落阁"></a>关于叶落阁</h2><p><strong>叶落阁</strong> 是阿杰（杨玉杰）的个人站。</p>
+<p>到目前为止已经写了<code class="article_number"></code>篇文章， 共<code class="site_word_count"></code>字。</p>
+<p>本站访问人数：<code class="site_uv"></code>人次 ， 访问量：<code class="site_pv"></code>次</p>
+<h2 id="博客平台"><a href="#博客平台" class="headerlink" title="博客平台"></a>博客平台</h2><p>这个博客通过 <a href="https://hexo.io/">Hexo</a> 生成，部署在 <a href="https://pages.github.com/">GitHub Pages</a>，主题 <a href="https://github.com/yelog/hexo-theme-3-hexo">3-hexo</a> 已经在github上开源</p>
+<p>主要功能：</p>
+<ul>
+<li>搜索支持文章标题、标签(#标签)、作者(@作者)</li>
+<li>pad/手机等移动端适配</li>
+<li>页面全局快捷键 <a href='http://yelog.org/2017/03/24/3-hexo-shortcuts/'>3-hexo快捷键说明</a></li>
+</ul>
 
-      
-       <hr><span style="font-style: italic;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
-    </div>
-</article>
-
-
-<p>
-    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
-</p>
-
-
-<div class="article_copyright">
-    <p><span>文章标题:</span></p>
-    
-    <p><span>本文作者:</span><a href="javascript:void(0)" title="Frank Feng">Frank Feng</a></p>
-    <p><span>发布时间:</span>2017-11-26, 09:54:36</p>
-    <p><span>最后更新:</span>2017-11-26, 09:58:42</p>
-    <span>原始链接:</span><a class="post-url" href="/2017/11/26/在ubuntu上安装redmine/" title="">https://fengguoqing.github.io/2017/11/26/在ubuntu上安装redmine/</a>
-    <p>
-        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-    </p>
-</div>
-
-
+        </article>
+        
+        <p>
+            <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+        </p>
+        
+        
     
         <div id="comments"></div>
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
@@ -461,10 +365,6 @@ domain: example.com
     })
 gitalk.render('comments')
 </script>
-    
-
-
-
     
 
     </div>
@@ -508,7 +408,7 @@ gitalk.render('comments')
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#系统安全','#Linux内核调试',],
+            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#系统安全','#Linux内核调试','#redmine',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');

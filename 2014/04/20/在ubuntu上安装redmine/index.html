@@ -2,353 +2,675 @@
 <html>
 <head>
   <meta charset="utf-8">
-  
   <title>在ubuntu上安装redmine | Frank&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。 首先按照官方网站的步骤来安装，但是仍旧会碰到各种各样的问题。  1. 下载Redmine源代码这里利用git下载： git&amp;amp;nbsp;clo">
-<meta name="keywords" content="教程">
+  <meta name="keywords" content=" redmine ">
+  <meta name="description" content="在ubuntu上安装redmine | Frank&#39;s Blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troublesho">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在ubuntu上安装redmine">
-<meta property="og:url" content="https://fengguoqing.github.io/2014/04/20/在ubuntu上安装redmine/index.html">
+<meta property="og:title" content="Hello World">
+<meta property="og:url" content="https://fengguoqing.github.io/2017/11/25/hello-world/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。 首先按照官方网站的步骤来安装，但是仍旧会碰到各种各样的问题。  1. 下载Redmine源代码这里利用git下载： git&amp;amp;nbsp;clone&amp;amp;nbsp;https://github.com/redmine/redmi">
-<meta property="og:updated_time" content="2017-11-25T10:41:07.675Z">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-25T10:37:26.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在ubuntu上安装redmine">
-<meta name="twitter:description" content="最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。 首先按照官方网站的步骤来安装，但是仍旧会碰到各种各样的问题。  1. 下载Redmine源代码这里利用git下载： git&amp;amp;nbsp;clone&amp;amp;nbsp;https://github.com/redmine/redmi">
-  
-    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+<meta name="twitter:title" content="Hello World">
+<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/hl_theme/atom-light.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
 
 </head>
-
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+</div>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Frank&#39;s Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-在ubuntu上安装redmine" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/04/20/在ubuntu上安装redmine/" class="article-date">
-  <time datetime="2014-04-20T08:33:52.000Z" itemprop="datePublished">2014-04-20</time>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
 </a>
+<div class="author">
+    <span>Frank Feng</span>
+</div>
+<div class="icon">
     
-  </div>
-  <div class="article-inner">
+    <a class="rss" title="rss" href="/atom.xml" target="_blank"></a>
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      在ubuntu上安装redmine
-    </h1>
-  
+    <a class="github" title="github" href="https://github.com/yelog" target="_blank"></a>
+    
+    
+    <a class="facebook" title="facebook" href="https://www.facebook.com/faker.tops" target="_blank"></a>
+    
+    
+    
+    <a class="linkedin" title="linkedin" href="https://www.linkedin.com/in/%E7%8E%89%E6%9D%B0-%E6%9D%A8-13a40a103/" target="_blank"></a>
+    
+    
+    
+    <a class="reddit" title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank"></a>
+    
+    
+    <a class="weibo" title="weibo" href="http://weibo.com/u/2307534817" target="_blank"></a>
+    
+    
+    <a class="email" title="email" href="mailto:jaytp@qq.com"></a>
+    
+</div>
+<ul>
+    <li class="all active">全部文章</li>
+    
+    <li data-rel="安全"> 安全 </li>
+    
+    <li data-rel="其他"> 其他 </li>
+    
+</ul>
+<div class="left-bottom">
+    <a class="about" href="/about">关于</a><a class="friends">友链</a>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="17">
 
-      </header>
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off">
+        <i class="cross"></i>
+        <span>
+        <label for="tagswitch">Tags:</label>
+        <input id="tagswitch" type="checkbox">
+    </span>
+    </form>
+    <div class="tags-list">
     
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">功耗</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux移植</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">日常记录</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">教程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux CVE-2013-1763 漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统安全</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">Linux内核调试</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">redmine</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    <nav>
+        
+        <a  class=""
+           href="/2013/01/12/ACPI-DEBUG方法/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI DEBUG方法">ACPI DEBUG方法</span>
+            <span class="post-date" title="2013-01-12 23:56:24">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/10/ACPI规范阅读笔记/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI规范阅读笔记">ACPI规范阅读笔记</span>
+            <span class="post-date" title="2013-01-10 22:09:58">2013/01/10</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="Linux kernel make menuconfig 时出错处理方法">Linux kernel make menuconfig 时出错处理方法</span>
+            <span class="post-date" title="2014-04-14 17:53:42">2014/04/14</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/07/Ubuntu默认启动到文本界面/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="Ubuntu默认启动到文本界面">Ubuntu默认启动到文本界面</span>
+            <span class="post-date" title="2013-11-07 10:50:18">2013/11/07</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/25/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-11-25 21:44:08">2017/11/25</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="how to install PostgreSQL on ubuntu">how to install PostgreSQL on ubuntu</span>
+            <span class="post-date" title="2013-01-13 00:29:56">2013/01/13</span>
+        </a>
+        
+        <a  class="安全 "
+           href="/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/"
+           data-tag="linux CVE-2013-1763 漏洞"
+           data-author="" >
+            <span class="post-title" title="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</span>
+            <span class="post-date" title="2016-09-04 20:52:20">2016/09/04</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/12/mini2440基于uboot的TFTP下载教程/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="mini2440基于uboot的TFTP下载教程">mini2440基于uboot的TFTP下载教程</span>
+            <span class="post-date" title="2013-01-12 00:04:34">2013/01/12</span>
+        </a>
+        
+        <a  class="其他 "
+           href="/2014/04/20/在ubuntu上安装redmine/"
+           data-tag="redmine"
+           data-author="" >
+            <span class="post-title" title="在ubuntu上安装redmine">在ubuntu上安装redmine</span>
+            <span class="post-date" title="2014-04-20 16:33:52">2014/04/20</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/02/基于linux-3-10的yaffs2移植/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="基于linux 3.10的yaffs2移植">基于linux 3.10的yaffs2移植</span>
+            <span class="post-date" title="2013-11-02 13:07:41">2013/11/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/08/29/如何架设Git服务器/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="如何架设Git服务器">如何架设Git服务器</span>
+            <span class="post-date" title="2013-08-29 10:49:10">2013/08/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/06/22/建立网站的一般步骤/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="建立网站的一般步骤">建立网站的一般步骤</span>
+            <span class="post-date" title="2013-06-22 20:22:22">2013/06/22</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/"
+           data-tag="系统安全"
+           data-author="" >
+            <span class="post-title" title="某些TP-Link路由器可以被远程获取密码">某些TP-Link路由器可以被远程获取密码</span>
+            <span class="post-date" title="2014-01-19 17:59:38">2014/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/12/02/生成和打上patch的方法/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="生成和打上patch的方法">生成和打上patch的方法</span>
+            <span class="post-date" title="2013-12-02 13:24:16">2013/12/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/02/08/笔记本使用手机流量上网/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="笔记本使用手机流量上网">笔记本使用手机流量上网</span>
+            <span class="post-date" title="2013-02-08 23:22:49">2013/02/08</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="解决三星手机WIFI“此网络不可用。证书已到期”方法">解决三星手机WIFI“此网络不可用。证书已到期”方法</span>
+            <span class="post-date" title="2014-02-15 18:11:22">2014/02/15</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/03/12/Linux内核调试方法总结/"
+           data-tag="Linux内核调试"
+           data-author="" >
+            <span class="post-title" title="Linux内核调试方法总结">Linux内核调试方法总结</span>
+            <span class="post-date" title="2013-03-12 16:25:59">2013/03/12</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-在ubuntu上安装redmine" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">在ubuntu上安装redmine</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+            <a href="javascript:" data-rel="其他">其他</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color3">redmine</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2017-11-26 10:10:25'>2014-04-20 16:33</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在ubuntu上安装redmine"><span class="toc-text">在ubuntu上安装redmine</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-下载Redmine源代码"><span class="toc-text">1. 下载Redmine源代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-安装配置MySQL"><span class="toc-text">2. 安装配置MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-数据库连接配置"><span class="toc-text">3. 数据库连接配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-安装依赖包"><span class="toc-text">4. 安装依赖包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Redmine配置"><span class="toc-text">5. Redmine配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-文件系统权限设置"><span class="toc-text">6. 文件系统权限设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-运行测试"><span class="toc-text">7. 运行测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-邮件服务配置"><span class="toc-text">8. 邮件服务配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-结语"><span class="toc-text">9. 结语</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。</p>
+        <h1 id="在ubuntu上安装redmine"><a href="#在ubuntu上安装redmine" class="headerlink" title="在ubuntu上安装redmine"></a>在ubuntu上安装redmine</h1><p>最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。  </p>
 <p>首先按照<a href="http://www.redmine.org/projects/redmine/wiki/RedmineInstall" target="_blank" rel="noopener">官方网站</a>的步骤来安装，但是仍旧会碰到各种各样的问题。</p>
-<p><span id="OSC_h4_1"></span></p>
-<h4 id="1-下载Redmine源代码"><a href="#1-下载Redmine源代码" class="headerlink" title="1. 下载Redmine源代码"></a>1. 下载Redmine源代码</h4><p>这里利用git下载：</p>
-<pre><code>git&amp;nbsp;clone&amp;nbsp;https://github.com/redmine/redmine`&lt;/pre&gt; 
-
-&lt;span id=&quot;OSC_h4_2&quot;&gt;&lt;/span&gt;
-
-#### 2\. 安装配置MySQL
-
-已经安装过MySQL就不需要执行下面的命令：
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`sudo&amp;nbsp;apt-get&amp;nbsp;install&amp;nbsp;mysql-server&amp;nbsp;mysql-client`&lt;/pre&gt; 
-
-&lt;span style=&quot;font-family: verdana,sans-serif; font-size: 12px; line-height: 15.6px; background-color: rgb(248, 245, 238);&quot;&gt;&lt;/span&gt;配置redmine数据库和用户：
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`mysql&amp;nbsp;-u&amp;nbsp;root&amp;nbsp;-p`&lt;/pre&gt; 
-
-&lt;pre class=&quot;brush:sql;toolbar: true; auto-links: false;&quot;&gt;`CREATE&amp;nbsp;DATABASE&amp;nbsp;redmine&amp;nbsp;CHARACTER&amp;nbsp;SET&amp;nbsp;utf8;
-CREATE&amp;nbsp;USER&amp;nbsp;&apos;redmine&apos;@&apos;localhost&apos;&amp;nbsp;IDENTIFIED&amp;nbsp;BY&amp;nbsp;&apos;my_password&apos;;
-GRANT&amp;nbsp;ALL&amp;nbsp;PRIVILEGES&amp;nbsp;ON&amp;nbsp;redmine.*&amp;nbsp;TO&amp;nbsp;&apos;redmine&apos;@&apos;localhost&apos;;`&lt;/pre&gt; 
-
-&lt;span id=&quot;OSC_h4_3&quot;&gt;&lt;/span&gt;
-
-#### 3\. 数据库连接配置
-
-首先要将redmine源码中&amp;nbsp;config/database.yml.example复制一份改名为config/database.yml。
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`cp&amp;nbsp;&amp;nbsp;config/database.yml.example&amp;nbsp;config/database.yml`&lt;/pre&gt; 
-
-&lt;span style=&quot;line-height: 22.5px;&quot;&gt;然后再&lt;span style=&quot;line-height: 22.5px;&quot;&gt;根据刚刚创建的redmine数据库&lt;/span&gt;修改&lt;/span&gt;&lt;span style=&quot;line-height: 22.5px;&quot;&gt;config/database.yml：&lt;/span&gt;
-
-&lt;pre class=&quot;brush:xml;toolbar: true; auto-links: false;&quot;&gt;`production:
-&amp;nbsp;&amp;nbsp;adapter:&amp;nbsp;mysql
-&amp;nbsp;&amp;nbsp;database:&amp;nbsp;redmine
-&amp;nbsp;&amp;nbsp;host:&amp;nbsp;localhost
-&amp;nbsp;&amp;nbsp;username:&amp;nbsp;redmine
-&amp;nbsp;&amp;nbsp;password:&amp;nbsp;&quot;my_password&quot;
-&amp;nbsp;&amp;nbsp;encoding:&amp;nbsp;utf8`&lt;/pre&gt; 
-
-&lt;span id=&quot;OSC_h4_4&quot;&gt;&lt;/span&gt;
-
-#### 4\. 安装依赖包
-
-首先得安装ruby和gem,然后使用gem安装bundler，最后通过bundle根据redmine下面的Gemfile安装所有需要安装的软件包。
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`sudo&amp;nbsp;apt-get&amp;nbsp;install&amp;nbsp;ruby&amp;nbsp;rubygems&amp;nbsp;ruby1.8-dev&amp;nbsp;ruby1.9.1-dev&amp;nbsp;libmysqlclient-dev&amp;nbsp;imagemagick&amp;nbsp;libmagickwand-dev
-cd&amp;nbsp;redmine
-/*&amp;nbsp;由于有GFW的存在，需要使用国内的gem源才能下载，先删除官方源，然后添加淘宝的源&amp;nbsp;*/
-gem&amp;nbsp;sources&amp;nbsp;-r&amp;nbsp;http://rubygems.org/
-gem&amp;nbsp;source&amp;nbsp;-a&amp;nbsp;http://ruby.taobao.org
-sudo&amp;nbsp;gem&amp;nbsp;install&amp;nbsp;bundler&amp;nbsp;-V
-bundle&amp;nbsp;install&amp;nbsp;--without&amp;nbsp;development&amp;nbsp;test`&lt;/pre&gt; 
-
-&lt;span id=&quot;OSC_h4_5&quot;&gt;&lt;/span&gt;
-
-#### &lt;span style=&quot;line-height: 22.5px;&quot;&gt;5\. Redmine配置&lt;/span&gt;
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`rake&amp;nbsp;generate_secret_token
-RAILS_ENV=production&amp;nbsp;rake&amp;nbsp;db:migrate
-RAILS_ENV=production&amp;nbsp;rake&amp;nbsp;redmine:load_default_data`&lt;/pre&gt; 
-
-&lt;span id=&quot;OSC_h4_6&quot;&gt;&lt;/span&gt;
-
-#### 6\. 文件系统权限设置
-
-在Redmine下建立文件夹并设置相应权限
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`mkdir&amp;nbsp;-p&amp;nbsp;tmp&amp;nbsp;tmp/pdf&amp;nbsp;public/plugin_assets
-sudo&amp;nbsp;chmod&amp;nbsp;-R&amp;nbsp;755&amp;nbsp;files&amp;nbsp;log&amp;nbsp;tmp&amp;nbsp;public/plugin_assets`&lt;/pre&gt; 
-
-&lt;span id=&quot;OSC_h4_7&quot;&gt;&lt;/span&gt;
-
-#### 7\. 运行测试
-
-至此Redmine就安装完成了，现在就可以运行测试了。运行下面的命令进行测试：
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`ruby&amp;nbsp;script/rails&amp;nbsp;server&amp;nbsp;webrick&amp;nbsp;-e&amp;nbsp;production`&lt;/pre&gt; 
-
-运行上面的服务之后，我们就可以在浏览器中输入http://IP:3000 来测试。如果安装成功就会出现下面的网站界面：
-
-![](http://static.oschina.net/uploads/space/2014/0420/161230_YGrG_579952.png)
-
-&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;初始用户名/密码：admin/admin&lt;/span&gt;
-
-&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;但是这样启动之后中断窗口是不能关闭的，如果要像服务一样启动，得添加-d参数：
-&lt;/span&gt;
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`ruby&amp;nbsp;script/server&amp;nbsp;webrick&amp;nbsp;-e&amp;nbsp;production&amp;nbsp;-d`&lt;/pre&gt; 
-
-&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;&lt;/span&gt;&lt;/span&gt;如果想要关闭服务，可以通过查看该服务的PID来关闭：
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`cat&amp;nbsp;redmine/tmp/pids/server.pid
-kill&amp;nbsp;-9&amp;nbsp;[PID]`&lt;/pre&gt; 
-
-&lt;span style=&quot;font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);&quot;&gt;&lt;/span&gt;最后在使用redmine过程中发现网络连接很慢，按理说，是局域网内的访问应该很快的，后来调查之后发现是webrick捣的鬼，改用thin就好了。
-
-先在Gemfile文件中添加thin，然后再用bundle安装一下就可以了。
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`vim&amp;nbsp;Gemfile
-+#gem&amp;nbsp;&apos;mongrel&apos;,&amp;nbsp;&apos;1.2.0.pre2&apos;
-+gem&amp;nbsp;&apos;thin&apos;
-bundle&amp;nbsp;install&amp;nbsp;--without&amp;nbsp;development&amp;nbsp;test`&lt;/pre&gt; 
-
-&lt;span style=&quot;font-size: 12.5px;&quot;&gt;&lt;/span&gt;安装之后重新启动redmine服务，访问就快很多了。
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`ruby&amp;nbsp;script/rails&amp;nbsp;server&amp;nbsp;thin&amp;nbsp;-e&amp;nbsp;production&amp;nbsp;-d`&lt;/pre&gt; 
-
-&lt;span id=&quot;OSC_h4_8&quot;&gt;&lt;/span&gt;
-
-#### 8\. 邮件服务配置
-
-邮件服务配置需要修改config/configuration.yml，我的一个可以成功发送邮件的配置是：
-
-&lt;pre class=&quot;brush:xml;toolbar: true; auto-links: false;&quot;&gt;`#&amp;nbsp;default&amp;nbsp;configuration&amp;nbsp;options&amp;nbsp;for&amp;nbsp;all&amp;nbsp;environments
+<h2 id="1-下载Redmine源代码"><a href="#1-下载Redmine源代码" class="headerlink" title="1. 下载Redmine源代码"></a>1. 下载Redmine源代码</h2><p>这里利用git下载：</p>
+<pre><code>git clone https://github.com/redmine/redmine
+</code></pre><h2 id="2-安装配置MySQL"><a href="#2-安装配置MySQL" class="headerlink" title="2. 安装配置MySQL"></a>2. 安装配置MySQL</h2><p>已经安装过MySQL就不需要执行下面的命令：  </p>
+<pre><code>sudo apt-get install mysql-server mysql-client
+</code></pre><p>配置redmine数据库和用户：</p>
+<pre><code>mysql -u root -p
+CREATE DATABASE redmine CHARACTER SET utf8;
+CREATE USER &apos;redmine&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;my_password&apos;;
+GRANT ALL PRIVILEGES ON redmine.* TO &apos;redmine&apos;@&apos;localhost&apos;;&lt;/pre&gt;
+</code></pre><h2 id="3-数据库连接配置"><a href="#3-数据库连接配置" class="headerlink" title="3. 数据库连接配置"></a>3. 数据库连接配置</h2><p>首先要将redmine源码中 config/database.yml.example复制一份改名为config/database.yml。</p>
+<pre><code>cp  config/database.yml.example config/database.yml
+</code></pre><p>根据刚刚创建的redmine数据库修改config/database.yml</p>
+<pre><code>production:
+    adapter: mysql
+    database: redmine
+    host: localhost
+    username: redmine
+    password: &quot;my_password&quot;
+</code></pre><h2 id="4-安装依赖包"><a href="#4-安装依赖包" class="headerlink" title="4. 安装依赖包"></a>4. 安装依赖包</h2><p>首先得安装ruby和gem,然后使用gem安装bundler，最后通过bundle根据redmine下面的Gemfile安装所有需要安装的软件包。</p>
+<pre><code>sudo apt-get install ruby rubygems ruby1.8-dev ruby1.9.1-dev libmysqlclient-dev imagemagick libmagickwand-dev
+cd redmine
+</code></pre><p>/<em> 由于有GFW的存在，需要使用国内的gem源才能下载，先删除官方源，然后添加淘宝的源 </em>/<br>    gem sources -r <a href="http://rubygems.org/" target="_blank" rel="noopener">http://rubygems.org/</a><br>    gem source -a <a href="http://ruby.taobao.org" target="_blank" rel="noopener">http://ruby.taobao.org</a><br>    sudo gem install bundler -V<br>    bundle install –without development test</p>
+<h2 id="5-Redmine配置"><a href="#5-Redmine配置" class="headerlink" title="5. Redmine配置"></a>5. Redmine配置</h2><pre><code>rake generate_secret_token
+RAILS_ENV=production rake db:migrate
+RAILS_ENV=production rake redmine:load_default_data
+</code></pre><h2 id="6-文件系统权限设置"><a href="#6-文件系统权限设置" class="headerlink" title="6. 文件系统权限设置"></a>6. 文件系统权限设置</h2><p>在Redmine下建立文件夹并设置相应权限  </p>
+<pre><code>mkdir -p tmp tmp/pdf public/plugin_assets
+sudo chmod -R 755 files log tmp public/plugin_assets
+</code></pre><h2 id="7-运行测试"><a href="#7-运行测试" class="headerlink" title="7. 运行测试"></a>7. 运行测试</h2><p>至此Redmine就安装完成了，现在就可以运行测试了。运行下面的命令进行测试：</p>
+<pre><code>ruby script/rails server webrick -e production
+</code></pre><p>运行上面的服务之后，我们就可以在浏览器中输入<a href="http://IP:3000" target="_blank" rel="noopener">http://IP:3000</a> 来测试。如果安装成功就会出现下面的网站界面：<br><img src="http://static.oschina.net/uploads/space/2014/0420/161230_YGrG_579952.png" alt=""><br>初始用户名/密码：admin/admin<br>但是这样启动之后中断窗口是不能关闭的，如果要像服务一样启动，得添加-d参数：</p>
+<pre><code>ruby script/server webrick -e production -d
+</code></pre><p>如果想要关闭服务，可以通过查看该服务的PID来关闭：</p>
+<pre><code>cat redmine/tmp/pids/server.pid
+kill -9 [PID]
+</code></pre><p>最后在使用redmine过程中发现网络连接很慢，按理说，是局域网内的访问应该很快的，后来调查之后发现是webrick捣的鬼，改用thin就好了。</p>
+<p>先在Gemfile文件中添加thin，然后再用bundle安装一下就可以了。</p>
+<pre><code>vim Gemfile
++#gem &apos;mongrel&apos;, &apos;1.2.0.pre2&apos;
++gem &apos;thin&apos;
+bundle install --without development test
+</code></pre><p>安装之后重新启动redmine服务，访问就快很多了。  </p>
+<pre><code>ruby script/rails server thin -e production -d
+</code></pre><h2 id="8-邮件服务配置"><a href="#8-邮件服务配置" class="headerlink" title="8. 邮件服务配置"></a>8. 邮件服务配置</h2><p>邮件服务配置需要修改config/configuration.yml，我的一个可以成功发送邮件的配置是：</p>
+<pre><code># default configuration options for all environments
 default:
-&amp;nbsp;&amp;nbsp;#&amp;nbsp;Outgoing&amp;nbsp;emails&amp;nbsp;configuration&amp;nbsp;(see&amp;nbsp;examples&amp;nbsp;above)
-&amp;nbsp;&amp;nbsp;email_delivery:
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;delivery_method:&amp;nbsp;:smtp
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;smtp_settings:
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;address:&amp;nbsp;localhost
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;port:&amp;nbsp;25
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;domain:&amp;nbsp;example.com
-#&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;authentication:&amp;nbsp;:login
-#&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;user_name:&amp;nbsp;&quot;redmine@example.net&quot;
-#&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;password:&amp;nbsp;&quot;redmine&quot;
+# Outgoing emails configuration (see examples above)
+email_delivery:
+delivery_method: :smtp
+smtp_settings:
+address: localhost
+port: 25
+domain: example.com
+# authentication: :login
+# user_name: &quot;redmine@example.net&quot;
+# password: &quot;redmine&quot;
 </code></pre><p>然后重启redmine服务，在管理&gt;&gt;配置&gt;&gt;邮件通知 中选择发送测试邮件进行测试。</p>
-<p><span id="OSC_h4_9"></span></p>
-<h4 id="9-结语"><a href="#9-结语" class="headerlink" title="9. 结语"></a>9. 结语</h4><p>在整个安装的过程中碰到了很多问题，大部分都是缺少依赖包的，在前面的安装中都已经提示出来了。</p>
-<p><span style="font-size: 14px; line-height: 22px; background-color: rgb(255, 255, 255);"><br></span></p>
+<h2 id="9-结语"><a href="#9-结语" class="headerlink" title="9. 结语"></a>9. 结语</h2><p>在整个安装的过程中碰到了很多问题，大部分都是缺少依赖包的，在前面的安装中都已经提示出来了。</p>
 
       
+       <hr><span style="font-style: italic;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://fengguoqing.github.io/2014/04/20/在ubuntu上安装redmine/" data-id="cjafimvv50000vhj1e5lncri7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教程/">教程</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/11/25/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Hello World
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Linux kernel make menuconfig 时出错处理方法</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>在ubuntu上安装redmine</p>
+    
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="Frank Feng">Frank Feng</a></p>
+    <p><span>发布时间:</span>2014-04-20, 16:33:52</p>
+    <p><span>最后更新:</span>2017-11-26, 10:10:25</p>
+    <span>原始链接:</span><a class="post-url" href="/2014/04/20/在ubuntu上安装redmine/" title="在ubuntu上安装redmine">https://fengguoqing.github.io/2014/04/20/在ubuntu上安装redmine/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+    
+        <div id="comments"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="/js/gitalk.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'dc7f8ca729fea878e59c',
+        clientSecret: '67417ddbb12eeebb0de47187099e92ace7bdf90e',
+        repo: 'yelog.github.io',
+        owner: 'yelog',
+        admin: ['yelog'],
+        id: location.pathname,
+        distractionFreeMode: 'true',
+        language: 'zh-CN',
+        perPage: parseInt('10',10)
+    })
+gitalk.render('comments')
+</script>
     
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/11/25/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 Frank Feng<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017 Yelog</p>
+<p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div>
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
 </body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script src="/js/script.js"></script>
+<script>
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#系统安全','#Linux内核调试','#redmine',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1;
+            var $numbering = $('<ul/>').addClass('pre-numbering').attr("unselectable","on");
+            $(this).addClass('has-numbering')
+                    .parent()
+                    .append($numbering);
+            for(i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 2px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right nav a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 2px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url("http://oncj6b2vl.bkt.clouddn.com/FlSExUGfRSaqxkK5v42CpuI-tXAL.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+</style>
 </html>
