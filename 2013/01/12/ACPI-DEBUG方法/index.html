@@ -535,23 +535,20 @@
 
 
     
-        <div id="comments"></div>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-<script src="/js/gitalk.js"></script>
-<script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: '0ca591cbd574403caa05',
-        clientSecret: '7528dfe6f91bb9293827feb0cad3bc6e8d63d3ed',
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'https://fengguoqing.github.io/2013/01/12/ACPI-DEBUG方法/', // 可选。默认为 location.href
+        owner: 'fengguoqing',
         repo: 'fengguoqing.github.io',
-        owner: 'true',
-        admin: ['fengguoqing'],
-        id: location.pathname,
-        distractionFreeMode: 'true',
-        language: 'zh-CN',
-        perPage: parseInt('10',10)
+        oauth: {
+            client_id: 'd7749153f9a71a100129',
+            client_secret: '1c8dbe60bbbed4d8288d2bccd8a87f5568a9eb0a',
+        },
     })
-gitalk.render('comments')
+    gitment.render('comments')
 </script>
     
 
