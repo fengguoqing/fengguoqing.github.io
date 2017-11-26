@@ -23,7 +23,7 @@
 
 <link rel="stylesheet" href="/css/style.css">
 
-<link rel="stylesheet" href="/css/hl_theme/atom-light.css">
+<link rel="stylesheet" href="/css/hl_theme/atom-dark.css">
 
 <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -40,7 +40,7 @@
 </head>
 <div style="display: none">
   <input class="theme_disqus_on" value="false">
-  <input class="theme_preload_comment" value="false">
+  <input class="theme_preload_comment" value="true">
 </div>
 <body>
 <aside class="nav">
@@ -59,21 +59,15 @@
     <a class="github" title="github" href="https://github.com/yelog" target="_blank"></a>
     
     
-    <a class="facebook" title="facebook" href="https://www.facebook.com/faker.tops" target="_blank"></a>
     
     
     
-    <a class="linkedin" title="linkedin" href="https://www.linkedin.com/in/%E7%8E%89%E6%9D%B0-%E6%9D%A8-13a40a103/" target="_blank"></a>
     
     
-    
-    <a class="reddit" title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank"></a>
-    
-    
-    <a class="weibo" title="weibo" href="http://weibo.com/u/2307534817" target="_blank"></a>
+    <a class="weibo" title="weibo" href="https://weibo.com/1786812385" target="_blank"></a>
     
     
-    <a class="email" title="email" href="mailto:jaytp@qq.com"></a>
+    <a class="email" title="email" href="mailto:fengguoqing611@gmail.com"></a>
     
 </div>
 <ul>
@@ -140,15 +134,15 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">redmine</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">系统安全</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color5">Linux内核调试</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">redmine</a>
     </li>
     
     <div class="clearfix"></div>
@@ -328,7 +322,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2017-11-26 10:10:25'>2014-04-20 16:33</time>
+        创建时间:<time class="date" title='更新时间: 2017-11-26 10:23:14'>2014-04-20 16:33</time>
         
     </div>
     <div class="article-meta">
@@ -399,8 +393,12 @@ GRANT ALL PRIVILEGES ON redmine.* TO &apos;redmine&apos;@&apos;localhost&apos;;&
 </code></pre><h2 id="4-安装依赖包"><a href="#4-安装依赖包" class="headerlink" title="4. 安装依赖包"></a>4. 安装依赖包</h2><p>首先得安装ruby和gem,然后使用gem安装bundler，最后通过bundle根据redmine下面的Gemfile安装所有需要安装的软件包。</p>
 <pre><code>sudo apt-get install ruby rubygems ruby1.8-dev ruby1.9.1-dev libmysqlclient-dev imagemagick libmagickwand-dev
 cd redmine
-</code></pre><p>/<em> 由于有GFW的存在，需要使用国内的gem源才能下载，先删除官方源，然后添加淘宝的源 </em>/<br>    gem sources -r <a href="http://rubygems.org/" target="_blank" rel="noopener">http://rubygems.org/</a><br>    gem source -a <a href="http://ruby.taobao.org" target="_blank" rel="noopener">http://ruby.taobao.org</a><br>    sudo gem install bundler -V<br>    bundle install –without development test</p>
-<h2 id="5-Redmine配置"><a href="#5-Redmine配置" class="headerlink" title="5. Redmine配置"></a>5. Redmine配置</h2><pre><code>rake generate_secret_token
+</code></pre><p>/<em> 由于有GFW的存在，需要使用国内的gem源才能下载，先删除官方源，然后添加淘宝的源 </em>/</p>
+<pre><code>gem sources -r http://rubygems.org/
+gem source -a http://ruby.taobao.org
+sudo gem install bundler -V
+bundle install --without development test
+</code></pre><h2 id="5-Redmine配置"><a href="#5-Redmine配置" class="headerlink" title="5. Redmine配置"></a>5. Redmine配置</h2><pre><code>rake generate_secret_token
 RAILS_ENV=production rake db:migrate
 RAILS_ENV=production rake redmine:load_default_data
 </code></pre><h2 id="6-文件系统权限设置"><a href="#6-文件系统权限设置" class="headerlink" title="6. 文件系统权限设置"></a>6. 文件系统权限设置</h2><p>在Redmine下建立文件夹并设置相应权限  </p>
@@ -453,7 +451,7 @@ domain: example.com
     
     <p><span>本文作者:</span><a href="javascript:void(0)" title="Frank Feng">Frank Feng</a></p>
     <p><span>发布时间:</span>2014-04-20, 16:33:52</p>
-    <p><span>最后更新:</span>2017-11-26, 10:10:25</p>
+    <p><span>最后更新:</span>2017-11-26, 10:23:14</p>
     <span>原始链接:</span><a class="post-url" href="/2014/04/20/在ubuntu上安装redmine/" title="在ubuntu上安装redmine">https://fengguoqing.github.io/2014/04/20/在ubuntu上安装redmine/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -468,11 +466,11 @@ domain: example.com
 <script src="/js/gitalk.js"></script>
 <script type="text/javascript">
     var gitalk = new Gitalk({
-        clientID: 'dc7f8ca729fea878e59c',
-        clientSecret: '67417ddbb12eeebb0de47187099e92ace7bdf90e',
-        repo: 'yelog.github.io',
-        owner: 'yelog',
-        admin: ['yelog'],
+        clientID: '0ca591cbd574403caa05',
+        clientSecret: '7528dfe6f91bb9293827feb0cad3bc6e8d63d3ed',
+        repo: 'fengguoqing.github.io',
+        owner: 'true',
+        admin: ['fengguoqing'],
         id: location.pathname,
         distractionFreeMode: 'true',
         language: 'zh-CN',
@@ -488,7 +486,7 @@ gitalk.render('comments')
 
     </div>
     <div class="copyright">
-        <p class="footer-entry">©2017 Yelog</p>
+        <p class="footer-entry">©2017 Frank Feng</p>
 <p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
     </div>
@@ -527,7 +525,7 @@ gitalk.render('comments')
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#系统安全','#Linux内核调试','#redmine',],
+            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#redmine','#系统安全','#Linux内核调试',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
@@ -605,7 +603,7 @@ gitalk.render('comments')
         border-right: 1px solid #C3CCD0;
         text-align: right;
         color: #AAA;
-        background-color: #fafafa;
+        background-color: ;
     }
 </style>
 
