@@ -2,159 +2,436 @@
 <html>
 <head>
   <meta charset="utf-8">
-  
   <title>如何架设Git服务器 | Frank&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在开发的过程中往往需要一个git服务器来管理和保存代码，如何自己架设一个git服务器呢，方法很简单，这里介绍一下如何架设git服务器，搭建gitweb和push代码之后发送邮件通知组内成员。  1. 架设Git服务器我们以Ubuntu为例。首先，在git服务器上创建一个名为 ‘git’ 的用户，并为其创建一个.ssh&">
-<meta name="keywords" content="教程">
+  <meta name="keywords" content=" 教程 ">
+  <meta name="description" content="如何架设Git服务器 | Frank&#39;s Blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troublesho">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何架设Git服务器">
-<meta property="og:url" content="https://fengguoqing.github.io/2013/08/29/如何架设Git服务器/index.html">
+<meta property="og:title" content="Hello World">
+<meta property="og:url" content="https://fengguoqing.github.io/2017/11/25/hello-world/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="在开发的过程中往往需要一个git服务器来管理和保存代码，如何自己架设一个git服务器呢，方法很简单，这里介绍一下如何架设git服务器，搭建gitweb和push代码之后发送邮件通知组内成员。  1. 架设Git服务器我们以Ubuntu为例。首先，在git服务器上创建一个名为 ‘git’ 的用户，并为其创建一个.ssh&amp;nbsp;目录。并将其权限设置为仅git用户有读写权限  $&amp;amp;nbsp;">
-<meta property="og:updated_time" content="2017-11-25T10:41:07.675Z">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-25T10:37:26.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何架设Git服务器">
-<meta name="twitter:description" content="在开发的过程中往往需要一个git服务器来管理和保存代码，如何自己架设一个git服务器呢，方法很简单，这里介绍一下如何架设git服务器，搭建gitweb和push代码之后发送邮件通知组内成员。  1. 架设Git服务器我们以Ubuntu为例。首先，在git服务器上创建一个名为 ‘git’ 的用户，并为其创建一个.ssh&amp;nbsp;目录。并将其权限设置为仅git用户有读写权限  $&amp;amp;nbsp;">
-  
-    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+<meta name="twitter:title" content="Hello World">
+<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/hl_theme/atom-light.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
 
 </head>
-
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+</div>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Frank&#39;s Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-如何架设Git服务器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/08/29/如何架设Git服务器/" class="article-date">
-  <time datetime="2013-08-29T02:49:10.000Z" itemprop="datePublished">2013-08-29</time>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
 </a>
+<div class="author">
+    <span>Frank Feng</span>
+</div>
+<div class="icon">
     
-  </div>
-  <div class="article-inner">
+    <a class="rss" title="rss" href="/atom.xml" target="_blank"></a>
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      如何架设Git服务器
-    </h1>
-  
+    <a class="github" title="github" href="https://github.com/yelog" target="_blank"></a>
+    
+    
+    <a class="facebook" title="facebook" href="https://www.facebook.com/faker.tops" target="_blank"></a>
+    
+    
+    
+    <a class="linkedin" title="linkedin" href="https://www.linkedin.com/in/%E7%8E%89%E6%9D%B0-%E6%9D%A8-13a40a103/" target="_blank"></a>
+    
+    
+    
+    <a class="reddit" title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank"></a>
+    
+    
+    <a class="weibo" title="weibo" href="http://weibo.com/u/2307534817" target="_blank"></a>
+    
+    
+    <a class="email" title="email" href="mailto:jaytp@qq.com"></a>
+    
+</div>
+<ul>
+    <li class="all active">全部文章</li>
+    
+    <li data-rel="安全"> 安全 </li>
+    
+</ul>
+<div class="left-bottom">
+    <a class="about" href="/about">关于</a><a class="friends">友链</a>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="17">
 
-      </header>
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off">
+        <i class="cross"></i>
+        <span>
+        <label for="tagswitch">Tags:</label>
+        <input id="tagswitch" type="checkbox">
+    </span>
+    </form>
+    <div class="tags-list">
     
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">功耗</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux移植</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">日常记录</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">教程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux CVE-2013-1763 漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统安全</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">Linux内核调试</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    <nav>
+        
+        <a  class=""
+           href="/2013/01/12/ACPI-DEBUG方法/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI DEBUG方法">ACPI DEBUG方法</span>
+            <span class="post-date" title="2013-01-12 23:56:24">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/10/ACPI规范阅读笔记/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI规范阅读笔记">ACPI规范阅读笔记</span>
+            <span class="post-date" title="2013-01-10 22:09:58">2013/01/10</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="Linux kernel make menuconfig 时出错处理方法">Linux kernel make menuconfig 时出错处理方法</span>
+            <span class="post-date" title="2014-04-14 17:53:42">2014/04/14</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/07/Ubuntu默认启动到文本界面/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="Ubuntu默认启动到文本界面">Ubuntu默认启动到文本界面</span>
+            <span class="post-date" title="2013-11-07 10:50:18">2013/11/07</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/25/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-11-25 21:44:08">2017/11/25</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="how to install PostgreSQL on ubuntu">how to install PostgreSQL on ubuntu</span>
+            <span class="post-date" title="2013-01-13 00:29:56">2013/01/13</span>
+        </a>
+        
+        <a  class="安全 "
+           href="/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/"
+           data-tag="linux CVE-2013-1763 漏洞"
+           data-author="" >
+            <span class="post-title" title="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</span>
+            <span class="post-date" title="2016-09-04 20:52:20">2016/09/04</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/12/mini2440基于uboot的TFTP下载教程/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="mini2440基于uboot的TFTP下载教程">mini2440基于uboot的TFTP下载教程</span>
+            <span class="post-date" title="2013-01-12 00:04:34">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/26/在ubuntu上安装redmine/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2017-11-26 09:54:36">2017/11/26</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/02/基于linux-3-10的yaffs2移植/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="基于linux 3.10的yaffs2移植">基于linux 3.10的yaffs2移植</span>
+            <span class="post-date" title="2013-11-02 13:07:41">2013/11/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/08/29/如何架设Git服务器/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="如何架设Git服务器">如何架设Git服务器</span>
+            <span class="post-date" title="2013-08-29 10:49:10">2013/08/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/06/22/建立网站的一般步骤/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="建立网站的一般步骤">建立网站的一般步骤</span>
+            <span class="post-date" title="2013-06-22 20:22:22">2013/06/22</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/"
+           data-tag="系统安全"
+           data-author="" >
+            <span class="post-title" title="某些TP-Link路由器可以被远程获取密码">某些TP-Link路由器可以被远程获取密码</span>
+            <span class="post-date" title="2014-01-19 17:59:38">2014/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/12/02/生成和打上patch的方法/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="生成和打上patch的方法">生成和打上patch的方法</span>
+            <span class="post-date" title="2013-12-02 13:24:16">2013/12/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/02/08/笔记本使用手机流量上网/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="笔记本使用手机流量上网">笔记本使用手机流量上网</span>
+            <span class="post-date" title="2013-02-08 23:22:49">2013/02/08</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="解决三星手机WIFI“此网络不可用。证书已到期”方法">解决三星手机WIFI“此网络不可用。证书已到期”方法</span>
+            <span class="post-date" title="2014-02-15 18:11:22">2014/02/15</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/03/12/Linux内核调试方法总结/"
+           data-tag="Linux内核调试"
+           data-author="" >
+            <span class="post-title" title="Linux内核调试方法总结">Linux内核调试方法总结</span>
+            <span class="post-date" title="2013-03-12 16:25:59">2013/03/12</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-如何架设Git服务器" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">如何架设Git服务器</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color3">教程</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2017-11-26 00:35:22'>2013-08-29 10:49</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-架设Git服务器"><span class="toc-text">1. 架设Git服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-参考链接"><span class="toc-text">4. 参考链接</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
     <div class="article-entry" itemprop="articleBody">
       
         <p>在开发的过程中往往需要一个git服务器来管理和保存代码，如何自己架设一个git服务器呢，方法很简单，这里介绍一下如何架设git服务器，搭建gitweb和push代码之后发送邮件通知组内成员。</p>
-<p><span id="OSC_h4_1"></span></p>
-<h4 id="1-架设Git服务器"><a href="#1-架设Git服务器" class="headerlink" title="1. 架设Git服务器"></a>1. 架设Git服务器</h4><p>我们以Ubuntu为例。首先，在git服务器上<span style="line-height: 1.5; font-size: 10pt;">创建一个名为 ‘git’ 的用户，并为其创建一个.ssh&nbsp;目录。并将其权限设置为仅git用户有读写权限</span> </p>
-<pre><code>$&amp;nbsp;sudo&amp;nbsp;adduser&amp;nbsp;git
-$&amp;nbsp;su&amp;nbsp;git
-$&amp;nbsp;cd
-$&amp;nbsp;mkdir&amp;nbsp;.ssh
-$&amp;nbsp;chmod&amp;nbsp;700&amp;nbsp;.ssh`&lt;/pre&gt; 
+<h4 id="1-架设Git服务器"><a href="#1-架设Git服务器" class="headerlink" title="1. 架设Git服务器"></a>1. 架设Git服务器</h4><p>我们以Ubuntu为例。首先，在git服务器上创建一个名为 ‘git’ 的用户，并为其创建一个.ssh目录。并将其权限设置为仅git用户有读写权限 </p>
+<pre><code>$sudoaddusergit
+$sugit
+$cd
+$mkdir.ssh
+$chmod700.ssh`&lt;/pre&gt; 
 
-接下来，把开发者的 SSH 公钥添加到这个用户的&amp;nbsp;authorized_keys&amp;nbsp;文件中。假设你通过电邮收到了几个公钥并存到了临时文件里。重复一下，公钥大致看起来是这个样子：
+接下来，把开发者的 SSH 公钥添加到这个用户的authorized_keys文件中。假设你通过电邮收到了几个公钥并存到了临时文件里。重复一下，公钥大致看起来是这个样子：
 
-&lt;pre&gt;`$&amp;nbsp;cat&amp;nbsp;/tmp/id_rsa.john.pub
-ssh-rsa&amp;nbsp;AAAAB3NzaC1yc2EAAAADAQABAAABAQCB007n/ww+ouN4gSLKssMxXnBOvf9LGt4L
+&lt;pre&gt;`$cat/tmp/id_rsa.john.pub
+ssh-rsaAAAAB3NzaC1yc2EAAAADAQABAAABAQCB007n/ww+ouN4gSLKssMxXnBOvf9LGt4L
 ojG6rs6hPB09j9R/T17/x4lhJA0F3FR1rP6kYBRsWj2aThGw6HXLm9/5zytK6Ztg3RPKK+4k
 Yjh6541NYsnEAZuXz0jTTyAUfrtU3Z5E003C4oxOj6H0rfIF1kKI9MAQLMdpGW1GYEIgS9Ez
 Sdfd8AcCIicTDWbqLAcU4UpkaX8KyGlLwsNuuGztobF8m72ALC/nLF6JLtPofwFBlgc+myiv
 O7TCUSBdLQlgMVOFq1I2uPWQOkOWQAHukEOmfjy2jctxSDBQ220ymjaNsHT4kgtZg2AYYgPq
-dAv8JggJICUvax2T9va5&amp;nbsp;gsg-keypair`&lt;/pre&gt; 
+dAv8JggJICUvax2T9va5gsg-keypair`&lt;/pre&gt; 
 
-只要把它们逐个追加到&amp;nbsp;authorized_keys&amp;nbsp;文件尾部即可，同时将authorized_keys设置为仅git用户有读写权限。
+只要把它们逐个追加到authorized_keys文件尾部即可，同时将authorized_keys设置为仅git用户有读写权限。
 
-&lt;pre&gt;`$&amp;nbsp;cat&amp;nbsp;/tmp/id_rsa.john.pub&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;~/.ssh/authorized_keys
-$&amp;nbsp;cat&amp;nbsp;/tmp/id_rsa.josie.pub&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;~/.ssh/authorized_keys
-$&amp;nbsp;cat&amp;nbsp;/tmp/id_rsa.jessica.pub&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;~/.ssh/authorized_keys
-$&amp;nbsp;chmod&amp;nbsp;600&amp;nbsp;~/.ssh/authorized_keys`&lt;/pre&gt; 
+&lt;pre&gt;`$cat/tmp/id_rsa.john.pub&amp;gt;&amp;gt;~/.ssh/authorized_keys
+$cat/tmp/id_rsa.josie.pub&amp;gt;&amp;gt;~/.ssh/authorized_keys
+$cat/tmp/id_rsa.jessica.pub&amp;gt;&amp;gt;~/.ssh/authorized_keys
+$chmod600~/.ssh/authorized_keys`&lt;/pre&gt; 
 
-现在可以用&amp;nbsp;--bare&amp;nbsp;选项运行&amp;nbsp;git init&amp;nbsp;来建立一个裸仓库，这会初始化一个不包含工作目录的仓库。
+现在可以用--bare选项运行git init来建立一个裸仓库，这会初始化一个不包含工作目录的仓库。
 
-&lt;pre&gt;`$&amp;nbsp;cd&amp;nbsp;/opt/git
-$&amp;nbsp;mkdir&amp;nbsp;project.git
-$&amp;nbsp;cd&amp;nbsp;project.git
-$&amp;nbsp;git&amp;nbsp;--bare&amp;nbsp;init`&lt;/pre&gt; 
+&lt;pre&gt;`$cd/opt/git
+$mkdirproject.git
+$cdproject.git
+$git--bareinit`&lt;/pre&gt; 
 
-这时，Join，Josie 或者 Jessica 就可以把它加为远程仓库，推送一个分支，从而把第一个版本的项目文件上传到仓库里了。值得注意的是，每次添加一个新项目都需要通过 shell 登入主机并创建一个裸仓库目录。我们不妨以&amp;nbsp;gitserver&amp;nbsp;作为&amp;nbsp;git&amp;nbsp;用户及项目仓库所在的主机名。如果在网络内部运行该主机，并在 DNS 中设定&amp;nbsp;gitserver&amp;nbsp;指向该主机，那么以下这些命令都是可用的：
+这时，Join，Josie 或者 Jessica 就可以把它加为远程仓库，推送一个分支，从而把第一个版本的项目文件上传到仓库里了。值得注意的是，每次添加一个新项目都需要通过 shell 登入主机并创建一个裸仓库目录。我们不妨以gitserver作为git用户及项目仓库所在的主机名。如果在网络内部运行该主机，并在 DNS 中设定gitserver指向该主机，那么以下这些命令都是可用的：
 
-&lt;pre&gt;`#&amp;nbsp;在&amp;nbsp;John&amp;nbsp;的电脑上
-$&amp;nbsp;cd&amp;nbsp;myproject
-$&amp;nbsp;git&amp;nbsp;init
-$&amp;nbsp;git&amp;nbsp;add&amp;nbsp;.
-$&amp;nbsp;git&amp;nbsp;commit&amp;nbsp;-m&amp;nbsp;&apos;initial&amp;nbsp;commit&apos;
-$&amp;nbsp;git&amp;nbsp;remote&amp;nbsp;add&amp;nbsp;origin&amp;nbsp;git@gitserver:/opt/git/project.git
-$&amp;nbsp;git&amp;nbsp;push&amp;nbsp;origin&amp;nbsp;master`&lt;/pre&gt; 
+&lt;pre&gt;`#在John的电脑上
+$cdmyproject
+$gitinit
+$gitadd.
+$gitcommit-m&apos;initialcommit&apos;
+$gitremoteaddorigingit@gitserver:/opt/git/project.git
+$gitpushoriginmaster`&lt;/pre&gt; 
 
 这样，其他人的克隆和推送也一样变得很简单：
 
-&lt;pre&gt;`$&amp;nbsp;git&amp;nbsp;clone&amp;nbsp;git@gitserver:/opt/git/project.git
-$&amp;nbsp;vim&amp;nbsp;README
-$&amp;nbsp;git&amp;nbsp;commit&amp;nbsp;-am&amp;nbsp;&apos;fix&amp;nbsp;for&amp;nbsp;the&amp;nbsp;README&amp;nbsp;file&apos;
-$&amp;nbsp;git&amp;nbsp;push&amp;nbsp;origin&amp;nbsp;master`&lt;/pre&gt; 
+&lt;pre&gt;`$gitclonegit@gitserver:/opt/git/project.git
+$vimREADME
+$gitcommit-am&apos;fixfortheREADMEfile&apos;
+$gitpushoriginmaster`&lt;/pre&gt; 
 
 用这个方法可以很快捷地为少数几个开发者架设一个可读写的 Git 服务。
 
-作为一个额外的防范措施，你可以用 Git 自带的&amp;nbsp;git-shell&amp;nbsp;工具限制&amp;nbsp;git&amp;nbsp;用户的活动范围。只要把它设为&amp;nbsp;git&amp;nbsp;用户登入的 shell，那么该用户就无法使用普通的 bash 或者 csh 什么的 shell 程序。编辑/etc/passwd&amp;nbsp;文件：
+作为一个额外的防范措施，你可以用 Git 自带的git-shell工具限制git用户的活动范围。只要把它设为git用户登入的 shell，那么该用户就无法使用普通的 bash 或者 csh 什么的 shell 程序。编辑/etc/passwd文件：
 
-&lt;pre&gt;`$&amp;nbsp;sudo&amp;nbsp;vim&amp;nbsp;/etc/passwd`&lt;/pre&gt; 
+&lt;pre&gt;`$sudovim/etc/passwd`&lt;/pre&gt; 
 
 在文件末尾，你应该能找到类似这样的行：
 
 &lt;pre&gt;`git:x:1000:1000::/home/git:/bin/sh`&lt;/pre&gt; 
 
-把&amp;nbsp;bin/sh&amp;nbsp;改为&amp;nbsp;/usr/bin/git-shell&amp;nbsp;（或者用&amp;nbsp;which git-shell&amp;nbsp;查看它的实际安装路径）。该行修改后的样子如下：
+把bin/sh改为/usr/bin/git-shell（或者用which git-shell查看它的实际安装路径）。该行修改后的样子如下：
 
 &lt;pre&gt;`git:x:1000:1000::/home/git:/usr/bin/git-shell`&lt;/pre&gt; 
 
-现在&amp;nbsp;git&amp;nbsp;用户只能用 SSH 连接来推送和获取 Git 仓库，而不能直接使用主机 shell。尝试普通 SSH 登录的话，会看到下面这样的拒绝信息：
+现在git用户只能用 SSH 连接来推送和获取 Git 仓库，而不能直接使用主机 shell。尝试普通 SSH 登录的话，会看到下面这样的拒绝信息：
 
-&lt;pre&gt;`$&amp;nbsp;ssh&amp;nbsp;git@gitserver
-fatal:&amp;nbsp;What&amp;nbsp;do&amp;nbsp;you&amp;nbsp;think&amp;nbsp;I&amp;nbsp;am?&amp;nbsp;A&amp;nbsp;shell?
-Connection&amp;nbsp;to&amp;nbsp;gitserver&amp;nbsp;closed.`&lt;/pre&gt; 
+&lt;pre&gt;`$sshgit@gitserver
+fatal:WhatdoyouthinkIam?Ashell?
+Connectiontogitserverclosed.`&lt;/pre&gt; 
 
 这里提供的方法，组内所有成员对project都有读写权限，也就是说每个分支都可以push代码，如果需要更加细致的权限控制，请使用[Gitosis](http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-Gitosis)或者[Gitolite](http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-Gitolite)。
 
@@ -166,13 +443,13 @@ Connection&amp;nbsp;to&amp;nbsp;gitserver&amp;nbsp;closed.`&lt;/pre&gt;
 
 首先需要安装Gitweb，如果没有安装apache，那么直接安装Gitweb，也会将apache2安装的。
 
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$&amp;nbsp;sudo&amp;nbsp;apt-get&amp;nbsp;install&amp;nbsp;gitweb&amp;nbsp;apache2`&lt;/pre&gt; 
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$sudoapt-getinstallgitwebapache2`&lt;/pre&gt; 
 
 安装完成之后，我们只需要修改一下配置文件，将/etc/gitweb.conf文件中的$projectroot修改为放工程文件的目录。
 
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$&amp;nbsp;vim&amp;nbsp;/etc/gitweb.conf
-#&amp;nbsp;path&amp;nbsp;to&amp;nbsp;git&amp;nbsp;projects&amp;nbsp;(&amp;lt;project&amp;gt;.git)
-$projectroot&amp;nbsp;=&amp;nbsp;&quot;/opt/git&quot;;`&lt;/pre&gt; 
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/etc/gitweb.conf
+#pathtogitprojects(&amp;lt;project&amp;gt;.git)
+$projectroot=&quot;/opt/git&quot;;`&lt;/pre&gt; 
 
 至此gitweb就可以使用了，现在可以通过http://[git_server_IP]/gitweb访问了。
 
@@ -184,183 +461,285 @@ $projectroot&amp;nbsp;=&amp;nbsp;&quot;/opt/git&quot;;`&lt;/pre&gt;
 
 一般在安装Git的时候发送邮件的脚本/usr/share/git-core/contrib/hooks/post-receive-email已经存在了，首先要修改所有者和执行权限，并且安装sendmail。
 
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$&amp;nbsp;sudo&amp;nbsp;chown&amp;nbsp;git:git&amp;nbsp;post-receive-email
-$&amp;nbsp;sudo&amp;nbsp;chmod&amp;nbsp;755&amp;nbsp;post-receive-email
-$&amp;nbsp;sudo&amp;nbsp;apt-get&amp;nbsp;install&amp;nbsp;sendmail`&lt;/pre&gt; 
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$sudochowngit:gitpost-receive-email
+$sudochmod755post-receive-email
+$sudoapt-getinstallsendmail`&lt;/pre&gt; 
 
 然后到切换到工程目录下的hooks中，添加 post-receive软链接指向 /usr/share/git-core/contrib/hooks/ post-receive-email。
 
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$&amp;nbsp;cd&amp;nbsp;/opt/git/project.git/hooks
-$&amp;nbsp;ln&amp;nbsp;-s&amp;nbsp;/usr/share/git-core/contrib/hooks/post-receive-email&amp;nbsp;post-receive`&lt;/pre&gt; 
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$cd/opt/git/project.git/hooks
+$ln-s/usr/share/git-core/contrib/hooks/post-receive-emailpost-receive`&lt;/pre&gt; 
 
 最后修改工程目录中的config文件即可。mailinglist是邮件列表， &lt;span style=&quot;line-height: 1.5; font-size: 10pt;&quot;&gt;envelopesender是发件人的邮箱，&lt;/span&gt; 
 
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$&amp;nbsp;vim&amp;nbsp;/opt/git/project.git/config
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/opt/git/project.git/config
 [core]
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;repositoryformatversion&amp;nbsp;=&amp;nbsp;0
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;filemode&amp;nbsp;=&amp;nbsp;true
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;bare&amp;nbsp;=&amp;nbsp;true
+repositoryformatversion=0
+filemode=true
+bare=true
 
 [hooks]
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;mailinglist&amp;nbsp;=&amp;nbsp;&quot;example@gmail.com,&amp;nbsp;example2@gmail.com&quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;#&amp;nbsp;收件人列表
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;envelopesender&amp;nbsp;=&amp;nbsp;project.git@example.com&amp;nbsp;&amp;nbsp;#&amp;nbsp;送件人地址
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;emailprefix&amp;nbsp;=&amp;nbsp;&quot;[Project&amp;nbsp;commit]&amp;nbsp;&quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;#&amp;nbsp;邮件标题前缀
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;showrev&amp;nbsp;=&amp;nbsp;&quot;git&amp;nbsp;show&amp;nbsp;-C&amp;nbsp;%s;&amp;nbsp;echo&quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;#&amp;nbsp;不只显示有变化的文件，同时也显示改变的内容`&lt;/pre&gt; 
+mailinglist=&quot;example@gmail.com,example2@gmail.com&quot;#收件人列表
+envelopesender=project.git@example.com#送件人地址
+emailprefix=&quot;[Projectcommit]&quot;#邮件标题前缀
+showrev=&quot;gitshow-C%s;echo&quot;#不只显示有变化的文件，同时也显示改变的内容`&lt;/pre&gt; 
 
 为了使邮件显示的更清楚，还要修改一下工程目录当中的description文件，在description文件中，默认第一行是项目名称，所以要在第一行填入该项目的名称，这个在邮件中会有显示。
 
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$&amp;nbsp;vim&amp;nbsp;/opt/git/project.git/description
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/opt/git/project.git/description
 Project_A`&lt;/pre&gt; 
 
 我们收到邮件的标题是这样的：
 
-&lt;pre class=&quot;brush:html; toolbar: true; auto-links: false;&quot;&gt;`[Project&amp;nbsp;commit]&amp;nbsp;Project_A&amp;nbsp;branch&amp;nbsp;master&amp;nbsp;updated.&amp;nbsp;8811b83e1afb373cbe30d5bc25683d74ace2917c`&lt;/pre&gt; 
+&lt;pre class=&quot;brush:html; toolbar: true; auto-links: false;&quot;&gt;`[Projectcommit]Project_Abranchmasterupdated.8811b83e1afb373cbe30d5bc25683d74ace2917c`&lt;/pre&gt; 
 
 有时候我们会发现启动和发送sendmail都相当慢，甚至要等两三分钟，完全不能忍，最后通过不断的测试，解决了这个问题，主要是要修改/etc/hosts。例如我的发件人的域是example.com，hostname是desktop，那么就应该这样修改：
 
-&lt;pre class=&quot;brush:xml;toolbar: true; auto-links: false;&quot;&gt;`127.0.0.1&amp;nbsp;&amp;nbsp;example.com&amp;nbsp;localhost&amp;nbsp;desktop`&lt;/pre&gt; 
+&lt;pre class=&quot;brush:xml;toolbar: true; auto-links: false;&quot;&gt;`127.0.0.1example.comlocalhostdesktop`&lt;/pre&gt; 
 
 改完之后重启sendmail服务:
 
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`service&amp;nbsp;sendmail&amp;nbsp;restart
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`servicesendmailrestart
 </code></pre><p>然后你就会发现邮件发的那是刷刷滴！</p>
 <p>至此，我们的Git服务器就已经搭建完成了，和你的小伙伴一起快乐的coding吧！</p>
 <p><span id="OSC_h4_4"></span></p>
-<h4 id="4-参考链接"><a href="#4-参考链接" class="headerlink" title="4. 参考链接"></a>4. 参考链接</h4><p>&nbsp;<a href="http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8" target="_blank" rel="noopener">http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8</a> </p>
+<h4 id="4-参考链接"><a href="#4-参考链接" class="headerlink" title="4. 参考链接"></a>4. 参考链接</h4><p><a href="http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8" target="_blank" rel="noopener">http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8</a> </p>
 <p><a href="http://josephj.com/entry.php?id=346" target="_blank" rel="noopener">http://josephj.com/entry.php?id=346</a> </p>
 
       
+       <hr><span style="font-style: italic;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://fengguoqing.github.io/2013/08/29/如何架设Git服务器/" data-id="cjafim3tf0000uvj1mcfp1j60" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教程/">教程</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2013/11/02/基于linux-3-10的yaffs2移植/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          基于linux 3.10的yaffs2移植
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2013/08/22/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>如何架设Git服务器</p>
+    
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="Frank Feng">Frank Feng</a></p>
+    <p><span>发布时间:</span>2013-08-29, 10:49:10</p>
+    <p><span>最后更新:</span>2017-11-26, 00:35:22</p>
+    <span>原始链接:</span><a class="post-url" href="/2013/08/29/如何架设Git服务器/" title="如何架设Git服务器">https://fengguoqing.github.io/2013/08/29/如何架设Git服务器/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+    
+        <div id="comments"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="/js/gitalk.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'dc7f8ca729fea878e59c',
+        clientSecret: '67417ddbb12eeebb0de47187099e92ace7bdf90e',
+        repo: 'yelog.github.io',
+        owner: 'yelog',
+        admin: ['yelog'],
+        id: location.pathname,
+        distractionFreeMode: 'true',
+        language: 'zh-CN',
+        perPage: parseInt('10',10)
+    })
+gitalk.render('comments')
+</script>
     
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/11/25/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 Frank Feng<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017 Yelog</p>
+<p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div>
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
 </body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script src="/js/script.js"></script>
+<script>
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#系统安全','#Linux内核调试',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1;
+            var $numbering = $('<ul/>').addClass('pre-numbering').attr("unselectable","on");
+            $(this).addClass('has-numbering')
+                    .parent()
+                    .append($numbering);
+            for(i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 2px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right nav a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 2px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url("http://oncj6b2vl.bkt.clouddn.com/FlSExUGfRSaqxkK5v42CpuI-tXAL.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+</style>
 </html>

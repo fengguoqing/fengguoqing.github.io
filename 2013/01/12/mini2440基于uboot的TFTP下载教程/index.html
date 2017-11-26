@@ -2,106 +2,382 @@
 <html>
 <head>
   <meta charset="utf-8">
-  
   <title>mini2440基于uboot的TFTP下载教程 | Frank&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp; 由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式： 1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度">
-<meta name="keywords" content="教程">
+  <meta name="keywords" content=" 教程 ">
+  <meta name="description" content="mini2440基于uboot的TFTP下载教程 | Frank&#39;s Blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troublesho">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mini2440基于uboot的TFTP下载教程">
-<meta property="og:url" content="https://fengguoqing.github.io/2013/01/12/mini2440基于uboot的TFTP下载教程/index.html">
+<meta property="og:title" content="Hello World">
+<meta property="og:url" content="https://fengguoqing.github.io/2017/11/25/hello-world/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp; 由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式： 1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。  2. 使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到">
-<meta property="og:image" content="http://static.oschina.net/uploads/img/201301/12140642_0b2n.jpg">
-<meta property="og:updated_time" content="2017-11-25T15:59:26.273Z">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-25T10:37:26.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mini2440基于uboot的TFTP下载教程">
-<meta name="twitter:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp; 由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式： 1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。  2. 使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到">
-<meta name="twitter:image" content="http://static.oschina.net/uploads/img/201301/12140642_0b2n.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+<meta name="twitter:title" content="Hello World">
+<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/hl_theme/atom-light.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
 
 </head>
-
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+</div>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Frank&#39;s Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-mini2440基于uboot的TFTP下载教程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/01/12/mini2440基于uboot的TFTP下载教程/" class="article-date">
-  <time datetime="2013-01-11T16:04:34.000Z" itemprop="datePublished">2013-01-12</time>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
 </a>
+<div class="author">
+    <span>Frank Feng</span>
+</div>
+<div class="icon">
     
-  </div>
-  <div class="article-inner">
+    <a class="rss" title="rss" href="/atom.xml" target="_blank"></a>
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      mini2440基于uboot的TFTP下载教程
-    </h1>
-  
+    <a class="github" title="github" href="https://github.com/yelog" target="_blank"></a>
+    
+    
+    <a class="facebook" title="facebook" href="https://www.facebook.com/faker.tops" target="_blank"></a>
+    
+    
+    
+    <a class="linkedin" title="linkedin" href="https://www.linkedin.com/in/%E7%8E%89%E6%9D%B0-%E6%9D%A8-13a40a103/" target="_blank"></a>
+    
+    
+    
+    <a class="reddit" title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank"></a>
+    
+    
+    <a class="weibo" title="weibo" href="http://weibo.com/u/2307534817" target="_blank"></a>
+    
+    
+    <a class="email" title="email" href="mailto:jaytp@qq.com"></a>
+    
+</div>
+<ul>
+    <li class="all active">全部文章</li>
+    
+    <li data-rel="安全"> 安全 </li>
+    
+</ul>
+<div class="left-bottom">
+    <a class="about" href="/about">关于</a><a class="friends">友链</a>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="17">
 
-      </header>
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off">
+        <i class="cross"></i>
+        <span>
+        <label for="tagswitch">Tags:</label>
+        <input id="tagswitch" type="checkbox">
+    </span>
+    </form>
+    <div class="tags-list">
     
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">功耗</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux移植</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">日常记录</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">教程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux CVE-2013-1763 漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统安全</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">Linux内核调试</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    <nav>
+        
+        <a  class=""
+           href="/2013/01/12/ACPI-DEBUG方法/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI DEBUG方法">ACPI DEBUG方法</span>
+            <span class="post-date" title="2013-01-12 23:56:24">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/10/ACPI规范阅读笔记/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI规范阅读笔记">ACPI规范阅读笔记</span>
+            <span class="post-date" title="2013-01-10 22:09:58">2013/01/10</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="Linux kernel make menuconfig 时出错处理方法">Linux kernel make menuconfig 时出错处理方法</span>
+            <span class="post-date" title="2014-04-14 17:53:42">2014/04/14</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/07/Ubuntu默认启动到文本界面/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="Ubuntu默认启动到文本界面">Ubuntu默认启动到文本界面</span>
+            <span class="post-date" title="2013-11-07 10:50:18">2013/11/07</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/25/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-11-25 21:44:08">2017/11/25</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="how to install PostgreSQL on ubuntu">how to install PostgreSQL on ubuntu</span>
+            <span class="post-date" title="2013-01-13 00:29:56">2013/01/13</span>
+        </a>
+        
+        <a  class="安全 "
+           href="/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/"
+           data-tag="linux CVE-2013-1763 漏洞"
+           data-author="" >
+            <span class="post-title" title="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</span>
+            <span class="post-date" title="2016-09-04 20:52:20">2016/09/04</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/12/mini2440基于uboot的TFTP下载教程/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="mini2440基于uboot的TFTP下载教程">mini2440基于uboot的TFTP下载教程</span>
+            <span class="post-date" title="2013-01-12 00:04:34">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/26/在ubuntu上安装redmine/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2017-11-26 09:54:36">2017/11/26</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/02/基于linux-3-10的yaffs2移植/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="基于linux 3.10的yaffs2移植">基于linux 3.10的yaffs2移植</span>
+            <span class="post-date" title="2013-11-02 13:07:41">2013/11/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/08/29/如何架设Git服务器/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="如何架设Git服务器">如何架设Git服务器</span>
+            <span class="post-date" title="2013-08-29 10:49:10">2013/08/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/06/22/建立网站的一般步骤/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="建立网站的一般步骤">建立网站的一般步骤</span>
+            <span class="post-date" title="2013-06-22 20:22:22">2013/06/22</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/"
+           data-tag="系统安全"
+           data-author="" >
+            <span class="post-title" title="某些TP-Link路由器可以被远程获取密码">某些TP-Link路由器可以被远程获取密码</span>
+            <span class="post-date" title="2014-01-19 17:59:38">2014/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/12/02/生成和打上patch的方法/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="生成和打上patch的方法">生成和打上patch的方法</span>
+            <span class="post-date" title="2013-12-02 13:24:16">2013/12/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/02/08/笔记本使用手机流量上网/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="笔记本使用手机流量上网">笔记本使用手机流量上网</span>
+            <span class="post-date" title="2013-02-08 23:22:49">2013/02/08</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="解决三星手机WIFI“此网络不可用。证书已到期”方法">解决三星手机WIFI“此网络不可用。证书已到期”方法</span>
+            <span class="post-date" title="2014-02-15 18:11:22">2014/02/15</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/03/12/Linux内核调试方法总结/"
+           data-tag="Linux内核调试"
+           data-author="" >
+            <span class="post-title" title="Linux内核调试方法总结">Linux内核调试方法总结</span>
+            <span class="post-date" title="2013-03-12 16:25:59">2013/03/12</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-mini2440基于uboot的TFTP下载教程" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">mini2440基于uboot的TFTP下载教程</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color3">教程</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2017-11-26 08:12:17'>2013-01-12 00:04</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Booting-kernel-from-Legacy-Image-at-30008000-…"><span class="toc-text">Booting kernel from Legacy Image at 30008000 …</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Starting-application-at-0x30008000-…"><span class="toc-text">Starting application at 0x30008000 …</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&nbsp;&nbsp;&nbsp; 由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：</p>
+        <p> 由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：</p>
 <p>1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。 </p>
 <p>2. 使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。 </p>
 <p>3. 使用TFTP/NFS网络服务加载程序，配置好终端和服务器，使用起来比较方便，而且速度很快。 </p>
-<p>&nbsp;&nbsp; 在这里我讲一下TFTP方式的配置过程，以及使用方式。首先需要将U-boot下载到Nand Flash中，但是由于友善之臂提供的USB驱动在WIN7及其不稳定，所以我费了九牛二虎之力才将其使用DNW下载进去。使用的是由<a href="http://blog.chinaunix.net/space.php?uid=20543672&amp;do=blog&amp;id=94376" target="_blank" rel="noopener">Tekkaman Ninja</a>移植的U-boot，可以通过git来下载源代码，下载方式是：git clone <a href="https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git" target="_blank" rel="noopener">https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git</a>。关于GIT的用法，参考<a href="http://www.arm9home.net/read.php?tid-5266.html" target="_blank" rel="noopener">http://www.arm9home.net/read.php?tid-5266.html</a>。下载完成之后需要重新编译，编译步骤如下：</p>
+<p> 在这里我讲一下TFTP方式的配置过程，以及使用方式。首先需要将U-boot下载到Nand Flash中，但是由于友善之臂提供的USB驱动在WIN7及其不稳定，所以我费了九牛二虎之力才将其使用DNW下载进去。使用的是由<a href="http://blog.chinaunix.net/space.php?uid=20543672&amp;do=blog&amp;id=94376" target="_blank" rel="noopener">Tekkaman Ninja</a>移植的U-boot，可以通过git来下载源代码，下载方式是：git clone <a href="https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git" target="_blank" rel="noopener">https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git</a>。关于GIT的用法，参考<a href="http://www.arm9home.net/read.php?tid-5266.html" target="_blank" rel="noopener">http://www.arm9home.net/read.php?tid-5266.html</a>。下载完成之后需要重新编译，编译步骤如下：</p>
 <blockquote>
 <p>$cd u-boot-2010.03-tekkaman<br>$export PATH=$PATH:/opt/FriendlyARM/toolschain/4.4.3/bin/<br>$make ARCH=arm CROSS_COMPILE=/opt/FriendlyARM/toolschain/4.4.3/bin/arm-linux- mini2440_config<br>$make ARCH=arm CROSS_COMPILE=/opt/FriendlyARM/toolschain/4.4.3/bin/arm-linux- all </p>
 </blockquote>
 <p>如果你在编译的过程中碰到了invalid option的问题，那是因为git下载的文件编码格式不正确，应该使用utf-8的格式下载文件，或者使用在linux中通过git下载源代码编译，保证文件格式是正确的。最终生成的u-boot.bin可以通过supervivi菜单项里的”[a] Absolute User Application”选项 + DNW工具下载到NAND Flash中。</p>
-<p>&nbsp;&nbsp;&nbsp; 将mini2440设置成nand flash启动模式，链接串口和网线，网线分为交叉网线和直连网线，mini2440赠送的是直连网线，不过网卡可以自动识别。启动串口之后就可以看到以下内容：</p>
+<p> 将mini2440设置成nand flash启动模式，链接串口和网线，网线分为交叉网线和直连网线，mini2440赠送的是直连网线，不过网卡可以自动识别。启动串口之后就可以看到以下内容：</p>
 <blockquote>
 <p>U-Boot 2010.03 (Dec 27 2012 - 06:32:26)</p>
 <p>modified by tekkamanninja (tekkamanninja@163.com)<br>Love Linux forever!!</p>
-<p>I2C:&nbsp;&nbsp; ready<br>DRAM:&nbsp; 64 MB<br>Flash:&nbsp; 2 MB<br>NAND:&nbsp; 256 MiB<br>Video: 240x320x16 20kHz 62Hz<br>In:&nbsp;&nbsp;&nbsp; serial<br>Out:&nbsp;&nbsp; serial<br>Err:&nbsp;&nbsp; serial<br>USB slave is enable!<br>Net:&nbsp;&nbsp; dm9000<br>U-Boot 2010.03 (Dec 27 2012 - 06:32:26)<br>modified by tekkamanninja<br>(tekkamanninja@163.com)<br>Love Linux forever!!<br>Hit any key to stop autoboot:&nbsp; 0<br>[u-boot@MINI2440]# </p>
+<p>I2C: ready<br>DRAM: 64 MB<br>Flash: 2 MB<br>NAND: 256 MiB<br>Video: 240x320x16 20kHz 62Hz<br>In: serial<br>Out: serial<br>Err: serial<br>USB slave is enable!<br>Net: dm9000<br>U-Boot 2010.03 (Dec 27 2012 - 06:32:26)<br>modified by tekkamanninja<br>(tekkamanninja@163.com)<br>Love Linux forever!!<br>Hit any key to stop autoboot: 0<br>[u-boot@MINI2440]# </p>
 </blockquote>
 <p>显示出机器的一些基本信息，我们可以使用printenv命令显示当前的环境变量：</p>
 <blockquote>
@@ -110,7 +386,7 @@
 </blockquote>
 <p>这个时候首先需要配置IP，将PC本地连接的IP和mini2440的IP配置在同一网段，ipaddr是mini2440的IP，gatewayip是网关，serverip是PC的IP，需要在PC段设置静态IP，设置完成之后一定要saveenv将设置写入flash之中，否则下载启动有得重新设置：</p>
 <blockquote>
-<p>[u-boot@MINI2440]# setenv ipaddr 192.168.3.8<br>[u-boot@MINI2440]# setenv gatewayip 198.168.3.1<br>[u-boot@MINI2440]# setenv serverip 192.168.3.5<br>[u-boot@MINI2440]# saveenv<br>Saving Environment to NAND…<br>Erasing Nand…<br>Erasing at 0x6000000000002 –&nbsp;&nbsp; 0% complete.<br>Writing to Nand… done </p>
+<p>[u-boot@MINI2440]# setenv ipaddr 192.168.3.8<br>[u-boot@MINI2440]# setenv gatewayip 198.168.3.1<br>[u-boot@MINI2440]# setenv serverip 192.168.3.5<br>[u-boot@MINI2440]# saveenv<br>Saving Environment to NAND…<br>Erasing Nand…<br>Erasing at 0x6000000000002 – 0% complete.<br>Writing to Nand… done </p>
 </blockquote>
 <p>虽然mini2440与PC通过网线连接起来的，但是PC机上的本地连接仍旧是断开的，这是因为我们使用的是直连网线，只有等到ping的时候才可以正常连接，并且只能通过mini2440 ping PC，无法通过PC来ping mini2440。</p>
 <p>接下来需要下载TFTP服务软件，下载地址：<a href="http://tftpd32.jounin.net/tftpd32_download.html" target="_blank" rel="noopener">http://tftpd32.jounin.net/tftpd32_download.html</a>。请选择合适的版本下载，安装之后打开软件配置，主要是配置Current Directory，这个路径下主要是存放你需要下载的文件的。同时需要关闭防火墙和杀毒软件，如果不想关闭它们可以通过设置允许TFTP通过windows防火墙通信来避免通信被阻挡。</p>
@@ -121,7 +397,9 @@
 </blockquote>
 <p>然后我们把需要下载的文件发到刚刚设置的tftpboot目录下，就可以使用下面的方法来下载了，比如我们要下载linux内核zImage_T35.img：</p>
 <blockquote>
-<p>[u-boot@MINI2440]# tftp zImage_T35.img<br>dm9000 i/o: 0x20000300, id: 0x90000a46<br>DM9000: running in 16 bit mode<br>MAC: 08:08:11:18:12:27<br>operating at 100M full duplex mode<br>Using dm9000 device<br>TFTP from server 192.168.3.5; our IP address is 192.168.3.8<br>Filename ‘zImage_T35.img’.<br>Load address: 0x30008000<br>Loading: T #################################################################<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #################################################################<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #########################<br>done<br>Bytes transferred = 2266708 (229654 hex) </p>
+<p>[u-boot@MINI2440]# tftp zImage_T35.img<br>dm9000 i/o: 0x20000300, id: 0x90000a46<br>DM9000: running in 16 bit mode<br>MAC: 08:08:11:18:12:27<br>operating at 100M full duplex mode<br>Using dm9000 device<br>TFTP from server 192.168.3.5; our IP address is 192.168.3.8<br>Filename ‘zImage_T35.img’.<br>Load address: 0x30008000<br>Loading: T ################################################################# </p>
+<p> ################################################################# </p>
+<p> #########################<br>done<br>Bytes transferred = 2266708 (229654 hex) </p>
 </blockquote>
 <p>这样就将linux内核镜像加载到了起始地址为0x30008000的内存中，然后通过bootm命令就可以启动linux，不过前提是你得安装文件系统，否则会panic。但是如果bootm之后显示kernel参数错误，那么就是Image格式不对，需要使用下面的命令来转化：</p>
 <blockquote>
@@ -129,8 +407,13 @@
 </blockquote>
 <p>如果你需要将Image写入到nand flash中需要如下的操作：</p>
 <blockquote>
-<p>[u-boot@MINI2440]#&nbsp; nand erase 0x100000 300000<br>&nbsp;<br>NAND erase: device 0 offs et 0x100000, size 0x300000<br>Erasing at 0x3e000001800000 –&nbsp;&nbsp; 0% complete.<br>OK<br>[u-boot@MINI2440]#&nbsp; nand write 0x30008000&nbsp;&nbsp; 0x100000 300000<br>&nbsp;<br>NAND write: device 0 offset 0x100000, size 0x300000<br>Writing at 0x3e000000020000 – 100% is complete. 3145728 bytes written: OK<br>[u-boot@MINI2440]#&nbsp; nand device 0<br>Device 0: NAND 128MiB 3,3V 8-bit… is now current device<br>[u-boot@MINI2440]#&nbsp; nboot 30008000 0 0x100000<br>&nbsp;<br>Loading from NAND 128MiB 3,3V 8-bit, offset 0x100000<br>&nbsp;&nbsp; Image Name:&nbsp;&nbsp; tekkaman<br>&nbsp;&nbsp; Created:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2010-03-29&nbsp; 12:59:51 UTC<br>&nbsp;&nbsp; Image Type:&nbsp;&nbsp; ARM Linux Kernel Image (uncompressed)<br>&nbsp;&nbsp; Data Size:&nbsp;&nbsp;&nbsp; 2277476 Bytes =&nbsp; 2.2 MB<br>&nbsp;&nbsp; Load Address: 30008000<br>&nbsp;&nbsp; Entry Point:&nbsp; 30008040<br>&nbsp;<br>[u-boot@MINI2440]#&nbsp; bootm 30008000 </p>
-<h2 id="Booting-kernel-from-Legacy-Image-at-30008000-…"><a href="#Booting-kernel-from-Legacy-Image-at-30008000-…" class="headerlink" title="Booting kernel from Legacy Image at 30008000 …"></a>Booting kernel from Legacy Image at 30008000 …</h2><p>&nbsp;&nbsp; Image Name:&nbsp;&nbsp; tekkaman<br>&nbsp;&nbsp; Created:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2010-03-29&nbsp; 12:59:51 UTC<br>&nbsp;&nbsp; Image Type:&nbsp;&nbsp; ARM Linux Kernel Image (uncompressed)<br>&nbsp;&nbsp; Data Size:&nbsp;&nbsp;&nbsp; 2277476 Bytes =&nbsp; 2.2 MB<br>&nbsp;&nbsp; Load Address: 30008000<br>&nbsp;&nbsp; Entry Point:&nbsp; 30008040<br>&nbsp;&nbsp; Verifying Checksum … OK<br>&nbsp;&nbsp; XIP Kernel Image … OK<br>OK<br>&nbsp;<br>Starting kernel … </p>
+<p>[u-boot@MINI2440]# nand erase 0x100000 300000 </p>
+<p>NAND erase: device 0 offs et 0x100000, size 0x300000<br>Erasing at 0x3e000001800000 – 0% complete.<br>OK<br>[u-boot@MINI2440]# nand write 0x30008000 0x100000 300000 </p>
+<p>NAND write: device 0 offset 0x100000, size 0x300000<br>Writing at 0x3e000000020000 – 100% is complete. 3145728 bytes written: OK<br>[u-boot@MINI2440]# nand device 0<br>Device 0: NAND 128MiB 3,3V 8-bit… is now current device<br>[u-boot@MINI2440]# nboot 30008000 0 0x100000 </p>
+<p>Loading from NAND 128MiB 3,3V 8-bit, offset 0x100000<br> Image Name: tekkaman<br> Created: 2010-03-29 12:59:51 UTC<br> Image Type: ARM Linux Kernel Image (uncompressed)<br> Data Size: 2277476 Bytes = 2.2 MB<br> Load Address: 30008000<br> Entry Point: 30008040 </p>
+<p>[u-boot@MINI2440]# bootm 30008000 </p>
+<h2 id="Booting-kernel-from-Legacy-Image-at-30008000-…"><a href="#Booting-kernel-from-Legacy-Image-at-30008000-…" class="headerlink" title="Booting kernel from Legacy Image at 30008000 …"></a>Booting kernel from Legacy Image at 30008000 …</h2><p> Image Name: tekkaman<br> Created: 2010-03-29 12:59:51 UTC<br> Image Type: ARM Linux Kernel Image (uncompressed)<br> Data Size: 2277476 Bytes = 2.2 MB<br> Load Address: 30008000<br> Entry Point: 30008040<br> Verifying Checksum … OK<br> XIP Kernel Image … OK<br>OK </p>
+<p>Starting kernel … </p>
 </blockquote>
 <p>如果我们需要调试的是一般程序，那么通过tftp下载之后，可以使用go 30008000来运行，注意由于友善之臂提供的代码入口地址都是0x30000000，所以不能运行，我们自己编写的程序入口地址应该设置为0x30008000.</p>
 <p>[![A}ID4%JT@RKTF2EJ<a href="http://static.oschina.net/uploads/img/201301/12201708_ADi0.jpg" title="A}ID4%JT@RKTF2EJ[~%N{FL" target="_blank" rel="noopener">~%N{FL</a>](<a href="http://static.oschina.net/uploads/img/201301/12201707_i9O9.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/12201707_i9O9.jpg</a>)</p>
@@ -138,15 +421,15 @@
 <p>1. 首先设置tftp 的Current Directory为工程生成bin文件的目录。</p>
 <p>2. 设置环境变量bootcmd和bootdelay：</p>
 <blockquote>
-<p>[u-boot@MINI2440]# setenv bootdelay 1<br>[u-boot@MINI2440]# setenv bootcmd “tftp 2440test.bin;go 0x30008000”<br>[u-boot@MINI2440]# saveenv<br>Saving Environment to NAND…<br>Erasing Nand…<br>Erasing at 0x6000000000002 –&nbsp;&nbsp; 0% complete.<br>Writing to Nand… done </p>
+<p>[u-boot@MINI2440]# setenv bootdelay 1<br>[u-boot@MINI2440]# setenv bootcmd “tftp 2440test.bin;go 0x30008000”<br>[u-boot@MINI2440]# saveenv<br>Saving Environment to NAND…<br>Erasing Nand…<br>Erasing at 0x6000000000002 – 0% complete.<br>Writing to Nand… done </p>
 </blockquote>
 <p>注意2440test.bin为项目最终生成的bin文件名字，你的项目生成的是什么名字，这里就填写什么名字。</p>
 <p>以后每次你打开mini2440，它就会自动下载最新的bin文件，并且执行它，你就可以立即看到结果，根本不需要你动手去下载，是不是很方便。</p>
 <blockquote>
 <p>U-Boot 2010.03 (Dec 27 2012 - 06:32:26)</p>
 <p>modified by tekkamanninja (tekkamanninja@163.com)<br>Love Linux forever!!</p>
-<p>I2C:&nbsp;&nbsp; ready<br>DRAM:&nbsp; 64 MB<br>Flash:&nbsp; 2 MB<br>NAND:&nbsp; 256 MiB<br>Video: 240x320x16 20kHz 62Hz<br>In:&nbsp;&nbsp;&nbsp; serial<br>Out:&nbsp;&nbsp; serial<br>Err:&nbsp;&nbsp; serial<br>USB slave is enable!<br>Net:&nbsp;&nbsp; dm9000<br>U-Boot 2010.03 (Dec 27 2012 - 06:32:26)<br>modified by tekkamanninja<br>(tekkamanninja@163.com)<br>Love Linux forever!!<br>Hit any key to stop autoboot:&nbsp; 0<br>dm9000 i/o: 0x20000300, id: 0x90000a46<br>DM9000: running in 16 bit mode<br>MAC: 08:08:11:18:12:27<br>operating at 100M full duplex mode<br>Using dm9000 device<br>TFTP from server 192.168.3.5; our IP address is 192.168.3.8<br>Filename ‘2440test.bin’.<br>Load address: 0x30008000<br>Loading: T ##########################################<br>done<br>Bytes transferred = 613092 (95ae4 hex) </p>
-<h2 id="Starting-application-at-0x30008000-…"><a href="#Starting-application-at-0x30008000-…" class="headerlink" title="Starting application at 0x30008000 …"></a>Starting application at 0x30008000 …</h2><p>&lt;<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SBC2440 Test Program VER1.0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; www.arm9.net<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Build time is: Jan 08 2013&nbsp; 23:05:30<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Image$$RO$$Base&nbsp; = 0x30008000<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Image$$RO$$Limit = 0x3003c4fc<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Image$$RW$$Base&nbsp; = 0x3003c4fc<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Image$$RW$$Limit = 0x300ea2b4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Image$$ZI$$Base&nbsp; = 0x3009dae4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Image$$ZI$$Limit = 0x300ea2b4<br>&lt;<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>&gt;</p>
+<p>I2C: ready<br>DRAM: 64 MB<br>Flash: 2 MB<br>NAND: 256 MiB<br>Video: 240x320x16 20kHz 62Hz<br>In: serial<br>Out: serial<br>Err: serial<br>USB slave is enable!<br>Net: dm9000<br>U-Boot 2010.03 (Dec 27 2012 - 06:32:26)<br>modified by tekkamanninja<br>(tekkamanninja@163.com)<br>Love Linux forever!!<br>Hit any key to stop autoboot: 0<br>dm9000 i/o: 0x20000300, id: 0x90000a46<br>DM9000: running in 16 bit mode<br>MAC: 08:08:11:18:12:27<br>operating at 100M full duplex mode<br>Using dm9000 device<br>TFTP from server 192.168.3.5; our IP address is 192.168.3.8<br>Filename ‘2440test.bin’.<br>Load address: 0x30008000<br>Loading: T ##########################################<br>done<br>Bytes transferred = 613092 (95ae4 hex) </p>
+<h2 id="Starting-application-at-0x30008000-…"><a href="#Starting-application-at-0x30008000-…" class="headerlink" title="Starting application at 0x30008000 …"></a>Starting application at 0x30008000 …</h2><p>&lt;<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>&gt;<br> SBC2440 Test Program VER1.0<br> www.arm9.net<br> Build time is: Jan 08 2013 23:05:30<br> Image$$RO$$Base = 0x30008000<br> Image$$RO$$Limit = 0x3003c4fc<br> Image$$RW$$Base = 0x3003c4fc<br> Image$$RW$$Limit = 0x300ea2b4<br> Image$$ZI$$Base = 0x3009dae4<br> Image$$ZI$$Limit = 0x300ea2b4<br>&lt;<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>&gt;</p>
 <p>Please select function :<br>0 : Please input 1-16 to select test<br>1 : Test PWM<br>2 : RTC time display<br>3 : Test ADC<br>4 : Test interrupt and key scan<br>5 : Test Touchpanel<br>6 : Test TFT-LCD or VGA1024x768 module<br>7 : Test IIC EEPROM, if use QQ2440, please remove the LCD<br>8 : UDA1341 play music<br>9 : Test SD Card<br>10 : Test CMOS Camera </p>
 </blockquote>
 <p>下面提供一些参考链接，希望对你有帮助：</p>
@@ -156,137 +439,239 @@
 <p>U-boot官方网站：<a href="http://www.denx.de/wiki/U-Boot" target="_blank" rel="noopener">http://www.denx.de/wiki/U-Boot</a></p>
 
       
+       <hr><span style="font-style: italic;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://fengguoqing.github.io/2013/01/12/mini2440基于uboot的TFTP下载教程/" data-id="cjafirzpb0000waj1mb4vs3l5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教程/">教程</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2013/01/12/ACPI-DEBUG方法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          ACPI DEBUG方法
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2013/01/10/ACPI规范阅读笔记/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">ACPI规范阅读笔记</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>mini2440基于uboot的TFTP下载教程</p>
+    
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="Frank Feng">Frank Feng</a></p>
+    <p><span>发布时间:</span>2013-01-12, 00:04:34</p>
+    <p><span>最后更新:</span>2017-11-26, 08:12:17</p>
+    <span>原始链接:</span><a class="post-url" href="/2013/01/12/mini2440基于uboot的TFTP下载教程/" title="mini2440基于uboot的TFTP下载教程">https://fengguoqing.github.io/2013/01/12/mini2440基于uboot的TFTP下载教程/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+    
+        <div id="comments"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="/js/gitalk.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'dc7f8ca729fea878e59c',
+        clientSecret: '67417ddbb12eeebb0de47187099e92ace7bdf90e',
+        repo: 'yelog.github.io',
+        owner: 'yelog',
+        admin: ['yelog'],
+        id: location.pathname,
+        distractionFreeMode: 'true',
+        language: 'zh-CN',
+        perPage: parseInt('10',10)
+    })
+gitalk.render('comments')
+</script>
     
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/11/25/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 Frank Feng<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017 Yelog</p>
+<p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div>
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
 </body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script src="/js/script.js"></script>
+<script>
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#系统安全','#Linux内核调试',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1;
+            var $numbering = $('<ul/>').addClass('pre-numbering').attr("unselectable","on");
+            $(this).addClass('has-numbering')
+                    .parent()
+                    .append($numbering);
+            for(i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 2px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right nav a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 2px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url("http://oncj6b2vl.bkt.clouddn.com/FlSExUGfRSaqxkK5v42CpuI-tXAL.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+</style>
 </html>

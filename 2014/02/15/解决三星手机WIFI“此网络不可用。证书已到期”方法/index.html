@@ -2,226 +2,606 @@
 <html>
 <head>
   <meta charset="utf-8">
-  
   <title>解决三星手机WIFI“此网络不可用。证书已到期”方法 | Frank&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;最近三星手机升级到了4.3，但是升级完了之后WIFI就出现了问题，有时候根本就连不上，有时候连上了还要弹出一个网页登陆，登陆完之后，用一会就自己断掉了，弹出通知说“此网络不可用。证书已到期”，无法自动重连。没有升级之前都是很好用的。试了很多">
-<meta name="keywords" content="日常记录">
+  <meta name="keywords" content=" 日常记录 ">
+  <meta name="description" content="解决三星手机WIFI“此网络不可用。证书已到期”方法 | Frank&#39;s Blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troublesho">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决三星手机WIFI“此网络不可用。证书已到期”方法">
-<meta property="og:url" content="https://fengguoqing.github.io/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/index.html">
+<meta property="og:title" content="Hello World">
+<meta property="og:url" content="https://fengguoqing.github.io/2017/11/25/hello-world/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;最近三星手机升级到了4.3，但是升级完了之后WIFI就出现了问题，有时候根本就连不上，有时候连上了还要弹出一个网页登陆，登陆完之后，用一会就自己断掉了，弹出通知说“此网络不可用。证书已到期”，无法自动重连。没有升级之前都是很好用的。试了很多办法，比如重启手机，重启路由器，忘记密码重新登陆，都没有作用。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;">
-<meta property="og:updated_time" content="2017-11-25T10:41:07.675Z">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-25T10:37:26.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决三星手机WIFI“此网络不可用。证书已到期”方法">
-<meta name="twitter:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;最近三星手机升级到了4.3，但是升级完了之后WIFI就出现了问题，有时候根本就连不上，有时候连上了还要弹出一个网页登陆，登陆完之后，用一会就自己断掉了，弹出通知说“此网络不可用。证书已到期”，无法自动重连。没有升级之前都是很好用的。试了很多办法，比如重启手机，重启路由器，忘记密码重新登陆，都没有作用。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;">
-  
-    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+<meta name="twitter:title" content="Hello World">
+<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/hl_theme/atom-light.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
 
 </head>
-
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+</div>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Frank&#39;s Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-解决三星手机WIFI“此网络不可用。证书已到期”方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/" class="article-date">
-  <time datetime="2014-02-15T10:11:22.000Z" itemprop="datePublished">2014-02-15</time>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
 </a>
+<div class="author">
+    <span>Frank Feng</span>
+</div>
+<div class="icon">
     
-  </div>
-  <div class="article-inner">
+    <a class="rss" title="rss" href="/atom.xml" target="_blank"></a>
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      解决三星手机WIFI“此网络不可用。证书已到期”方法
-    </h1>
-  
+    <a class="github" title="github" href="https://github.com/yelog" target="_blank"></a>
+    
+    
+    <a class="facebook" title="facebook" href="https://www.facebook.com/faker.tops" target="_blank"></a>
+    
+    
+    
+    <a class="linkedin" title="linkedin" href="https://www.linkedin.com/in/%E7%8E%89%E6%9D%B0-%E6%9D%A8-13a40a103/" target="_blank"></a>
+    
+    
+    
+    <a class="reddit" title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank"></a>
+    
+    
+    <a class="weibo" title="weibo" href="http://weibo.com/u/2307534817" target="_blank"></a>
+    
+    
+    <a class="email" title="email" href="mailto:jaytp@qq.com"></a>
+    
+</div>
+<ul>
+    <li class="all active">全部文章</li>
+    
+    <li data-rel="安全"> 安全 </li>
+    
+</ul>
+<div class="left-bottom">
+    <a class="about" href="/about">关于</a><a class="friends">友链</a>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="17">
 
-      </header>
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off">
+        <i class="cross"></i>
+        <span>
+        <label for="tagswitch">Tags:</label>
+        <input id="tagswitch" type="checkbox">
+    </span>
+    </form>
+    <div class="tags-list">
     
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">功耗</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux移植</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">日常记录</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">教程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux CVE-2013-1763 漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统安全</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">Linux内核调试</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    <nav>
+        
+        <a  class=""
+           href="/2013/01/12/ACPI-DEBUG方法/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI DEBUG方法">ACPI DEBUG方法</span>
+            <span class="post-date" title="2013-01-12 23:56:24">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/10/ACPI规范阅读笔记/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI规范阅读笔记">ACPI规范阅读笔记</span>
+            <span class="post-date" title="2013-01-10 22:09:58">2013/01/10</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="Linux kernel make menuconfig 时出错处理方法">Linux kernel make menuconfig 时出错处理方法</span>
+            <span class="post-date" title="2014-04-14 17:53:42">2014/04/14</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/07/Ubuntu默认启动到文本界面/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="Ubuntu默认启动到文本界面">Ubuntu默认启动到文本界面</span>
+            <span class="post-date" title="2013-11-07 10:50:18">2013/11/07</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/25/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-11-25 21:44:08">2017/11/25</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="how to install PostgreSQL on ubuntu">how to install PostgreSQL on ubuntu</span>
+            <span class="post-date" title="2013-01-13 00:29:56">2013/01/13</span>
+        </a>
+        
+        <a  class="安全 "
+           href="/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/"
+           data-tag="linux CVE-2013-1763 漏洞"
+           data-author="" >
+            <span class="post-title" title="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</span>
+            <span class="post-date" title="2016-09-04 20:52:20">2016/09/04</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/12/mini2440基于uboot的TFTP下载教程/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="mini2440基于uboot的TFTP下载教程">mini2440基于uboot的TFTP下载教程</span>
+            <span class="post-date" title="2013-01-12 00:04:34">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/26/在ubuntu上安装redmine/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2017-11-26 09:54:36">2017/11/26</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/02/基于linux-3-10的yaffs2移植/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="基于linux 3.10的yaffs2移植">基于linux 3.10的yaffs2移植</span>
+            <span class="post-date" title="2013-11-02 13:07:41">2013/11/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/08/29/如何架设Git服务器/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="如何架设Git服务器">如何架设Git服务器</span>
+            <span class="post-date" title="2013-08-29 10:49:10">2013/08/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/06/22/建立网站的一般步骤/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="建立网站的一般步骤">建立网站的一般步骤</span>
+            <span class="post-date" title="2013-06-22 20:22:22">2013/06/22</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/"
+           data-tag="系统安全"
+           data-author="" >
+            <span class="post-title" title="某些TP-Link路由器可以被远程获取密码">某些TP-Link路由器可以被远程获取密码</span>
+            <span class="post-date" title="2014-01-19 17:59:38">2014/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/12/02/生成和打上patch的方法/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="生成和打上patch的方法">生成和打上patch的方法</span>
+            <span class="post-date" title="2013-12-02 13:24:16">2013/12/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/02/08/笔记本使用手机流量上网/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="笔记本使用手机流量上网">笔记本使用手机流量上网</span>
+            <span class="post-date" title="2013-02-08 23:22:49">2013/02/08</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="解决三星手机WIFI“此网络不可用。证书已到期”方法">解决三星手机WIFI“此网络不可用。证书已到期”方法</span>
+            <span class="post-date" title="2014-02-15 18:11:22">2014/02/15</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/03/12/Linux内核调试方法总结/"
+           data-tag="Linux内核调试"
+           data-author="" >
+            <span class="post-title" title="Linux内核调试方法总结">Linux内核调试方法总结</span>
+            <span class="post-date" title="2013-03-12 16:25:59">2013/03/12</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-解决三星手机WIFI“此网络不可用。证书已到期”方法" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">解决三星手机WIFI“此网络不可用。证书已到期”方法</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color5">日常记录</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2017-11-26 00:31:28'>2014-02-15 18:11</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;最近三星手机升级到了4.3，但是升级完了之后WIFI就出现了问题，有时候根本就连不上，有时候连上了还要弹出一个网页登陆，登陆完之后，用一会就自己断掉了，弹出通知说“此网络不可用。证书已到期”，无法自动重连。没有升级之前都是很好用的。试了很多办法，比如重启手机，重启路由器，忘记密码重新登陆，都没有作用。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;后来想到了给WIFI热点重新起一个名字，作为一个新的WIFI热点来登陆，后来果然就可以正常使用了，可能是升级前后证书有所改变，所以原来的WIFI无法继续登陆了。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;希望可以帮助碰到相同问题的同学。</p>
+        <p>最近三星手机升级到了4.3，但是升级完了之后WIFI就出现了问题，有时候根本就连不上，有时候连上了还要弹出一个网页登陆，登陆完之后，用一会就自己断掉了，弹出通知说“此网络不可用。证书已到期”，无法自动重连。没有升级之前都是很好用的。试了很多办法，比如重启手机，重启路由器，忘记密码重新登陆，都没有作用。</p>
+<p>后来想到了给WIFI热点重新起一个名字，作为一个新的WIFI热点来登陆，后来果然就可以正常使用了，可能是升级前后证书有所改变，所以原来的WIFI无法继续登陆了。</p>
+<p>希望可以帮助碰到相同问题的同学。</p>
 
       
+       <hr><span style="font-style: italic;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://fengguoqing.github.io/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/" data-id="cjafilfyb0000ubj1i3pxcq6g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常记录/">日常记录</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Linux kernel make menuconfig 时出错处理方法
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">某些TP-Link路由器可以被远程获取密码</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>解决三星手机WIFI“此网络不可用。证书已到期”方法</p>
+    
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="Frank Feng">Frank Feng</a></p>
+    <p><span>发布时间:</span>2014-02-15, 18:11:22</p>
+    <p><span>最后更新:</span>2017-11-26, 00:31:28</p>
+    <span>原始链接:</span><a class="post-url" href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/" title="解决三星手机WIFI“此网络不可用。证书已到期”方法">https://fengguoqing.github.io/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+    
+        <div id="comments"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="/js/gitalk.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'dc7f8ca729fea878e59c',
+        clientSecret: '67417ddbb12eeebb0de47187099e92ace7bdf90e',
+        repo: 'yelog.github.io',
+        owner: 'yelog',
+        admin: ['yelog'],
+        id: location.pathname,
+        distractionFreeMode: 'true',
+        language: 'zh-CN',
+        perPage: parseInt('10',10)
+    })
+gitalk.render('comments')
+</script>
     
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/11/25/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 Frank Feng<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017 Yelog</p>
+<p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div>
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
 </body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script src="/js/script.js"></script>
+<script>
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#系统安全','#Linux内核调试',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1;
+            var $numbering = $('<ul/>').addClass('pre-numbering').attr("unselectable","on");
+            $(this).addClass('has-numbering')
+                    .parent()
+                    .append($numbering);
+            for(i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 2px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right nav a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 2px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url("http://oncj6b2vl.bkt.clouddn.com/FlSExUGfRSaqxkK5v42CpuI-tXAL.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+</style>
 </html>

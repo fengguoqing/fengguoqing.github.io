@@ -2,99 +2,379 @@
 <html>
 <head>
   <meta charset="utf-8">
-  
   <title>ACPI DEBUG方法 | Frank&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="获取ACPI TABLE的方法   1. 首先要安装acpidump和iasl命令。 $ sudo apt-get install acpidump $ sudo apt-get install iasl $ sudo apt-get install pmtools 有的机器上需要安装pmtools才可以。   2. ">
-<meta name="keywords" content="功耗">
+  <meta name="keywords" content=" 功耗 ">
+  <meta name="description" content="ACPI DEBUG方法 | Frank&#39;s Blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troublesho">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ACPI DEBUG方法">
-<meta property="og:url" content="https://fengguoqing.github.io/2013/01/12/ACPI-DEBUG方法/index.html">
+<meta property="og:title" content="Hello World">
+<meta property="og:url" content="https://fengguoqing.github.io/2017/11/25/hello-world/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="获取ACPI TABLE的方法   1. 首先要安装acpidump和iasl命令。 $ sudo apt-get install acpidump $ sudo apt-get install iasl $ sudo apt-get install pmtools 有的机器上需要安装pmtools才可以。   2. 导出ACPI的数据。 $ sudo cat /proc/acpi/dsdt &amp;">
-<meta property="og:updated_time" content="2017-11-25T10:41:07.679Z">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-25T10:37:26.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ACPI DEBUG方法">
-<meta name="twitter:description" content="获取ACPI TABLE的方法   1. 首先要安装acpidump和iasl命令。 $ sudo apt-get install acpidump $ sudo apt-get install iasl $ sudo apt-get install pmtools 有的机器上需要安装pmtools才可以。   2. 导出ACPI的数据。 $ sudo cat /proc/acpi/dsdt &amp;">
-  
-    <link rel="alternate" href="/atom.xml" title="Frank&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+<meta name="twitter:title" content="Hello World">
+<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/hl_theme/atom-light.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
 
 </head>
-
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+</div>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Frank&#39;s Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fengguoqing.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-ACPI-DEBUG方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/01/12/ACPI-DEBUG方法/" class="article-date">
-  <time datetime="2013-01-12T15:56:24.000Z" itemprop="datePublished">2013-01-12</time>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
 </a>
+<div class="author">
+    <span>Frank Feng</span>
+</div>
+<div class="icon">
     
-  </div>
-  <div class="article-inner">
+    <a class="rss" title="rss" href="/atom.xml" target="_blank"></a>
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      ACPI DEBUG方法
-    </h1>
-  
+    <a class="github" title="github" href="https://github.com/yelog" target="_blank"></a>
+    
+    
+    <a class="facebook" title="facebook" href="https://www.facebook.com/faker.tops" target="_blank"></a>
+    
+    
+    
+    <a class="linkedin" title="linkedin" href="https://www.linkedin.com/in/%E7%8E%89%E6%9D%B0-%E6%9D%A8-13a40a103/" target="_blank"></a>
+    
+    
+    
+    <a class="reddit" title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank"></a>
+    
+    
+    <a class="weibo" title="weibo" href="http://weibo.com/u/2307534817" target="_blank"></a>
+    
+    
+    <a class="email" title="email" href="mailto:jaytp@qq.com"></a>
+    
+</div>
+<ul>
+    <li class="all active">全部文章</li>
+    
+    <li data-rel="安全"> 安全 </li>
+    
+</ul>
+<div class="left-bottom">
+    <a class="about" href="/about">关于</a><a class="friends">友链</a>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="17">
 
-      </header>
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off">
+        <i class="cross"></i>
+        <span>
+        <label for="tagswitch">Tags:</label>
+        <input id="tagswitch" type="checkbox">
+    </span>
+    </form>
+    <div class="tags-list">
     
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">功耗</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux移植</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">日常记录</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">教程</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linux CVE-2013-1763 漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统安全</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">Linux内核调试</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    <nav>
+        
+        <a  class=""
+           href="/2013/01/12/ACPI-DEBUG方法/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI DEBUG方法">ACPI DEBUG方法</span>
+            <span class="post-date" title="2013-01-12 23:56:24">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/10/ACPI规范阅读笔记/"
+           data-tag="功耗"
+           data-author="" >
+            <span class="post-title" title="ACPI规范阅读笔记">ACPI规范阅读笔记</span>
+            <span class="post-date" title="2013-01-10 22:09:58">2013/01/10</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="Linux kernel make menuconfig 时出错处理方法">Linux kernel make menuconfig 时出错处理方法</span>
+            <span class="post-date" title="2014-04-14 17:53:42">2014/04/14</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/07/Ubuntu默认启动到文本界面/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="Ubuntu默认启动到文本界面">Ubuntu默认启动到文本界面</span>
+            <span class="post-date" title="2013-11-07 10:50:18">2013/11/07</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/25/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2017-11-25 21:44:08">2017/11/25</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="how to install PostgreSQL on ubuntu">how to install PostgreSQL on ubuntu</span>
+            <span class="post-date" title="2013-01-13 00:29:56">2013/01/13</span>
+        </a>
+        
+        <a  class="安全 "
+           href="/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/"
+           data-tag="linux CVE-2013-1763 漏洞"
+           data-author="" >
+            <span class="post-title" title="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</span>
+            <span class="post-date" title="2016-09-04 20:52:20">2016/09/04</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/01/12/mini2440基于uboot的TFTP下载教程/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="mini2440基于uboot的TFTP下载教程">mini2440基于uboot的TFTP下载教程</span>
+            <span class="post-date" title="2013-01-12 00:04:34">2013/01/12</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/26/在ubuntu上安装redmine/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2017-11-26 09:54:36">2017/11/26</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/11/02/基于linux-3-10的yaffs2移植/"
+           data-tag="linux移植"
+           data-author="" >
+            <span class="post-title" title="基于linux 3.10的yaffs2移植">基于linux 3.10的yaffs2移植</span>
+            <span class="post-date" title="2013-11-02 13:07:41">2013/11/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/08/29/如何架设Git服务器/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="如何架设Git服务器">如何架设Git服务器</span>
+            <span class="post-date" title="2013-08-29 10:49:10">2013/08/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/06/22/建立网站的一般步骤/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="建立网站的一般步骤">建立网站的一般步骤</span>
+            <span class="post-date" title="2013-06-22 20:22:22">2013/06/22</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/"
+           data-tag="系统安全"
+           data-author="" >
+            <span class="post-title" title="某些TP-Link路由器可以被远程获取密码">某些TP-Link路由器可以被远程获取密码</span>
+            <span class="post-date" title="2014-01-19 17:59:38">2014/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/12/02/生成和打上patch的方法/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="生成和打上patch的方法">生成和打上patch的方法</span>
+            <span class="post-date" title="2013-12-02 13:24:16">2013/12/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/02/08/笔记本使用手机流量上网/"
+           data-tag="教程"
+           data-author="" >
+            <span class="post-title" title="笔记本使用手机流量上网">笔记本使用手机流量上网</span>
+            <span class="post-date" title="2013-02-08 23:22:49">2013/02/08</span>
+        </a>
+        
+        <a  class=""
+           href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/"
+           data-tag="日常记录"
+           data-author="" >
+            <span class="post-title" title="解决三星手机WIFI“此网络不可用。证书已到期”方法">解决三星手机WIFI“此网络不可用。证书已到期”方法</span>
+            <span class="post-date" title="2014-02-15 18:11:22">2014/02/15</span>
+        </a>
+        
+        <a  class=""
+           href="/2013/03/12/Linux内核调试方法总结/"
+           data-tag="Linux内核调试"
+           data-author="" >
+            <span class="post-title" title="Linux内核调试方法总结">Linux内核调试方法总结</span>
+            <span class="post-date" title="2013-03-12 16:25:59">2013/03/12</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-ACPI-DEBUG方法" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">ACPI DEBUG方法</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color3">功耗</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2017-11-26 08:12:21'>2013-01-12 23:56</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cp-proc-acpi-dsdt-DSDT"><span class="toc-text">cp /proc/acpi/dsdt DSDT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#acpidump-gt-acpidump-out"><span class="toc-text">acpidump > acpidump.out</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#echo-0x4-gt-sys-module-acpi-parameters-debug-level"><span class="toc-text">echo 0x4 > /sys/module/acpi/parameters/debug_level</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cat-sys-module-acpi-parameters-debug-layer"><span class="toc-text">cat /sys/module/acpi/parameters/debug_layer</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
     <div class="article-entry" itemprop="articleBody">
       
         <p> <strong>获取ACPI TABLE的方法<span></span></strong> </p>
 <p> 1. 首先要安装acpidump和iasl命令。<br> $ sudo apt-get install acpidump<br> $ sudo apt-get install iasl<br> $ sudo apt-get install pmtools<br> 有的机器上需要安装pmtools才可以。 </p>
 <p> 2. 导出ACPI的数据。<br> $ sudo cat /proc/acpi/dsdt &gt; dstd.dat<br> 或者<br> $ sudo cat /sys/firmware/acpi/tables/DSDT &gt; /tmp/dsdt.dat<br> 如果找不到该文件可以使用下面的命令：<br> $ sudo acpidump &gt; acpi.dat </p>
-<p> 3. 分离各表格数据，会生成多个数据文件。<br> $ acpixtract -a acpi.dat<br> Acpi table [DSDT] -&nbsp; 41555 bytes written to DSDT.dat<br> Acpi table [FACS] -&nbsp;&nbsp;&nbsp;&nbsp; 64 bytes written to FACS.dat<br> Acpi table [FACP] -&nbsp;&nbsp;&nbsp; 116 bytes written to FACP.dat<br> Acpi table [APIC] -&nbsp;&nbsp;&nbsp; 132 bytes written to APIC.dat<br> Acpi table [ASF!] -&nbsp;&nbsp;&nbsp;&nbsp; 99 bytes written to ASF!.dat<br> Acpi table [MCFG] -&nbsp;&nbsp;&nbsp;&nbsp; 60 bytes written to MCFG.dat<br> Acpi table [TCPA] -&nbsp;&nbsp;&nbsp;&nbsp; 50 bytes written to TCPA.dat<br> Acpi table [SLIC] -&nbsp;&nbsp;&nbsp; 374 bytes written to SLIC.dat<br> Acpi table [HPET] -&nbsp;&nbsp;&nbsp;&nbsp; 56 bytes written to HPET.dat<br> Acpi table [DMAR] -&nbsp;&nbsp;&nbsp; 456 bytes written to DMAR.dat<br> Acpi table [RSDT] -&nbsp;&nbsp;&nbsp;&nbsp; 68 bytes written to RSDT.dat<br> Acpi table [RSDP] -&nbsp;&nbsp;&nbsp;&nbsp; 20 bytes written to RSDP.dat </p>
+<p> 3. 分离各表格数据，会生成多个数据文件。<br> $ acpixtract -a acpi.dat<br> Acpi table [DSDT] - 41555 bytes written to DSDT.dat<br> Acpi table [FACS] - 64 bytes written to FACS.dat<br> Acpi table [FACP] - 116 bytes written to FACP.dat<br> Acpi table [APIC] - 132 bytes written to APIC.dat<br> Acpi table [ASF!] - 99 bytes written to ASF!.dat<br> Acpi table [MCFG] - 60 bytes written to MCFG.dat<br> Acpi table [TCPA] - 50 bytes written to TCPA.dat<br> Acpi table [SLIC] - 374 bytes written to SLIC.dat<br> Acpi table [HPET] - 56 bytes written to HPET.dat<br> Acpi table [DMAR] - 456 bytes written to DMAR.dat<br> Acpi table [RSDT] - 68 bytes written to RSDT.dat<br> Acpi table [RSDP] - 20 bytes written to RSDP.dat </p>
 <p> 4. 反汇编DSDT.dat，<br> $ iasl -d DSDT.dat<br> Intel ACPI Component Architecture<br> AML Disassembler version 20100528 [Oct 15 2010]<br> Copyright (c) 2000 - 2010 Intel Corporation<br> Supports ACPI Specification Revision 4.0a<br> Loading Acpi table from file DSDT.dat<br> Acpi table [DSDT] successfully installed and loaded<br> Pass 1 parse of [DSDT]<br> Pass 2 parse of [DSDT]<br> Parsing Deferred Opcodes (Methods/Buffers/Packages/Regions)<br> ……………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………..<br> Parsing completed<br> Disassembly completed, written to “DSDT.dsl” </p>
-<p> 5. 根据需要修改DSDT.dsl文件，然后重新编译该文件，会生成DSDT.aml和DSDT.hex两个文件。<br> $ iasl -tc dsdt.dsl<br> Intel ACPI Component Architecture<br> ASL Optimizing Compiler version 20100528 [Oct 15 2010]<br> Copyright (c) 2000 - 2010 Intel Corporation<br> Supports ACPI Specification Revision 4.0a<br> ………………………………………………<br> ASL Input:&nbsp; DSDT.dsl - 8762 lines, 320704 bytes, 3778 keywords<br> AML Output: DSDT.aml - 39328 bytes, 780 named objects, 2998 executable opcodes<br> Compilation complete. 0 Errors, 41 Warnings, 0 Remarks, 988 Optimizations </p>
-<p> 6. 更新DSDT的方法。<br> 其一(没有测试过，不知道能否成功):<br> 使用新的dsdt.aml代替BIOS中的版本:<br> &nbsp;&nbsp;&nbsp; cp /boot/initrd.img-2.6.20-16-generic /boot/initrd.img-2.6.20-16-generic-bak<br> &nbsp;&nbsp;&nbsp; sudo cp dsdt.aml /etc/initramfs-tools/DSDT.aml<br> &nbsp;&nbsp;&nbsp; sudo update-initramfs -u -k all<br> 其二（需要安装acpiexec，为找到）：<br> iasl -sa DSDT.dsl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # e.g. recompile a modified, disassembled DSDT for<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initramfs inclusion (see later)<br> acpiexec DSDT.dat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # parse, interpret and load a DSDT in userspace<br> 其三：<br> 这个方法需要重新编译内核。<br> 首先将DSDT.hex文件复制到内核源码的include目录下。<br> $ cp DSDT.hex $SRC/include/<br> 然后修改内核配置文件.config<br> &nbsp;&nbsp;&nbsp; CONFIG_STANDALONE=n<br> &nbsp;&nbsp;&nbsp; CONFIG_ACPI_CUSTOM_DSDT=y<br> &nbsp;&nbsp;&nbsp; CONFIG_ACPI_CUSTOM_DSDT_FILE=”DSDT.hex”<br> 重新编译，更新内核，然后启动，可以在dmesg中看到<br> [&nbsp;&nbsp;&nbsp; 0.000000] ACPI: Override [DSDT- CDV-TPT], this is unsafe: tainting kernel<br> [&nbsp;&nbsp;&nbsp; 0.000000] Disabling lock debugging due to kernel taint<br> [&nbsp;&nbsp;&nbsp; 0.000000] ACPI: DSDT @ 0x7f378010 Table override, replaced with:<br> [&nbsp;&nbsp;&nbsp; 0.000000] ACPI: DSDT c0f0f140 0703F (v02&nbsp; Intel&nbsp; CDV-TPT 00000000 INTL 20091214)<br> 就说明DSDT已经被替换成修改过的了。 </p>
+<p> 5. 根据需要修改DSDT.dsl文件，然后重新编译该文件，会生成DSDT.aml和DSDT.hex两个文件。<br> $ iasl -tc dsdt.dsl<br> Intel ACPI Component Architecture<br> ASL Optimizing Compiler version 20100528 [Oct 15 2010]<br> Copyright (c) 2000 - 2010 Intel Corporation<br> Supports ACPI Specification Revision 4.0a<br> ………………………………………………<br> ASL Input: DSDT.dsl - 8762 lines, 320704 bytes, 3778 keywords<br> AML Output: DSDT.aml - 39328 bytes, 780 named objects, 2998 executable opcodes<br> Compilation complete. 0 Errors, 41 Warnings, 0 Remarks, 988 Optimizations </p>
+<p> 6. 更新DSDT的方法。<br> 其一(没有测试过，不知道能否成功):<br> 使用新的dsdt.aml代替BIOS中的版本:<br>  cp /boot/initrd.img-2.6.20-16-generic /boot/initrd.img-2.6.20-16-generic-bak<br>  sudo cp dsdt.aml /etc/initramfs-tools/DSDT.aml<br>  sudo update-initramfs -u -k all<br> 其二（需要安装acpiexec，为找到）：<br> iasl -sa DSDT.dsl # e.g. recompile a modified, disassembled DSDT for<br>  initramfs inclusion (see later)<br> acpiexec DSDT.dat # parse, interpret and load a DSDT in userspace<br> 其三：<br> 这个方法需要重新编译内核。<br> 首先将DSDT.hex文件复制到内核源码的include目录下。<br> $ cp DSDT.hex $SRC/include/<br> 然后修改内核配置文件.config<br>  CONFIG_STANDALONE=n<br>  CONFIG_ACPI_CUSTOM_DSDT=y<br>  CONFIG_ACPI_CUSTOM_DSDT_FILE=”DSDT.hex”<br> 重新编译，更新内核，然后启动，可以在dmesg中看到<br> [ 0.000000] ACPI: Override [DSDT- CDV-TPT], this is unsafe: tainting kernel<br> [ 0.000000] Disabling lock debugging due to kernel taint<br> [ 0.000000] ACPI: DSDT @ 0x7f378010 Table override, replaced with:<br> [ 0.000000] ACPI: DSDT c0f0f140 0703F (v02 Intel CDV-TPT 00000000 INTL 20091214)<br> 就说明DSDT已经被替换成修改过的了。 </p>
 <p> 7. 在DSDT中添加LOG。<br> 首先应该打开CONFIG_ACPI_DEBUG=y。<br> acpi.debug_level= ACPI_LV_DEBUG_OBJECT，<br> acpi.debug_layer= ACPI_TABLES | ACPI_NAMESPACE，<br> 使用将想要的变量或者字符串赋值给Debug即可。<br> (Store (AAAA, Debug) </p>
-<p> 下面附上原文：<br> Dumping ACPI tables using acpidump and acpixtract<br> Most of the time when I’m looking at BIOS issues I just look at the disassembled ACPI DSDT using the following runes:<br> $ sudo cat /proc/acpi/dsdt &gt; dstd.dat<br> $ iasl -d dstd.dat<br> ..and look at the disassembly in dstd.dsl<br> Some BIOS bugs need a little more examination, and that’s where I use acpidump + acpixtract. The simplest way to dump all the ACPI tables is as follows:<br> $ sudo acpidump &gt; acpi.dat<br> $ acpixtract -a acpi.dat<br> Acpi table [DSDT] - 24564 bytes written to DSDT.dat<br> Acpi table [FACS] - 64 bytes written to FACS.dat<br> Acpi table [FACP] - 244 bytes written to FACP1.dat<br> Acpi table [APIC] - 104 bytes written to APIC1.dat<br> Acpi table [HPET] - 56 bytes written to HPET.dat<br> Acpi table [MCFG] - 60 bytes written to MCFG.dat<br> Acpi table [TCPA] - 50 bytes written to TCPA.dat<br> Acpi table [TMOR] - 38 bytes written to TMOR.dat<br> Acpi table [SLIC] - 374 bytes written to SLIC.dat<br> Acpi table [APIC] - 104 bytes written to APIC2.dat<br> Acpi table [BOOT] - 40 bytes written to BOOT.dat<br> Acpi table [SSDT] - 685 bytes written to SSDT1.dat<br> Acpi table [SSDT] - 163 bytes written to SSDT2.dat<br> Acpi table [SSDT] - 607 bytes written to SSDT3.dat<br> Acpi table [SSDT] - 166 bytes written to SSDT4.dat<br> Acpi table [SSDT] - 1254 bytes written to SSDT5.dat<br> Acpi table [XSDT] - 148 bytes written to XSDT.dat<br> Acpi table [FACP] - 116 bytes written to FACP2.dat<br> Acpi table [RSDT] - 88 bytes written to RSDT.dat<br> Acpi table [RSDP] - 36 bytes written to RSDP.dat<br> ..this dumps out all the tables into files.<br> One can the disassemble the required file using iasl, e.g.:<br> $ iasl -d APIC1.dat<br> or decode the table using madt:<br> $ madt &lt; ACPI1.dsl<br> ACPI: APIC (v001 INTEL CRESTLNE 0x06040000 LOHR 0x0000005a) @ 0x(nil)<br> ACPI: LAPIC (acpi_id[0x00] lapic_id[0x00] enabled)<br> ACPI: LAPIC (acpi_id[0x01] lapic_id[0x01] enabled)<br> ACPI: IOAPIC (id[0x01] address[0xfec00000] global_irq_base[0x0])<br> ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)<br> ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)<br> ACPI: LAPIC_NMI (acpi_id[0x00] high edge lint[0x1])<br> ACPI: LAPIC_NMI (acpi_id[0x01] high edge lint[0x1])<br> Length 104 OK<br> Checksum OK<br> Or to just get one particular table, I use:<br> $ sudo acpidump -t SSDT &gt; SSDT.dat<br> $ acpixtract -a SSDT.dat<br> $ iasl -d SSDT.dat<br> Intel ACPI Component Architecture<br> AML Disassembler version 20090521 [Jun 30 2009]<br> Copyright (C) 2000 - 2009 Intel Corporation<br> Supports ACPI Specification Revision 3.0a<br> Loading Acpi table from file SSDT.dat<br> Acpi table [SSDT] successfully installed and loaded<br> Pass 1 parse of [SSDT]<br> Pass 2 parse of [SSDT]<br> Parsing Deferred Opcodes (Methods/Buffers/Packages/Regions)<br> ………<br> Parsing completed<br> Disassembly completed, written to “SSDT.dsl”<br> Armed with a copy of the ACPI spec, one can then start digging into why there are weird Linux/BIOS interactions occurring.<br> How to Build a custom DSDT into the kernel<br> &nbsp;&nbsp;&nbsp; Get original DSDT:<br> &nbsp;&nbsp;&nbsp; # cp /proc/acpi/dsdt DSDT<br> &nbsp;&nbsp;&nbsp; or<br> &nbsp;&nbsp;&nbsp; # acpidump &gt; acpidump.out<br> &nbsp;&nbsp;&nbsp; $ acpixtract DSDT acpidump &gt; DSDT.dat<br> &nbsp;&nbsp;&nbsp; Disassemble it<br> &nbsp;&nbsp;&nbsp; $ iasl -d DSDT.dat<br> &nbsp;&nbsp;&nbsp; Make your changes:<br> &nbsp;&nbsp;&nbsp; $ vi DSDT.dsl<br> &nbsp;&nbsp;&nbsp; Build it:<br> &nbsp;&nbsp;&nbsp; $ iasl -tc DSDT.dsl<br> &nbsp;&nbsp;&nbsp; Put it where the kernel build can include it:<br> &nbsp;&nbsp;&nbsp; $ cp DSDT.hex $SRC/include/<br> &nbsp;&nbsp;&nbsp; Add this to the kernel .config:<br> &nbsp;&nbsp;&nbsp; CONFIG_STANDALONE=n<br> &nbsp;&nbsp;&nbsp; CONFIG_ACPI_CUSTOM_DSDT=y<br> &nbsp;&nbsp;&nbsp; CONFIG_ACPI_CUSTOM_DSDT_FILE=”DSDT.hex”<br> &nbsp;&nbsp;&nbsp; Make the kernel and off you go!<br> &nbsp;&nbsp;&nbsp; You should see in dmesg:<br> &nbsp;&nbsp;&nbsp; Table [DSDT] replaced by host OS </p>
+<p> 下面附上原文：<br> Dumping ACPI tables using acpidump and acpixtract<br> Most of the time when I’m looking at BIOS issues I just look at the disassembled ACPI DSDT using the following runes:<br> $ sudo cat /proc/acpi/dsdt &gt; dstd.dat<br> $ iasl -d dstd.dat<br> ..and look at the disassembly in dstd.dsl<br> Some BIOS bugs need a little more examination, and that’s where I use acpidump + acpixtract. The simplest way to dump all the ACPI tables is as follows:<br> $ sudo acpidump &gt; acpi.dat<br> $ acpixtract -a acpi.dat<br> Acpi table [DSDT] - 24564 bytes written to DSDT.dat<br> Acpi table [FACS] - 64 bytes written to FACS.dat<br> Acpi table [FACP] - 244 bytes written to FACP1.dat<br> Acpi table [APIC] - 104 bytes written to APIC1.dat<br> Acpi table [HPET] - 56 bytes written to HPET.dat<br> Acpi table [MCFG] - 60 bytes written to MCFG.dat<br> Acpi table [TCPA] - 50 bytes written to TCPA.dat<br> Acpi table [TMOR] - 38 bytes written to TMOR.dat<br> Acpi table [SLIC] - 374 bytes written to SLIC.dat<br> Acpi table [APIC] - 104 bytes written to APIC2.dat<br> Acpi table [BOOT] - 40 bytes written to BOOT.dat<br> Acpi table [SSDT] - 685 bytes written to SSDT1.dat<br> Acpi table [SSDT] - 163 bytes written to SSDT2.dat<br> Acpi table [SSDT] - 607 bytes written to SSDT3.dat<br> Acpi table [SSDT] - 166 bytes written to SSDT4.dat<br> Acpi table [SSDT] - 1254 bytes written to SSDT5.dat<br> Acpi table [XSDT] - 148 bytes written to XSDT.dat<br> Acpi table [FACP] - 116 bytes written to FACP2.dat<br> Acpi table [RSDT] - 88 bytes written to RSDT.dat<br> Acpi table [RSDP] - 36 bytes written to RSDP.dat<br> ..this dumps out all the tables into files.<br> One can the disassemble the required file using iasl, e.g.:<br> $ iasl -d APIC1.dat<br> or decode the table using madt:<br> $ madt &lt; ACPI1.dsl<br> ACPI: APIC (v001 INTEL CRESTLNE 0x06040000 LOHR 0x0000005a) @ 0x(nil)<br> ACPI: LAPIC (acpi_id[0x00] lapic_id[0x00] enabled)<br> ACPI: LAPIC (acpi_id[0x01] lapic_id[0x01] enabled)<br> ACPI: IOAPIC (id[0x01] address[0xfec00000] global_irq_base[0x0])<br> ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)<br> ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)<br> ACPI: LAPIC_NMI (acpi_id[0x00] high edge lint[0x1])<br> ACPI: LAPIC_NMI (acpi_id[0x01] high edge lint[0x1])<br> Length 104 OK<br> Checksum OK<br> Or to just get one particular table, I use:<br> $ sudo acpidump -t SSDT &gt; SSDT.dat<br> $ acpixtract -a SSDT.dat<br> $ iasl -d SSDT.dat<br> Intel ACPI Component Architecture<br> AML Disassembler version 20090521 [Jun 30 2009]<br> Copyright (C) 2000 - 2009 Intel Corporation<br> Supports ACPI Specification Revision 3.0a<br> Loading Acpi table from file SSDT.dat<br> Acpi table [SSDT] successfully installed and loaded<br> Pass 1 parse of [SSDT]<br> Pass 2 parse of [SSDT]<br> Parsing Deferred Opcodes (Methods/Buffers/Packages/Regions)<br> ………<br> Parsing completed<br> Disassembly completed, written to “SSDT.dsl”<br> Armed with a copy of the ACPI spec, one can then start digging into why there are weird Linux/BIOS interactions occurring.<br> How to Build a custom DSDT into the kernel<br>  Get original DSDT: </p>
+<h1 id="cp-proc-acpi-dsdt-DSDT"><a href="#cp-proc-acpi-dsdt-DSDT" class="headerlink" title="cp /proc/acpi/dsdt DSDT"></a>cp /proc/acpi/dsdt DSDT</h1><p>  or </p>
+<h1 id="acpidump-gt-acpidump-out"><a href="#acpidump-gt-acpidump-out" class="headerlink" title="acpidump &gt; acpidump.out"></a>acpidump &gt; acpidump.out</h1><p>  $ acpixtract DSDT acpidump &gt; DSDT.dat<br>  Disassemble it<br>  $ iasl -d DSDT.dat<br>  Make your changes:<br>  $ vi DSDT.dsl<br>  Build it:<br>  $ iasl -tc DSDT.dsl<br>  Put it where the kernel build can include it:<br>  $ cp DSDT.hex $SRC/include/<br>  Add this to the kernel .config:<br>  CONFIG_STANDALONE=n<br>  CONFIG_ACPI_CUSTOM_DSDT=y<br>  CONFIG_ACPI_CUSTOM_DSDT_FILE=”DSDT.hex”<br>  Make the kernel and off you go!<br>  You should see in dmesg:<br>  Table [DSDT] replaced by host OS </p>
 <p><div><br> <strong>Linux ACPI Custom Control Method How To</strong><br></div> Written by Zhang Rui &lt;rui.zhang@intel.com&gt; </p>
 <p> Linux supports customizing ACPI control methods at runtime. </p>
 <p> Users can use this to </p>
@@ -102,30 +382,30 @@
 <p> 2. insert a completely new method in order to create a missing method such as _OFF, _ON, _STA, _INI, etc. For these cases, it is far simpler to dynamically install a single control method rather than override the entire DSDT, because kernel rebuild/reboot is not needed and test result can be got in minutes. </p>
 <p> Note: Only ACPI METHOD can be overridden, any other object types like “Device”, “OperationRegion”, are not recognized. Note: The same ACPI control method can be overridden for many times, and it’s always the latest one that used by Linux/kernel. Note: To get the ACPI debug object output (Store (AAAA, Debug)), please run “echo 1 &gt; /sys/module/acpi/parameters/aml_debug_output”. </p>
 <p> 1. override an existing method a) get the ACPI table via ACPI sysfs I/F. e.g. to get the DSDT, just run “cat /sys/firmware/acpi/tables/DSDT &gt; /tmp/dsdt.dat” b) disassemble the table by running “iasl -d dsdt.dat”. </p>
-<p> &nbsp;&nbsp; c) rewrite the ASL code of the method and save it in a new file, </p>
-<p> &nbsp;&nbsp; d) package the new file (psr.asl) to an ACPI table format. Here is an example of a customized _SB._AC._PSR method, </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DefinitionBlock (“”, “SSDT”, 1, “”, “”, 0x20080715) </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { External (ACON) </p>
+<p>  c) rewrite the ASL code of the method and save it in a new file, </p>
+<p>  d) package the new file (psr.asl) to an ACPI table format. Here is an example of a customized _SB._AC._PSR method, </p>
+<p>  DefinitionBlock (“”, “SSDT”, 1, “”, “”, 0x20080715) </p>
+<p>  { External (ACON) </p>
 <p> Method (_SB_.AC._PSR, 0, NotSerialized) </p>
 <p> { Store (“In AC _PSR”, Debug) </p>
 <p> Return (ACON) } } </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Note that the full pathname of the method in ACPI namespace </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; should be used. </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And remember to use “External” to declare external objects. e) assemble the file to generate the AML code of the method. e.g. “iasl psr.asl” (psr.aml is generated as a result) f) mount debugfs by “mount -t debugfs none /sys/kernel/debug” </p>
-<p> &nbsp;&nbsp; g) override the old method via the debugfs by running “cat /tmp/psr.aml &gt; /sys/kernel/debug/acpi/custom_method” </p>
+<p>  Note that the full pathname of the method in ACPI namespace </p>
+<p>  should be used. </p>
+<p>  And remember to use “External” to declare external objects. e) assemble the file to generate the AML code of the method. e.g. “iasl psr.asl” (psr.aml is generated as a result) f) mount debugfs by “mount -t debugfs none /sys/kernel/debug” </p>
+<p>  g) override the old method via the debugfs by running “cat /tmp/psr.aml &gt; /sys/kernel/debug/acpi/custom_method” </p>
 <p> 2. insert a new method This is easier than overriding an existing method. </p>
-<p> &nbsp;&nbsp; We just need to create the ASL code of the method we want to </p>
-<p> &nbsp;&nbsp; insert and then follow the step c) ~ g) in section 1. </p>
+<p>  We just need to create the ASL code of the method we want to </p>
+<p>  insert and then follow the step c) ~ g) in section 1. </p>
 <p> 3. undo your changes The “undo” operation is not supported for a new inserted method </p>
-<p> &nbsp;&nbsp; right now, i.e. we can not remove a method currently. </p>
-<p> &nbsp;&nbsp; For an overrided method, in order to undo your changes, please </p>
-<p> &nbsp;&nbsp; save a copy of the method original ASL code in step c) section 1, </p>
-<p> &nbsp;&nbsp; and redo step c) ~ g) to override the method with the original one. </p>
+<p>  right now, i.e. we can not remove a method currently. </p>
+<p>  For an overrided method, in order to undo your changes, please </p>
+<p>  save a copy of the method original ASL code in step c) section 1, </p>
+<p>  and redo step c) ~ g) to override the method with the original one. </p>
 <p> Note: We can use a kernel with multiple custom ACPI method running, But each individual write to debugfs can implement a SINGLE </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; method override. i.e. if we want to insert/override multiple </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACPI methods, we need to redo step c) ~ g) for multiple times. </p>
+<p>  method override. i.e. if we want to insert/override multiple </p>
+<p>  ACPI methods, we need to redo step c) ~ g) for multiple times. </p>
 <p> Note: Be aware that root can mis-use this driver to modify arbitrary memory and gain additional rights, if root’s privileges got </p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; restricted (for example if root is not allowed to load additional modules after boot). </p>
+<p>  restricted (for example if root is not allowed to load additional modules after boot). </p>
 <p> /sys/module/acpi/parameters/: </p>
 <p> trace_method_name The AML method name that the user wants to trace </p>
 <p> trace_debug_layer The temporary debug_layer used when tracing the method. </p>
@@ -141,229 +421,329 @@
 <p> Users can enable/disable this debug tracing feature by </p>
 <p> “echo string &gt; /sys/module/acpi/parameters/trace_state”. </p>
 <p> “string” should be one of “enable”, “disable” and “1”. </p>
-<p><div><br> <strong>ACPI Debug Output</strong><br></div> The ACPI CA, the Linux ACPI core, and some ACPI drivers can generate debug output.&nbsp; This document describes how to use this facility. </p>
+<p><div><br> <strong>ACPI Debug Output</strong><br></div> The ACPI CA, the Linux ACPI core, and some ACPI drivers can generate debug output. This document describes how to use this facility. </p>
 <p> Compile-time configuration </p>
 <hr>
-<p> ACPI debug output is globally enabled by CONFIG_ACPI_DEBUG.&nbsp; If this config option is turned off, the debug messages are not even built into the kernel. </p>
+<p> ACPI debug output is globally enabled by CONFIG_ACPI_DEBUG. If this config option is turned off, the debug messages are not even built into the kernel. </p>
 <p> Boot- and run-time configuration </p>
 <hr>
-<p> When CONFIG_ACPI_DEBUG=y, you can select the component and level of messages you’re interested in.&nbsp; At boot-time, use the acpi.debug_layer and acpi.debug_level kernel command line options.&nbsp; After boot, you can use the debug_layer and debug_level files in /sys/module/acpi/parameters/ to control the debug messages. </p>
+<p> When CONFIG_ACPI_DEBUG=y, you can select the component and level of messages you’re interested in. At boot-time, use the acpi.debug_layer and acpi.debug_level kernel command line options. After boot, you can use the debug_layer and debug_level files in /sys/module/acpi/parameters/ to control the debug messages. </p>
 <p> debug_layer (component) </p>
 <hr>
-<p> The “debug_layer” is a mask that selects components of interest, e.g., a specific driver or part of the ACPI interpreter.&nbsp; To build the debug_layer bitmask, look for the “#define _COMPONENT” in an ACPI source file. </p>
+<p> The “debug_layer” is a mask that selects components of interest, e.g., a specific driver or part of the ACPI interpreter. To build the debug_layer bitmask, look for the “#define _COMPONENT” in an ACPI source file. </p>
 <p> You can set the debug_layer mask at boot-time using the acpi.debug_layer command line argument, and you can change it after boot by writing values to /sys/module/acpi/parameters/debug_layer. </p>
-<p> The possible components are defined in include/acpi/acoutput.h and include/acpi/acpi_drivers.h.&nbsp; Reading /sys/module/acpi/parameters/debug_layer shows the supported mask values, currently these: </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_UTILITIES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000001 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_HARDWARE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000002 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000004 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_TABLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000008 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_NAMESPACE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000010 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_PARSER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000020 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_DISPATCHER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000040 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_EXECUTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000080 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_RESOURCES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000100 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_CA_DEBUGGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000200 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_OS_SERVICES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000400 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_CA_DISASSEMBLER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000800 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_COMPILER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00001000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_TOOLS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00002000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_BUS_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00010000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_AC_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00020000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_BATTERY_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00040000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_BUTTON_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00080000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_SBS_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00100000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_FAN_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00200000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_PCI_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00400000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_POWER_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00800000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_CONTAINER_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x01000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_SYSTEM_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x02000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_THERMAL_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x04000000 ACPI_MEMORY_DEVICE_COMPONENT&nbsp;&nbsp;&nbsp; 0x08000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_VIDEO_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x10000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_PROCESSOR_COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x20000000 </p>
+<p> The possible components are defined in include/acpi/acoutput.h and include/acpi/acpi_drivers.h. Reading /sys/module/acpi/parameters/debug_layer shows the supported mask values, currently these: </p>
+<p>  ACPI_UTILITIES 0x00000001 </p>
+<p>  ACPI_HARDWARE 0x00000002 </p>
+<p>  ACPI_EVENTS 0x00000004 </p>
+<p>  ACPI_TABLES 0x00000008 </p>
+<p>  ACPI_NAMESPACE 0x00000010 </p>
+<p>  ACPI_PARSER 0x00000020 </p>
+<p>  ACPI_DISPATCHER 0x00000040 </p>
+<p>  ACPI_EXECUTER 0x00000080 </p>
+<p>  ACPI_RESOURCES 0x00000100 </p>
+<p>  ACPI_CA_DEBUGGER 0x00000200 </p>
+<p>  ACPI_OS_SERVICES 0x00000400 </p>
+<p>  ACPI_CA_DISASSEMBLER 0x00000800 </p>
+<p>  ACPI_COMPILER 0x00001000 </p>
+<p>  ACPI_TOOLS 0x00002000 </p>
+<p>  ACPI_BUS_COMPONENT 0x00010000 </p>
+<p>  ACPI_AC_COMPONENT 0x00020000 </p>
+<p>  ACPI_BATTERY_COMPONENT 0x00040000 </p>
+<p>  ACPI_BUTTON_COMPONENT 0x00080000 </p>
+<p>  ACPI_SBS_COMPONENT 0x00100000 </p>
+<p>  ACPI_FAN_COMPONENT 0x00200000 </p>
+<p>  ACPI_PCI_COMPONENT 0x00400000 </p>
+<p>  ACPI_POWER_COMPONENT 0x00800000 </p>
+<p>  ACPI_CONTAINER_COMPONENT 0x01000000 </p>
+<p>  ACPI_SYSTEM_COMPONENT 0x02000000 </p>
+<p>  ACPI_THERMAL_COMPONENT 0x04000000 ACPI_MEMORY_DEVICE_COMPONENT 0x08000000 </p>
+<p>  ACPI_VIDEO_COMPONENT 0x10000000 </p>
+<p>  ACPI_PROCESSOR_COMPONENT 0x20000000 </p>
 <p> debug_level </p>
 <hr>
 <p> The “debug_level” is a mask that selects different types of messages, e.g., those related to initialization, method execution, informational messages, etc. To build debug_level, look at the level specified in an ACPI_DEBUG_PRINT() statement. </p>
 <p> The ACPI interpreter uses several different levels, but the Linux ACPI core and ACPI drivers generally only use ACPI_LV_INFO. </p>
 <p> You can set the debug_level mask at boot-time using the acpi.debug_level command line argument, and you can change it after boot by writing values to /sys/module/acpi/parameters/debug_level. </p>
-<p> The possible levels are defined in include/acpi/acoutput.h.&nbsp; Reading /sys/module/acpi/parameters/debug_level shows the supported mask values, currently these: </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_INIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000001 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_DEBUG_OBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000002 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_INFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000004 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_INIT_NAMES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000020 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_PARSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000040 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_LOAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000080 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_DISPATCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000100 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_EXEC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000200 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_NAMES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000400 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_OPREGION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000800 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_BFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00001000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_TABLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00002000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_VALUES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00004000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_OBJECTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00008000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_RESOURCES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00010000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_USER_REQUESTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00020000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_PACKAGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00040000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_ALLOCATIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00100000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_FUNCTIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00200000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_OPTIMIZATIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00400000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_MUTEX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x01000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_THREADS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x02000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_IO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x04000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_INTERRUPTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x08000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_AML_DISASSEMBLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x10000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_VERBOSE_INFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x20000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_FULL_TABLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x40000000 </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_LV_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x80000000 </p>
+<p> The possible levels are defined in include/acpi/acoutput.h. Reading /sys/module/acpi/parameters/debug_level shows the supported mask values, currently these: </p>
+<p>  ACPI_LV_INIT 0x00000001 </p>
+<p>  ACPI_LV_DEBUG_OBJECT 0x00000002 </p>
+<p>  ACPI_LV_INFO 0x00000004 </p>
+<p>  ACPI_LV_INIT_NAMES 0x00000020 </p>
+<p>  ACPI_LV_PARSE 0x00000040 </p>
+<p>  ACPI_LV_LOAD 0x00000080 </p>
+<p>  ACPI_LV_DISPATCH 0x00000100 </p>
+<p>  ACPI_LV_EXEC 0x00000200 </p>
+<p>  ACPI_LV_NAMES 0x00000400 </p>
+<p>  ACPI_LV_OPREGION 0x00000800 </p>
+<p>  ACPI_LV_BFIELD 0x00001000 </p>
+<p>  ACPI_LV_TABLES 0x00002000 </p>
+<p>  ACPI_LV_VALUES 0x00004000 </p>
+<p>  ACPI_LV_OBJECTS 0x00008000 </p>
+<p>  ACPI_LV_RESOURCES 0x00010000 </p>
+<p>  ACPI_LV_USER_REQUESTS 0x00020000 </p>
+<p>  ACPI_LV_PACKAGE 0x00040000 </p>
+<p>  ACPI_LV_ALLOCATIONS 0x00100000 </p>
+<p>  ACPI_LV_FUNCTIONS 0x00200000 </p>
+<p>  ACPI_LV_OPTIMIZATIONS 0x00400000 </p>
+<p>  ACPI_LV_MUTEX 0x01000000 </p>
+<p>  ACPI_LV_THREADS 0x02000000 </p>
+<p>  ACPI_LV_IO 0x04000000 </p>
+<p>  ACPI_LV_INTERRUPTS 0x08000000 </p>
+<p>  ACPI_LV_AML_DISASSEMBLE 0x10000000 </p>
+<p>  ACPI_LV_VERBOSE_INFO 0x20000000 </p>
+<p>  ACPI_LV_FULL_TABLES 0x40000000 </p>
+<p>  ACPI_LV_EVENTS 0x80000000 </p>
 <p> Examples </p>
 <hr>
 <p> For example, drivers/acpi/bus.c contains this: </p>
-<p> &nbsp;&nbsp;&nbsp; #define _COMPONENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACPI_BUS_COMPONENT </p>
-<p> &nbsp;&nbsp;&nbsp; … </p>
-<p> &nbsp;&nbsp;&nbsp; ACPI_DEBUG_PRINT((ACPI_DB_INFO, “Device insertion detected\n”)); </p>
-<p> To turn on this message, set the ACPI_BUS_COMPONENT bit in acpi.debug_layer and the ACPI_LV_INFO bit in acpi.debug_level.&nbsp; (The ACPI_DEBUG_PRINT statement uses ACPI_DB_INFO, which is macro based on the ACPI_LV_INFO definition.) </p>
+<p>  #define _COMPONENT ACPI_BUS_COMPONENT </p>
+<p>  … </p>
+<p>  ACPI_DEBUG_PRINT((ACPI_DB_INFO, “Device insertion detected\n”)); </p>
+<p> To turn on this message, set the ACPI_BUS_COMPONENT bit in acpi.debug_layer and the ACPI_LV_INFO bit in acpi.debug_level. (The ACPI_DEBUG_PRINT statement uses ACPI_DB_INFO, which is macro based on the ACPI_LV_INFO definition.) </p>
 <p> Enable all AML “Debug” output (stores to the Debug object while interpreting AML) during boot: </p>
-<p> &nbsp;&nbsp;&nbsp; acpi.debug_layer=0xffffffff acpi.debug_level=0x2 </p>
+<p>  acpi.debug_layer=0xffffffff acpi.debug_level=0x2 </p>
 <p> Enable PCI and PCI interrupt routing debug messages: </p>
-<p> &nbsp;&nbsp;&nbsp; acpi.debug_layer=0x400000 acpi.debug_level=0x4 </p>
+<p>  acpi.debug_layer=0x400000 acpi.debug_level=0x4 </p>
 <p> Enable all ACPI hardware-related messages: </p>
-<p> &nbsp;&nbsp;&nbsp; acpi.debug_layer=0x2 acpi.debug_level=0xffffffff </p>
+<p>  acpi.debug_layer=0x2 acpi.debug_level=0xffffffff </p>
 <p> Enable all ACPI_DB_INFO messages after boot: </p>
-<p> &nbsp;&nbsp;&nbsp; # echo 0x4 &gt; /sys/module/acpi/parameters/debug_level </p>
-<p> Show all valid component values: </p>
-<p> &nbsp;&nbsp;&nbsp; # cat /sys/module/acpi/parameters/debug_layer </p>
-
+<h1 id="echo-0x4-gt-sys-module-acpi-parameters-debug-level"><a href="#echo-0x4-gt-sys-module-acpi-parameters-debug-level" class="headerlink" title="echo 0x4 &gt; /sys/module/acpi/parameters/debug_level"></a>echo 0x4 &gt; /sys/module/acpi/parameters/debug_level</h1><p> Show all valid component values: </p>
+<h1 id="cat-sys-module-acpi-parameters-debug-layer"><a href="#cat-sys-module-acpi-parameters-debug-layer" class="headerlink" title="cat /sys/module/acpi/parameters/debug_layer"></a>cat /sys/module/acpi/parameters/debug_layer</h1>
       
+       <hr><span style="font-style: italic;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://fengguoqing.github.io/2013/01/12/ACPI-DEBUG方法/" data-id="cjafig59e0000qrj18dptc3wm" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/功耗/">功耗</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          how to install PostgreSQL on ubuntu
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2013/01/12/mini2440基于uboot的TFTP下载教程/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">mini2440基于uboot的TFTP下载教程</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>ACPI DEBUG方法</p>
+    
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="Frank Feng">Frank Feng</a></p>
+    <p><span>发布时间:</span>2013-01-12, 23:56:24</p>
+    <p><span>最后更新:</span>2017-11-26, 08:12:21</p>
+    <span>原始链接:</span><a class="post-url" href="/2013/01/12/ACPI-DEBUG方法/" title="ACPI DEBUG方法">https://fengguoqing.github.io/2013/01/12/ACPI-DEBUG方法/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+    
+        <div id="comments"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="/js/gitalk.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'dc7f8ca729fea878e59c',
+        clientSecret: '67417ddbb12eeebb0de47187099e92ace7bdf90e',
+        repo: 'yelog.github.io',
+        owner: 'yelog',
+        admin: ['yelog'],
+        id: location.pathname,
+        distractionFreeMode: 'true',
+        language: 'zh-CN',
+        perPage: parseInt('10',10)
+    })
+gitalk.render('comments')
+</script>
     
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核调试/">Linux内核调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux移植/">linux移植</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/功耗/">功耗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常记录/">日常记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Linux内核调试/" style="font-size: 10px;">Linux内核调试</a> <a href="/tags/linux移植/" style="font-size: 15px;">linux移植</a> <a href="/tags/功耗/" style="font-size: 15px;">功耗</a> <a href="/tags/教程/" style="font-size: 20px;">教程</a> <a href="/tags/日常记录/" style="font-size: 15px;">日常记录</a> <a href="/tags/系统安全/" style="font-size: 15px;">系统安全</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/11/25/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/20/在ubuntu上安装redmine/">在ubuntu上安装redmine</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">Linux kernel make menuconfig 时出错处理方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">解决三星手机WIFI“此网络不可用。证书已到期”方法</a>
-          </li>
-        
-          <li>
-            <a href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/">某些TP-Link路由器可以被远程获取密码</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 Frank Feng<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017 Yelog</p>
+<p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div>
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
 </body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script src="/js/script.js"></script>
+<script>
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#系统安全','#Linux内核调试',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1;
+            var $numbering = $('<ul/>').addClass('pre-numbering').attr("unselectable","on");
+            $(this).addClass('has-numbering')
+                    .parent()
+                    .append($numbering);
+            for(i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 2px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right nav a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 2px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url("http://oncj6b2vl.bkt.clouddn.com/FlSExUGfRSaqxkK5v42CpuI-tXAL.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+</style>
 </html>
