@@ -40,7 +40,7 @@
 </head>
 <div style="display: none">
   <input class="theme_disqus_on" value="false">
-  <input class="theme_preload_comment" value="true">
+  <input class="theme_preload_comment" value="false">
 </div>
 <body>
 <aside class="nav">
@@ -56,7 +56,7 @@
     <a class="rss" title="rss" href="/atom.xml" target="_blank"></a>
     
     
-    <a class="github" title="github" href="https://github.com/yelog" target="_blank"></a>
+    <a class="github" title="github" href="https://github.com/fengguoqing" target="_blank"></a>
     
     
     
@@ -1271,7 +1271,7 @@ Jun2218:14:25llm05kernel:pid=5e5task-info_ptr=f5eca000`</pre>
 <h4 id="3-使用-Kprobes-更好地进行调试"><a href="#3-使用-Kprobes-更好地进行调试" class="headerlink" title="3 使用 Kprobes 更好地进行调试"></a><span style="vertical-align:baseline;">3 使用 Kprobes 更好地进行调试</span></h4><p><span style="vertical-align:baseline;">由于探测器事件处理器是作为系统断点中断处理器的扩展来运行，所以它们很少或者根本不依赖于系统 工具 —— 这样可以被植入到大部分不友好的环境中（从中断时间和任务时间到禁用的上下文间切换和支持 SMP 的代码路径）—— 都不会对系统性能带来负面影响。</span><br> <span style="vertical-align:baseline;">使用 Kprobes 的好处有很多。不需要重新编译和重新引导内核就可以插入 printk。为了进行调试可以记录 处理器寄存器的日志，甚至进行修改 —— 不会干扰系统。类似地，同样可以无干扰地记录 Linux 内核数据结构的日志，甚至 进行修改。您甚至可以使用 Kprobes 调试 SMP 系统上的竞态条件 —— 避免了您自己重新编译和重新引导的所有 麻烦。您将发现内核调试比以往更为快速和简单。</span><br> <span style="vertical-align:baseline;"></span><br> <span style="vertical-align:baseline;">参考：</span><br> <a href="http://www.ibm.com/developerworks/cn/linux/l-kprobes.html" target="_blank" rel="noopener"><span style="color:#1155CC;vertical-align:baseline;">使用 Kprobes 调试内核</span></a> <span style="vertical-align:baseline;"></span><br> <span style="vertical-align:baseline;"></span><br> <span style="vertical-align:baseline;">本文参考：</span><br> <span style="vertical-align:baseline;">1 Linux内核设计与实现 P243 第十八章 调试</span> <a href="http://www.mjmwired.net/kernel/Documentation/dynamic-debug-howto.txt" target="_blank" rel="noopener"><span style="color:#1155CC;background-color:#CCCCCC;vertical-align:baseline;"></span></a><br> <span style="vertical-align:baseline;">3 </span> <a href="http://www.360doc.com/content/10/1215/15/1378815_78374144.shtml" target="_blank" rel="noopener"><span style="color:#1155CC;vertical-align:baseline;">linux内核调试指南</span></a></p>
 
       
-       <hr><span style="font-style: italic;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+       <hr><span style="font-style: italic;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 fengguoqing611@gmail.com </span>
     </div>
 </article>
 
