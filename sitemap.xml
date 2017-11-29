@@ -2,6 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fengguoqing.github.io/2013/08/29/%E5%A6%82%E4%BD%95%E6%9E%B6%E8%AE%BEGit%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    
+    <lastmod>2017-11-29T13:23:04.026Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fengguoqing.github.io/2013/03/12/Linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2017-11-29T13:23:04.012Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fengguoqing.github.io/2013/12/02/%E7%94%9F%E6%88%90%E5%92%8C%E6%89%93%E4%B8%8Apatch%E7%9A%84%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2017-11-29T13:23:03.978Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fengguoqing.github.io/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/</loc>
+    
+    <lastmod>2017-11-29T13:23:03.967Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fengguoqing.github.io/2013/11/02/%E5%9F%BA%E4%BA%8Elinux-3-10%E7%9A%84yaffs2%E7%A7%BB%E6%A4%8D/</loc>
+    
+    <lastmod>2017-11-29T13:23:03.965Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fengguoqing.github.io/2013/01/12/mini2440%E5%9F%BA%E4%BA%8Euboot%E7%9A%84TFTP%E4%B8%8B%E8%BD%BD%E6%95%99%E7%A8%8B/</loc>
+    
+    <lastmod>2017-11-29T13:23:03.959Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fengguoqing.github.io/2013/01/12/ACPI-DEBUG%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2017-11-29T13:22:40.372Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fengguoqing.github.io/2013/01/10/ACPI%E8%A7%84%E8%8C%83%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2017-11-29T11:31:02.682Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fengguoqing.github.io/2014/04/20/%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85redmine/</loc>
     
     <lastmod>2017-11-26T02:23:14.838Z</lastmod>
@@ -16,13 +72,6 @@
   </url>
   
   <url>
-    <loc>https://fengguoqing.github.io/2013/03/12/Linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
-    
-    <lastmod>2017-11-26T00:12:34.104Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://fengguoqing.github.io/2014/04/14/Linux-kernel-make-menuconfig-%E6%97%B6%E5%87%BA%E9%94%99%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2017-11-26T00:12:29.166Z</lastmod>
@@ -30,51 +79,9 @@
   </url>
   
   <url>
-    <loc>https://fengguoqing.github.io/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/</loc>
-    
-    <lastmod>2017-11-26T00:12:26.689Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fengguoqing.github.io/2013/01/10/ACPI%E8%A7%84%E8%8C%83%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2017-11-26T00:12:24.307Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fengguoqing.github.io/2013/01/12/ACPI-DEBUG%E6%96%B9%E6%B3%95/</loc>
-    
-    <lastmod>2017-11-26T00:12:21.538Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fengguoqing.github.io/2013/01/12/mini2440%E5%9F%BA%E4%BA%8Euboot%E7%9A%84TFTP%E4%B8%8B%E8%BD%BD%E6%95%99%E7%A8%8B/</loc>
-    
-    <lastmod>2017-11-26T00:12:17.281Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://fengguoqing.github.io/2013/11/07/Ubuntu%E9%BB%98%E8%AE%A4%E5%90%AF%E5%8A%A8%E5%88%B0%E6%96%87%E6%9C%AC%E7%95%8C%E9%9D%A2/</loc>
     
     <lastmod>2017-11-26T00:12:08.638Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fengguoqing.github.io/2013/11/02/%E5%9F%BA%E4%BA%8Elinux-3-10%E7%9A%84yaffs2%E7%A7%BB%E6%A4%8D/</loc>
-    
-    <lastmod>2017-11-26T00:12:03.168Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fengguoqing.github.io/2013/08/29/%E5%A6%82%E4%BD%95%E6%9E%B6%E8%AE%BEGit%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
-    
-    <lastmod>2017-11-25T16:35:22.812Z</lastmod>
     
   </url>
   
@@ -93,13 +100,6 @@
   </url>
   
   <url>
-    <loc>https://fengguoqing.github.io/2013/12/02/%E7%94%9F%E6%88%90%E5%92%8C%E6%89%93%E4%B8%8Apatch%E7%9A%84%E6%96%B9%E6%B3%95/</loc>
-    
-    <lastmod>2017-11-25T16:31:44.009Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://fengguoqing.github.io/2014/02/15/%E8%A7%A3%E5%86%B3%E4%B8%89%E6%98%9F%E6%89%8B%E6%9C%BAWIFI%E2%80%9C%E6%AD%A4%E7%BD%91%E7%BB%9C%E4%B8%8D%E5%8F%AF%E7%94%A8%E3%80%82%E8%AF%81%E4%B9%A6%E5%B7%B2%E5%88%B0%E6%9C%9F%E2%80%9D%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2017-11-25T16:31:28.200Z</lastmod>
@@ -110,13 +110,6 @@
     <loc>https://fengguoqing.github.io/2013/02/08/%E7%AC%94%E8%AE%B0%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%89%8B%E6%9C%BA%E6%B5%81%E9%87%8F%E4%B8%8A%E7%BD%91/</loc>
     
     <lastmod>2017-11-25T10:41:07.679Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fengguoqing.github.io/2017/11/25/hello-world/</loc>
-    
-    <lastmod>2017-11-25T10:37:26.059Z</lastmod>
     
   </url>
   

@@ -6,17 +6,18 @@
   <meta name="keywords" content=" linux移植 ">
   <meta name="description" content="基于linux 3.10的yaffs2移植 | Frank&#39;s Blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troublesho">
+<meta name="description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取">
+<meta name="keywords" content="linux CVE-2013-1763 漏洞">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://fengguoqing.github.io/2017/11/25/hello-world/index.html">
+<meta property="og:title" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">
+<meta property="og:url" content="https://fengguoqing.github.io/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取root权限的。 首先对CVE-2013-1763这个安全漏洞简单介绍一下。 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-25T10:37:26.059Z">
+<meta property="og:updated_time" content="2017-11-26T01:53:26.167Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">
+<meta name="twitter:description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取root权限的。 首先对CVE-2013-1763这个安全漏洞简单介绍一下。 1">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -77,11 +78,13 @@
     
     <li data-rel="其他"> 其他 </li>
     
+    <li data-rel="电源管理"> 电源管理 </li>
+    
 </ul>
 <div class="left-bottom">
     <a class="about" href="/about">关于</a><a class="friends">友链</a>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="17">
+<input type="hidden" id="yelog_site_posts_number" value="16">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -145,22 +148,26 @@
         <a href="javascript:" class="color5">Linux内核调试</a>
     </li>
     
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">ACPI</a>
+    </li>
+    
     <div class="clearfix"></div>
 </div>
 
     <nav>
         
-        <a  class=""
+        <a  class="电源管理 "
            href="/2013/01/12/ACPI-DEBUG方法/"
-           data-tag="功耗"
+           data-tag="功耗,ACPI"
            data-author="" >
             <span class="post-title" title="ACPI DEBUG方法">ACPI DEBUG方法</span>
             <span class="post-date" title="2013-01-12 23:56:24">2013/01/12</span>
         </a>
         
-        <a  class=""
+        <a  class="电源管理 "
            href="/2013/01/10/ACPI规范阅读笔记/"
-           data-tag="功耗"
+           data-tag="功耗,ACPI"
            data-author="" >
             <span class="post-title" title="ACPI规范阅读笔记">ACPI规范阅读笔记</span>
             <span class="post-date" title="2013-01-10 22:09:58">2013/01/10</span>
@@ -180,14 +187,6 @@
            data-author="" >
             <span class="post-title" title="Ubuntu默认启动到文本界面">Ubuntu默认启动到文本界面</span>
             <span class="post-date" title="2013-11-07 10:50:18">2013/11/07</span>
-        </a>
-        
-        <a  class=""
-           href="/2017/11/25/hello-world/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Hello World">Hello World</span>
-            <span class="post-date" title="2017-11-25 21:44:08">2017/11/25</span>
         </a>
         
         <a  class=""
@@ -316,7 +315,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2017-11-26 08:12:03'>2013-11-02 13:07</time>
+        创建时间:<time class="date" title='更新时间: 2017-11-29 21:23:03'>2013-11-02 13:07</time>
         
     </div>
     <div class="article-meta">
@@ -373,8 +372,8 @@ $ ./patch-ker.sh c m ../linux3.10-mini2440`&lt;/pre&gt;
 2\. 然后在linux的源代码fs中多了一个yaffs2的文件夹，到此yaffs2文件系统就已经添加到linux3.10中了。在Linux内核源代码根目录运行：make menuconfig，移动上下按键进行配置：
 
 &lt;pre&gt;`File Systems
-    ---&amp;gt; Miscellaneous filesystems
-        ---&amp;gt; [*]YAFFS2 file system support`&lt;/pre&gt; 并按空格选中它，这样我们就在内核中添加了yaffs2文件系统的支持，按“Exit”退出内核配置。 
+    ---&gt; Miscellaneous filesystems
+        ---&gt; [*]YAFFS2 file system support`&lt;/pre&gt; 并按空格选中它，这样我们就在内核中添加了yaffs2文件系统的支持，按“Exit”退出内核配置。 
 
 3\. 编译linux源代码。
 
@@ -433,8 +432,8 @@ make: *** [fs] Error 2`&lt;/pre&gt;
 -                                         S_IRUGO | S_IFREG, YPROC_ROOT);
 -
         if (my_proc_entry) {
-                my_proc_entry-&amp;gt;write_proc = yaffs_proc_write;
-                my_proc_entry-&amp;gt;read_proc = yaffs_proc_read;
+                my_proc_entry-&gt;write_proc = yaffs_proc_write;
+                my_proc_entry-&gt;read_proc = yaffs_proc_read;
 @@ -3411,7 +3405,7 @@ static int __init init_yaffs_fs(void)
         } else {
                 return -ENOMEM;
@@ -519,7 +518,7 @@ fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer ty
     
     <p><span>本文作者:</span><a href="javascript:void(0)" title="Frank Feng">Frank Feng</a></p>
     <p><span>发布时间:</span>2013-11-02, 13:07:41</p>
-    <p><span>最后更新:</span>2017-11-26, 08:12:03</p>
+    <p><span>最后更新:</span>2017-11-29, 21:23:03</p>
     <span>原始链接:</span><a class="post-url" href="/2013/11/02/基于linux-3-10的yaffs2移植/" title="基于linux 3.10的yaffs2移植">https://fengguoqing.github.io/2013/11/02/基于linux-3-10的yaffs2移植/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -593,7 +592,7 @@ gitalk.render('comments')
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#redmine','#系统安全','#Linux内核调试',],
+            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#redmine','#系统安全','#Linux内核调试','#ACPI',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
@@ -706,15 +705,6 @@ gitalk.render('comments')
     
 
     /*引用块样式*/
-    
-    .post .pjax article blockquote {
-        padding: 10px 20px;
-        background-color: white;
-        border: none;
-        border-left: 4px solid #42b983;
-        border-right: 4px solid #42b983;
-        border-radius: 10px;
-    }
     
 
     /*文章列表背景图*/
