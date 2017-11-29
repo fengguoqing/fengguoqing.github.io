@@ -1,541 +1,917 @@
 <!DOCTYPE html>
-<html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="utf-8">
-  <title>Frank&#39;s Blog</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="Frank&#39;s Blog">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取">
-<meta name="keywords" content="linux CVE-2013-1763 漏洞">
-<meta property="og:type" content="article">
-<meta property="og:title" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">
-<meta property="og:url" content="https://fengguoqing.github.io/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/index.html">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Frank's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Frank&#39;s Blog">
+<meta property="og:url" content="https://fengguoqing.github.io/archives/2013/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取root权限的。 首先对CVE-2013-1763这个安全漏洞简单介绍一下。 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-26T01:53:26.167Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">
-<meta name="twitter:description" content="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析kernel 最近出了一个新的本地提权安全漏洞CVE-2013-1763，影响范围比较广泛，ubuntu，Arch，fedora都受到其影响，漏洞刚公布就有牛人发布了利用该漏洞获取root权限的攻击代码，下面会分析该代码是如何获取root权限的。 首先对CVE-2013-1763这个安全漏洞简单介绍一下。 1">
+<meta name="twitter:title" content="Frank&#39;s Blog">
 
 
-<link rel="icon" href="/img/avatar.jpg">
 
-<link rel="stylesheet" href="/css/style.css">
-
-<link rel="stylesheet" href="/css/hl_theme/atom-dark.css">
-
-<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
-<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="/js/jquery.autocomplete.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
 </script>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+  <link rel="canonical" href="https://fengguoqing.github.io/archives/2013/"/>
+
+
+
+
+
+  <title>归档 | Frank's Blog</title>
+  
+
+
+
+
+
+
 
 
 </head>
-<div style="display: none">
-  <input class="theme_disqus_on" value="false">
-  <input class="theme_preload_comment" value="true">
-</div>
-<body>
-<aside class="nav mobile">
-    <div class="nav-left">
-        <a href="/" class="avatar_target">
-    <img class="avatar" src="/img/avatar.jpg" />
-</a>
-<div class="author">
-    <span>Frank Feng</span>
-</div>
-<div class="icon">
-    
-    <a class="rss" title="rss" href="/atom.xml" target="_blank"></a>
-    
-    
-    <a class="github" title="github" href="https://github.com/fengguoqing" target="_blank"></a>
-    
-    
-    
-    
-    
-    
-    
-    <a class="weibo" title="weibo" href="https://weibo.com/1786812385" target="_blank"></a>
-    
-    
-    <a class="email" title="email" href="mailto:fengguoqing611@gmail.com"></a>
-    
-</div>
-<ul>
-    <li class="all active">全部文章</li>
-    
-    <li data-rel="安全"> 安全 </li>
-    
-    <li data-rel="其他"> 其他 </li>
-    
-    <li data-rel="电源管理"> 电源管理 </li>
-    
-</ul>
-<div class="left-bottom">
-    <a class="about" href="/about">关于</a><a class="friends">友链</a>
-</div>
-<input type="hidden" id="yelog_site_posts_number" value="16">
 
-<div style="display: none">
-    <span id="busuanzi_value_site_uv"></span>
-    <span id="busuanzi_value_site_pv"></span>
-</div>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-archive">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Frank's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
-    <div class="nav-right">
-        <div class="friends-area">
-    <div class="friends-title">
-        友情链接
-        <i class="back-title-list"></i>
-    </div>
-    <div class="friends-content">
-        <ul>
-            
-            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
-            
-        </ul>
-    </div>
-</div>
-        <div class="title-list">
-    <form onkeydown="if(event.keyCode==13){return false;}">
-        <input class="search" type="text" placeholder="Search..." autocomplete="off">
-        <i class="cross"></i>
-        <span>
-        <label for="tagswitch">Tags:</label>
-        <input id="tagswitch" type="checkbox">
-    </span>
-    </form>
-    <div class="tags-list">
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">功耗</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">linux移植</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">日常记录</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">教程</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">linux CVE-2013-1763 漏洞</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">redmine</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">系统安全</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">Linux内核调试</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">ACPI</a>
-    </li>
-    
-    <div class="clearfix"></div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
-    <nav>
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
         
-        <a  class="电源管理 "
-           href="/2013/01/12/ACPI-DEBUG方法/"
-           data-tag="功耗,ACPI"
-           data-author="" >
-            <span class="post-title" title="ACPI DEBUG方法">ACPI DEBUG方法</span>
-            <span class="post-date" title="2013-01-12 23:56:24">2013/01/12</span>
-        </a>
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
         
-        <a  class="电源管理 "
-           href="/2013/01/10/ACPI规范阅读笔记/"
-           data-tag="功耗,ACPI"
-           data-author="" >
-            <span class="post-title" title="ACPI规范阅读笔记">ACPI规范阅读笔记</span>
-            <span class="post-date" title="2013-01-10 22:09:58">2013/01/10</span>
-        </a>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  
+  
+  
+  <div class="post-block archive">
+    <div id="posts" class="posts-collapse">
+      <span class="archive-move-on"></span>
+
+      <span class="archive-page-counter">
         
-        <a  class=""
-           href="/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/"
-           data-tag="linux移植"
-           data-author="" >
-            <span class="post-title" title="Linux kernel make menuconfig 时出错处理方法">Linux kernel make menuconfig 时出错处理方法</span>
-            <span class="post-date" title="2014-04-14 17:53:42">2014/04/14</span>
-        </a>
         
-        <a  class=""
-           href="/2013/11/07/Ubuntu默认启动到文本界面/"
-           data-tag="日常记录"
-           data-author="" >
-            <span class="post-title" title="Ubuntu默认启动到文本界面">Ubuntu默认启动到文本界面</span>
-            <span class="post-date" title="2013-11-07 10:50:18">2013/11/07</span>
-        </a>
         
-        <a  class=""
-           href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="how to install PostgreSQL on ubuntu">how to install PostgreSQL on ubuntu</span>
-            <span class="post-date" title="2013-01-13 00:29:56">2013/01/13</span>
-        </a>
+          
         
-        <a  class="安全 "
-           href="/2016/09/04/linux-kernel-本地提权漏洞CVE-2013-1763-exploit-代码分析/"
-           data-tag="linux CVE-2013-1763 漏洞"
-           data-author="" >
-            <span class="post-title" title="linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析">linux kernel 本地提权漏洞CVE-2013-1763 exploit 代码分析</span>
-            <span class="post-date" title="2016-09-04 20:52:20">2016/09/04</span>
-        </a>
+        嗯..! 目前共计 16 篇日志。 继续努力。
+      </span>
+
+      
+
         
-        <a  class=""
-           href="/2013/01/12/mini2440基于uboot的TFTP下载教程/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="mini2440基于uboot的TFTP下载教程">mini2440基于uboot的TFTP下载教程</span>
-            <span class="post-date" title="2013-01-12 00:04:34">2013/01/12</span>
-        </a>
         
-        <a  class="其他 "
-           href="/2014/04/20/在ubuntu上安装redmine/"
-           data-tag="redmine"
-           data-author="" >
-            <span class="post-title" title="在ubuntu上安装redmine">在ubuntu上安装redmine</span>
-            <span class="post-date" title="2014-04-20 16:33:52">2014/04/20</span>
-        </a>
         
-        <a  class=""
-           href="/2013/11/02/基于linux-3-10的yaffs2移植/"
-           data-tag="linux移植"
-           data-author="" >
-            <span class="post-title" title="基于linux 3.10的yaffs2移植">基于linux 3.10的yaffs2移植</span>
-            <span class="post-date" title="2013-11-02 13:07:41">2013/11/02</span>
-        </a>
+
         
-        <a  class=""
-           href="/2013/08/29/如何架设Git服务器/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="如何架设Git服务器">如何架设Git服务器</span>
-            <span class="post-date" title="2013-08-29 10:49:10">2013/08/29</span>
-        </a>
+          
+          <div class="collection-title">
+            <h1 class="archive-year" id="archive-year-2013">2013</h1>
+          </div>
         
-        <a  class=""
-           href="/2013/06/22/建立网站的一般步骤/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="建立网站的一般步骤">建立网站的一般步骤</span>
-            <span class="post-date" title="2013-06-22 20:22:22">2013/06/22</span>
-        </a>
         
-        <a  class=""
-           href="/2014/01/19/某些TP-Link路由器可以被远程获取密码/"
-           data-tag="系统安全"
-           data-author="" >
-            <span class="post-title" title="某些TP-Link路由器可以被远程获取密码">某些TP-Link路由器可以被远程获取密码</span>
-            <span class="post-date" title="2014-01-19 17:59:38">2014/01/19</span>
-        </a>
+
         
-        <a  class=""
-           href="/2013/12/02/生成和打上patch的方法/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="生成和打上patch的方法">生成和打上patch的方法</span>
-            <span class="post-date" title="2013-12-02 13:24:16">2013/12/02</span>
-        </a>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
         
-        <a  class=""
-           href="/2013/02/08/笔记本使用手机流量上网/"
-           data-tag="教程"
-           data-author="" >
-            <span class="post-title" title="笔记本使用手机流量上网">笔记本使用手机流量上网</span>
-            <span class="post-date" title="2013-02-08 23:22:49">2013/02/08</span>
-        </a>
+            <a class="post-title-link" href="/2013/12/02/生成和打上patch的方法/" itemprop="url">
+              
+                <span itemprop="name">生成和打上patch的方法</span>
+              
+            </a>
         
-        <a  class=""
-           href="/2014/02/15/解决三星手机WIFI“此网络不可用。证书已到期”方法/"
-           data-tag="日常记录"
-           data-author="" >
-            <span class="post-title" title="解决三星手机WIFI“此网络不可用。证书已到期”方法">解决三星手机WIFI“此网络不可用。证书已到期”方法</span>
-            <span class="post-date" title="2014-02-15 18:11:22">2014/02/15</span>
-        </a>
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-12-02T13:24:16+08:00"
+              content="2013-12-02" >
+          12-02
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
         
-        <a  class=""
-           href="/2013/03/12/Linux内核调试方法总结/"
-           data-tag="Linux内核调试"
-           data-author="" >
-            <span class="post-title" title="Linux内核调试方法总结">Linux内核调试方法总结</span>
-            <span class="post-date" title="2013-03-12 16:25:59">2013/03/12</span>
-        </a>
         
-    </nav>
-</div>
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/11/07/Ubuntu默认启动到文本界面/" itemprop="url">
+              
+                <span itemprop="name">Ubuntu默认启动到文本界面</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-11-07T10:50:18+08:00"
+              content="2013-11-07" >
+          11-07
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/11/02/基于linux-3-10的yaffs2移植/" itemprop="url">
+              
+                <span itemprop="name">基于linux 3.10的yaffs2移植</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-11-02T13:07:41+08:00"
+              content="2013-11-02" >
+          11-02
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/08/29/如何架设Git服务器/" itemprop="url">
+              
+                <span itemprop="name">如何架设Git服务器</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-08-29T10:49:10+08:00"
+              content="2013-08-29" >
+          08-29
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/06/22/建立网站的一般步骤/" itemprop="url">
+              
+                <span itemprop="name">建立网站的一般步骤</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-06-22T20:22:22+08:00"
+              content="2013-06-22" >
+          06-22
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/03/12/Linux内核调试方法总结/" itemprop="url">
+              
+                <span itemprop="name">Linux内核调试方法总结</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-03-12T16:25:59+08:00"
+              content="2013-03-12" >
+          03-12
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/02/08/笔记本使用手机流量上网/" itemprop="url">
+              
+                <span itemprop="name">笔记本使用手机流量上网</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-02-08T23:22:49+08:00"
+              content="2013-02-08" >
+          02-08
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/" itemprop="url">
+              
+                <span itemprop="name">how to install PostgreSQL on ubuntu</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-01-13T00:29:56+08:00"
+              content="2013-01-13" >
+          01-13
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/01/12/ACPI-DEBUG方法/" itemprop="url">
+              
+                <span itemprop="name">ACPI DEBUG方法</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-01-12T23:56:24+08:00"
+              content="2013-01-12" >
+          01-12
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2013/01/12/mini2440基于uboot的TFTP下载教程/" itemprop="url">
+              
+                <span itemprop="name">mini2440基于uboot的TFTP下载教程</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-01-12T00:04:34+08:00"
+              content="2013-01-12" >
+          01-12
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
     </div>
-    <div class="hide-list">
-        <div class="semicircle">
-            <div class="brackets first"><</div>
-            <div class="brackets">&gt;</div>
+  </div>
+  
+  
+  
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/archives/2013/page/2/">2</a><a class="extend next" rel="next" href="/archives/2013/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+
+          </div>
+          
+
+
+          
+
         </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
-</aside>
-<div class="post">
-    <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+  </div>
+
+  <aside id="sidebar" class="sidebar">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-Blog"><span class="toc-text">Why Blog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对博客的理解"><span class="toc-text">对博客的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于叶落阁"><span class="toc-text">关于叶落阁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#博客平台"><span class="toc-text">博客平台</span></a></li></ol></li></ol>
-    
-<style>
-    .left-col .switch-btn,
-    .left-col .switch-area {
-        display: none;
-    }
-    .toc-level-3 i,
-    .toc-level-3 ol {
-        display: none !important;
-    }
-</style>
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Frank Feng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank Feng</span>
+
+  
 </div>
-            <h1 id="Why-Blog"><a href="#Why-Blog" class="headerlink" title="Why Blog"></a>Why Blog</h1><h2 id="对博客的理解"><a href="#对博客的理解" class="headerlink" title="对博客的理解"></a>对博客的理解</h2><p>喜欢写Blog的人，会经历三个阶段。</p>
-<blockquote>
-<p>第一阶段，刚接触Blog，觉得很新鲜，试着选择一个免费空间来写。</p>
-<p>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</p>
-<p>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</p>
-</blockquote>
-<p>我们每个人的在网络上产生的数据越来越多，这些信息是我们在互联网上存在过的痕迹，值得我们认真对待。但是它们被分散分布在各个网站上。很多时候我们很难将它们聚合在一起，而且各个网站的信息排布方式也没有办法自由控制，所以我们需要一个可以由自己主宰的空间——博客。</p>
-<p>通过博客，我们可以记录自己的生活和成长的轨迹。它不像 Twitter 那样碎片化，也不像 Facebook 那样关系化，它是私人的空间。</p>
-<h2 id="关于叶落阁"><a href="#关于叶落阁" class="headerlink" title="关于叶落阁"></a>关于叶落阁</h2><p><strong>叶落阁</strong> 是阿杰（杨玉杰）的个人站。</p>
-<p>到目前为止已经写了<code class="article_number"></code>篇文章， 共<code class="site_word_count"></code>字。</p>
-<p>本站访问人数：<code class="site_uv"></code>人次 ， 访问量：<code class="site_pv"></code>次</p>
-<h2 id="博客平台"><a href="#博客平台" class="headerlink" title="博客平台"></a>博客平台</h2><p>这个博客通过 <a href="https://hexo.io/">Hexo</a> 生成，部署在 <a href="https://pages.github.com/">GitHub Pages</a>，主题 <a href="https://github.com/yelog/hexo-theme-3-hexo">3-hexo</a> 已经在github上开源</p>
-<p>主要功能：</p>
-<ul>
-<li>搜索支持文章标题、标签(#标签)、作者(@作者)</li>
-<li>pad/手机等移动端适配</li>
-<li>页面全局快捷键 <a href='http://yelog.org/2017/03/24/3-hexo-shortcuts/'>3-hexo快捷键说明</a></li>
-</ul>
 
-        </article>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
         
-        <p>
-            <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
-        </p>
+
+
+
+
+
+
+
         
-        
+      </div>
+    </footer>
+
     
-        <div id="comments"></div>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
 
-<script src="/js/gitalk.js"></script>
+    
+
+  </div>
+
+  
+
 <script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: '0ca591cbd574403caa05',
-        clientSecret: '7528dfe6f91bb9293827feb0cad3bc6e8d63d3ed',
-        repo: 'fengguoqing.github.io',
-        owner: 'true',
-        admin: ['fengguoqing'],
-        id: location.pathname,
-        distractionFreeMode: 'true',
-        language: 'zh-CN',
-        perPage: parseInt('10',10)
-    })
-gitalk.render('comments')
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
-    
 
-    </div>
-    <div class="copyright">
-        <p class="footer-entry">©2017 Frank Feng</p>
-<p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
-    </div>
-    <div class="full-toc">
-        <button class="full"><span class="min "></span></button>
-<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
-<div class="post-toc"><span class="post-toc-title">目录</span>
-    <div class="post-toc-content">
 
-    </div>
-</div>
-<a class="" id="rocket" href="javascript:void(0)"></a>
-    </div>
-</div>
-<div class="acParent"></div>
-<div class="hide_box" onclick="dashangToggle()"></div>
-<div class="shang_box">
-    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
-    <div class="shang_tit">
-        <p>喜欢就点赞,疼爱就打赏</p>
-    </div>
-    <div class="shang_payimg">
-        <div class="pay_img">
-            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
-            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
-        </div>
-    </div>
-    <div class="shang_payselect">
-        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
-    </div>
-</div>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
-<script src="/js/script.js"></script>
-<script>
-    /*作者、标签的自动补全*/
-    $(function () {
-        $('.search').AutoComplete({
-            'data': ['#功耗','#linux移植','#日常记录','#教程','#linux CVE-2013-1763 漏洞','#redmine','#系统安全','#Linux内核调试','#ACPI',],
-            'itemHeight': 20,
-            'width': 418
-        }).AutoComplete('show');
-    })
-    function initArticle() {
-        /*渲染对应的表格样式*/
-        
-            $(".post .pjax table").addClass("green_title");
-        
-
-        /*渲染打赏样式*/
-        
-        $("input[name=pay]").on("click", function () {
-            if($("input[name=pay]:checked").val()=="weixin"){
-                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
-            } else {
-                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
-            }
-        })
-        
-
-        /*高亮代码块行号*/
-        
-        $('pre code').each(function(){
-            var lines = $(this).text().split('\n').length - 1;
-            var $numbering = $('<ul/>').addClass('pre-numbering').attr("unselectable","on");
-            $(this).addClass('has-numbering')
-                    .parent()
-                    .append($numbering);
-            for(i=1;i<=lines;i++){
-                $numbering.append($('<li/>').text(i));
-            }
-        });
-        
-
-        /*访问数量*/
-        
-        $.getScript("//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js");
-        
-
-        /*代码高亮，行号对齐*/
-        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
-    }
-
-    /*打赏页面隐藏与展示*/
-    
-    function dashangToggle() {
-        $(".shang_box").fadeToggle();
-        $(".hide_box").fadeToggle();
-    }
-    
-</script>
-
-<!--加入行号的高亮代码块样式-->
-
-<style>
-    pre{
-        position: relative;
-        margin-bottom: 24px;
-        border-radius: 10px;
-        border: 2px solid #e2dede;
-        background: #FFF;
-        overflow: hidden;
-    }
-    code.has-numbering{
-        margin-left: 30px;
-    }
-    .pre-numbering{
-        margin: 0px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 20px;
-        padding: 0.5em 3px 0.7em 5px;
-        border-right: 1px solid #C3CCD0;
-        text-align: right;
-        color: #AAA;
-        background-color: ;
-    }
-</style>
-
-<!--自定义样式设置-->
-<style>
-    
-    .nav-right nav a.hover{
-        background-color: #e2e0e0;
-    }
-    
-    
-
-    /*列表样式*/
-    
-    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
-        border: #e2dede solid 2px;
-        border-radius: 10px;
-        padding: 10px 32px 10px 56px;
-    }
-    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
-        margin-bottom: auto;
-        margin-left: auto;
-    }
-    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
-        margin-bottom: auto;
-        margin-left: auto;
-    }
-    
-
-    /*引用块样式*/
-    
-
-    /*文章列表背景图*/
-    
-    .nav-right:before {
-        content: ' ';
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.1;
-        background: url("http://oncj6b2vl.bkt.clouddn.com/FlSExUGfRSaqxkK5v42CpuI-tXAL.jpg");
-        background-repeat: no-repeat;
-        background-position: 50% 0;
-        -ms-background-size: cover;
-        -o-background-size: cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        background-size: cover;
-    }
-    
-</style>
 </html>
