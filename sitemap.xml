@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fengguoqing.github.io/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/</loc>
+    
+    <lastmod>2017-12-02T05:09:13.233Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fengguoqing.github.io/2013/01/10/ACPI%E8%A7%84%E8%8C%83%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2017-11-29T16:26:59.796Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>https://fengguoqing.github.io/2013/12/02/%E7%94%9F%E6%88%90%E5%92%8C%E6%89%93%E4%B8%8Apatch%E7%9A%84%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2017-11-29T13:23:03.978Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fengguoqing.github.io/2013/01/13/how-to-install-PostgreSQL-on-ubuntu/</loc>
-    
-    <lastmod>2017-11-29T13:23:03.967Z</lastmod>
     
   </url>
   
