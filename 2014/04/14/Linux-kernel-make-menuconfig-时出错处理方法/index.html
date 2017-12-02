@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误： $makemenuconfig HOSTLDscripts/kconfig/mconf scripts/kconfig/mconf.o:Infunction`show_help&amp;apos;: mconf.c:(.text+0">
+<meta name="description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误：1234567891011121314$makemenuconfigHOSTLDscripts/kconfig/mconfscripts/kconfig/mconf.o:Infunction`show_help&apos;:mconf">
 <meta name="keywords" content="linux移植">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux kernel make menuconfig 时出错处理方法">
 <meta property="og:url" content="https://fengguoqing.github.io/2014/04/14/Linux-kernel-make-menuconfig-时出错处理方法/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误： $makemenuconfig HOSTLDscripts/kconfig/mconf scripts/kconfig/mconf.o:Infunction`show_help&amp;apos;: mconf.c:(.text+0x8a4):undefinedreferenceto`stdscr&amp;apos; scri">
+<meta property="og:description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误：1234567891011121314$makemenuconfigHOSTLDscripts/kconfig/mconfscripts/kconfig/mconf.o:Infunction`show_help&apos;:mconf.c:(.text+0x8a4):undefinedreferenceto`stdscr&apos;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-26T00:12:29.166Z">
+<meta property="og:updated_time" content="2017-12-02T05:16:44.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux kernel make menuconfig 时出错处理方法">
-<meta name="twitter:description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误： $makemenuconfig HOSTLDscripts/kconfig/mconf scripts/kconfig/mconf.o:Infunction`show_help&amp;apos;: mconf.c:(.text+0x8a4):undefinedreferenceto`stdscr&amp;apos; scri">
+<meta name="twitter:description" content="在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误：1234567891011121314$makemenuconfigHOSTLDscripts/kconfig/mconfscripts/kconfig/mconf.o:Infunction`show_help&apos;:mconf.c:(.text+0x8a4):undefinedreferenceto`stdscr&apos;">
 
 
 
@@ -275,6 +275,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -302,28 +324,9 @@
       
 
       
-        <p>在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误：</p>
-<pre><code>$makemenuconfig
-HOSTLDscripts/kconfig/mconf
-scripts/kconfig/mconf.o:Infunction`show_help&apos;:
-mconf.c:(.text+0x8a4):undefinedreferenceto`stdscr&apos;
-scripts/kconfig/lxdialog/checklist.o:Infunction`print_arrows&apos;:
-checklist.c:(.text+0x41):undefinedreferenceto`wmove&apos;
-checklist.c:(.text+0x61):undefinedreferenceto`acs_map&apos;
-......
-menubox.c:(.text+0x3a9):undefinedreferenceto`wrefresh&apos;
-scripts/kconfig/lxdialog/menubox.o:Infunction`print_buttons&apos;:
-menubox.c:(.text+0x4ef):undefinedreferenceto`wrefresh&apos;
-collect2:ldreturned1exitstatus
-make[1]:***[scripts/kconfig/mconf]Error1
-make:***[menuconfig]Error2`&lt;/pre&gt; 
+        <p>在Ubuntu 12.04的环境下编译最新的linux 3.14代码时出现下面的错误：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>makemenuconfig</span><br><span class="line">HOSTLDscripts/kconfig/mconf</span><br><span class="line">scripts/kconfig/mconf.o:Infunction`show_help':</span><br><span class="line">mconf.c:(.text+0x8a4):undefinedreferenceto`stdscr'</span><br><span class="line">scripts/kconfig/lxdialog/checklist.o:Infunction`print_arrows':</span><br><span class="line">checklist.c:(.text+0x41):undefinedreferenceto`wmove'</span><br><span class="line">checklist.c:(.text+0x61):undefinedreferenceto`acs_map'</span><br><span class="line">......</span><br><span class="line">menubox.c:(.text+0x3a9):undefinedreferenceto`wrefresh'</span><br><span class="line">scripts/kconfig/lxdialog/menubox.o:Infunction`print_buttons':</span><br><span class="line">menubox.c:(.text+0x4ef):undefinedreferenceto`wrefresh'</span><br><span class="line">collect2:ldreturned1exitstatus</span><br><span class="line">make[1]:***[scripts/kconfig/mconf]Error1</span><br><span class="line">make:***[menuconfig]Error2`</span><br></pre></td></tr></table></figure></p>
+<p>由于缺少必要的package，所以出现了编译问题。<br>出现这个问题的处理方法：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoapt-getinstallbuild-essentiallibncurses5libncurses5-dev</span><br></pre></td></tr></table></figure></p>
 
-&lt;span style=&quot;line-height: 23px;&quot;&gt;由于缺少必要的package，所以出现了编译问题。&lt;/span&gt;
-
-&lt;span style=&quot;font-size: 12.5px;&quot;&gt;出现这个问题的处理方法：&lt;/span&gt;
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`sudoapt-getinstallbuild-essentiallibncurses5libncurses5-dev
-</code></pre>
       
     </div>
     
@@ -444,7 +447,7 @@ make:***[menuconfig]Error2`&lt;/pre&gt;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
