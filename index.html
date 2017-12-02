@@ -1179,61 +1179,37 @@ domain: example.com
           
             <p>在团队开发的过程中，经常需要生成patch，或者打上别人提供的patch，那么一般情况是如何操作的呢。</p>
 <p>首先生成patch需要有两个工程，一个修改前的A工程，一个修改后的B工程。</p>
-<p>使用linux命令diff就可以生成patch了。格式如下：</p>
-<pre><code>diff-Naurpath/to/A_Projectpath/to/B_Project&gt;Project.patch`&lt;/pre&gt; 
-
- **-N**选项确保补丁文件将正确地处理已经创建或删除文件的情况。
-
- **-a** 将所有文件都当作文本文件处理。
-
- **-u**输出每个修改前后的3行，也可以用-u5等指定输出更多上下文。
-
- **-r**递归。设置后diff会将两个不同版本源代码目录中的所有对应文件全部都进行一次比较，包括子目录文件。
-
-生成patch以后，在修改前A工程根目录下使用patch命令打上patch。
-
-&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`$cdpath/to/A_Project
-$patch-p1&lt;Project.patch`&lt;/pre&gt; 
-
-**  -p Num**忽略几层文件夹
-
-&lt;span style=&quot;line-height:1.5;font-size:10pt;&quot;&gt;为了解释&lt;/span&gt;&lt;span style=&quot;line-height:1.5;font-size:10pt;&quot;&gt;-p&lt;/span&gt;&lt;span style=&quot;line-height:1.5;font-size:10pt;&quot;&gt;参数，需要看看如下patch文件片段：&lt;/span&gt; 
-
-&lt;pre class=&quot;diff source-diff&quot;&gt;`---old/modules/pcitableMonSep2711:03:561999+++new/modules/pcitableTueDec1920:05:412000`&lt;/pre&gt; 
-
-如果使用参数-p0，那就表示从当前目录找一个叫做old的文件夹，再在它下面寻找modules/pcitable文件来执行patch操作。
- 而如果使用参数-p1，那就表示忽略第一层目录（即不管old），从当前目录寻找modules的文件夹，再在它下面找pcitable。
-
-如果要取消补丁做出的更改，恢复旧版本，在A工程的根目录下执行以下命令，A工程就会恢复成没有打patch的样子：
-
-&lt;pre class=&quot;bash source-bash&quot;&gt;`$patch-RE-p0&lt;Project.patch`&lt;/pre&gt; 
-
-由Git管理的工程处理patch的方法：
-
-【生成patch】
-
-分支master 上是没修改前的，分支patch 上是修改以后的打patch的。
-
-1\. 先切换到 patch分支
-
-&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`gitcheckoutpatch`&lt;/pre&gt; 
-
-2\. 生成patch
-
-&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`gitformat-patch-Mmaster`&lt;/pre&gt; 
-
-&lt;span style=&quot;line-height:1.5;&quot;&gt;会生成一个文件名如：0002-Release-version-1.4.6.patch 的patch文件&lt;/span&gt; 
-
-&lt;span style=&quot;line-height:1.5;&quot;&gt;【合并patch】&lt;/span&gt; 
-
-拿到patch以后，执行下面的命令：
-
-&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`gitam0002-Release-version-1.4.6.patch`&lt;/pre&gt; 
-
-如果不想直接commit，那么可以用下面这个命令打patch：
-
-&lt;pre class=&quot;brush:shell; toolbar: true; auto-links: false;&quot;&gt;`patch-p1&lt;0002-Release-version-1.4.6.patch
-</code></pre><p>然后手动commit。</p>
+<p>使用linux命令diff就可以生成patch了。格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diff -Naur path/to/A_Project  path/to/B_Project &gt; Project.patch</span><br></pre></td></tr></table></figure></p>
+<p>  <strong>-N</strong> 选项确保补丁文件将正确地处理已经创建或删除文件的情况。<br>  <strong>-a</strong> 将所有文件都当作文本文件处理。<br>  <strong>-u</strong> 输出每个修改前后的3行，也可以用-u5等指定输出更多上下文。<br>  <strong>-r</strong> 递归。设置后diff会将两个不同版本源代码目录中的所有对应文件全部都进行一次比较，包括子目录文件。</p>
+<p>生成patch以后，在修改前A工程根目录下使用patch命令打上patch。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd path/to/A_Project</span><br><span class="line">$ patch -p1 &lt; Project.patch</span><br><span class="line">    -p Num 忽略几层文件夹</span><br></pre></td></tr></table></figure></p>
+<p>为了解释 -p 参数，需要看看如下patch文件片段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- old/modules/pcitable       Mon Sep 27 11:03:56 1999                                          +++ new/modules/pcitable       Tue Dec 19 20:05:41 2000</span><br></pre></td></tr></table></figure></p>
+<p>如果使用参数 -p0，那就表示从当前目录找一个叫做old的文件夹，再在它下面寻找 modules/pcitable 文件来执行patch操作。<br>而如果使用参数 -p1，那就表示忽略第一层目录（即不管old），从当前目录寻找 modules 的文件夹，再在它下面找pcitable。</p>
+<p>如果要取消补丁做出的更改，恢复旧版本，在A工程的根目录下执行以下命令，A工程就会恢复成没有打patch的样子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ patch -RE -p0 &lt; Project.patch</span><br></pre></td></tr></table></figure></p>
+<p>由Git管理的工程处理patch的方法：</p>
+<p>【生成patch】</p>
+<p>分支master 上是没修改前的，分支patch 上是修改以后的打patch的。</p>
+<ol>
+<li><p>先切换到 patch分支</p>
+<blockquote>
+<p>git checkout patch</p>
+</blockquote>
+</li>
+<li><p>生成patch</p>
+<blockquote>
+<p>git format-patch -M master</p>
+</blockquote>
+</li>
+</ol>
+<p>会生成一个文件名如：0002-Release-version-1.4.6.patch 的patch文件</p>
+<p>【合并patch】<br>拿到patch以后，执行下面的命令：</p>
+<blockquote>
+<p>git am 0002-Release-version-1.4.6.patch</p>
+</blockquote>
+<p>如果不想直接commit，那么可以用下面这个命令打patch：</p>
+<blockquote>
+<p>patch -p1 &lt; 0002-Release-version-1.4.6.patch</p>
+</blockquote>
+<p>然后手动commit。</p>
 
           
         
@@ -1849,8 +1825,8 @@ $patch-p1&lt;Project.patch`&lt;/pre&gt;
         
           
             <p>前一段时间在学习怎么建立一个属于自己的网站，现在将这个过程分享给大家，其实建立网站也是很简单的。</p>
-<h1 id="1-申请域名"><a href="#1-申请域名" class="headerlink" title="1. 申请域名"></a>1. 申请域名</h1><p>域名就是你网站的网址，取一个比较简洁易记有意义的域名，然后到<a href="https://mya.godaddy.com/" target="_blank" rel="noopener">https://mya.godaddy.com/</a>上注册一个账号，就可以在上面申请属于你的域名了。申请顶级域名是需要付费的，一般价格如下表所示，也有部分比较好的域名价格很贵。如果你无法直接在该网站购买域名，那么你先挑选好域名之后到淘宝上请别人帮你购买。<br><img src="http://static.oschina.net/uploads/img/201306/22202219_Z1xc.png" alt="image" title="image"></p>
-<h1 id="2-空间"><a href="#2-空间" class="headerlink" title="2. 空间"></a>2. 空间</h1><p>空间就是放置网站代码和数据的地方。可以到淘宝上买空间，国外的空间访问可能会比较慢，最好买香港的空间，这样就不需要备案，买空间的时候注意该空间支持的服务器脚本语言，数据库，以及空间大小和数据库大小。 可以先买一个小空间（比如100M）用着，以后比较熟悉了再换。<br><img src="http://static.oschina.net/uploads/img/201306/22202220_sK8S.png" alt="image" title="image"></p>
+<h1 id="1-申请域名"><a href="#1-申请域名" class="headerlink" title="1. 申请域名"></a>1. 申请域名</h1><p>域名就是你网站的网址，取一个比较简洁易记有意义的域名，然后到<a href="https://mya.godaddy.com/" target="_blank" rel="noopener">https://mya.godaddy.com/</a>上注册一个账号，就可以在上面申请属于你的域名了。申请顶级域名是需要付费的，一般价格如下表所示，也有部分比较好的域名价格很贵。如果你无法直接在该网站购买域名，那么你先挑选好域名之后到淘宝上请别人帮你购买。<br><img src="http://static.oschina.net/uploads/img/201306/22202219_Z1xc.png" alt="image"></p>
+<h1 id="2-空间"><a href="#2-空间" class="headerlink" title="2. 空间"></a>2. 空间</h1><p>空间就是放置网站代码和数据的地方。可以到淘宝上买空间，国外的空间访问可能会比较慢，最好买香港的空间，这样就不需要备案，买空间的时候注意该空间支持的服务器脚本语言，数据库，以及空间大小和数据库大小。 可以先买一个小空间（比如100M）用着，以后比较熟悉了再换。<br><img src="http://static.oschina.net/uploads/img/201306/22202220_sK8S.png" alt="image"></p>
 <h1 id="3-CMS"><a href="#3-CMS" class="headerlink" title="3. CMS"></a>3. CMS</h1><p>利用CMS可以帮你快速建立网站，推荐的CMS有：<a href="http://www.phome.net/" target="_blank" rel="noopener">帝国CMS</a>，<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">Wordpress</a>，<a href="http://www.dedecms.com/" target="_blank" rel="noopener">织梦CMS</a>，<a href="https://drupal.org/home" target="_blank" rel="noopener">Drupal</a>等，建议先安装帝国CMS，因为它会帮你直接将apache和php5安装。如果你要建立个人博客网站，那么<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">Wordpress</a>是一个不错的选择。</p>
 <p><img src="http://static.oschina.net/uploads/img/201306/22202423_NfFT.png" alt="image" title="帝国CMS安装目录"></p>
 <p><img src="http://static.oschina.net/uploads/img/201306/22202424_feG4.png" alt="image" title="Wordpress后台管理界面"></p>
