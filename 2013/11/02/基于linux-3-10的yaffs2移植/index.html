@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。 1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给li">
+<meta name="description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。  首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linu">
 <meta name="keywords" content="linux移植">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于linux 3.10的yaffs2移植">
 <meta property="og:url" content="https://fengguoqing.github.io/2013/11/02/基于linux-3-10的yaffs2移植/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。 1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。 $ git clone git://www.ale">
+<meta property="og:description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。  首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。 123$ git clone git://www.al">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-29T13:23:03.965Z">
+<meta property="og:updated_time" content="2017-12-02T07:20:50.977Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于linux 3.10的yaffs2移植">
-<meta name="twitter:description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。 1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。 $ git clone git://www.ale">
+<meta name="twitter:description" content="最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。  首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。 123$ git clone git://www.al">
 
 
 
@@ -275,6 +275,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -303,144 +325,29 @@
 
       
         <p>最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。</p>
-<p>1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。</p>
-<pre><code>$ git clone git://www.aleph1.co.uk/yaffs2
-$ cd yaffs2/
-$ ./patch-ker.sh c m ../linux3.10-mini2440`&lt;/pre&gt; 
+<ol>
+<li><p>首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git://www.aleph1.co.uk/yaffs2</span><br><span class="line">$ cd yaffs2/</span><br><span class="line">$ ./patch-ker.sh c m ../linux3.10-mini2440</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后在linux的源代码fs中多了一个yaffs2的文件夹，到此yaffs2文件系统就已经添加到linux3.10中了。在Linux内核源代码根目录运行：make menuconfig，移动上下按键进行配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`File Systems</span><br><span class="line">	---&gt; Miscellaneous filesystems</span><br><span class="line">		---&gt; [*]YAFFS2 file system support</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>并按空格选中它，这样我们就在内核中添加了yaffs2文件系统的支持，按“Exit”退出内核配置。 </p>
+<ol>
+<li>编译linux源代码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ make zImage</span><br><span class="line">scripts/kconfig/conf --silentoldconfig Kconfig</span><br><span class="line">  CHK     include/generated/uapi/linux/version.h</span><br><span class="line">  CHK     include/generated/utsrelease.h</span><br><span class="line">make[1]: `include/generated/mach-types.h&apos; is up to date.</span><br><span class="line">  CALL    scripts/checksyscalls.sh</span><br><span class="line">  CC      scripts/mod/devicetable-offsets.s</span><br><span class="line">  GEN     scripts/mod/devicetable-offsets.h</span><br><span class="line">  HOSTCC  scripts/mod/file2alias.o</span><br><span class="line">  HOSTLD  scripts/mod/modpost</span><br><span class="line">  CHK     include/generated/compile.h</span><br><span class="line">  CC      fs/yaffs2/yaffs_ecc.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_vfs.o</span><br><span class="line">fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast</span><br><span class="line">fs/yaffs2/yaffs_vfs.c: In function &apos;init_yaffs_fs&apos;:</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3398: error: implicit declaration of function &apos;create_proc_entry&apos;</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3399: warning: assignment makes pointer from integer without a cast</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3402: error: dereferencing pointer to incomplete type</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3403: error: dereferencing pointer to incomplete type</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3404: error: dereferencing pointer to incomplete type</span><br><span class="line">make[2]: *** [fs/yaffs2/yaffs_vfs.o] Error 1</span><br><span class="line">make[1]: *** [fs/yaffs2] Error 2</span><br><span class="line">make: *** [fs] Error 2`&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>编译fs/yaffs2/yaffs_vfs.c时出现错误，function ‘create_proc_entry’没有申明。Google之后才知道原来这个接口在linux-3.10被删除了，应该使用proc_create代替。</p>
+<p>参考：<a href="https://lwn.net/Articles/549737/" target="_blank" rel="noopener">What’s coming in 3.10, part 2</a></p>
+<ol>
+<li><p>修改fs/yaffs2/yaffs_vfs.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">@@ <span class="number">-3384</span>,<span class="number">12</span> +<span class="number">3384</span>,<span class="number">6</span> @@ <span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_system_to_install</span> <span class="title">fs_to_install</span>[] = &#123;</span></span><br><span class="line">        &#123;<span class="literal">NULL</span>, <span class="number">0</span>&#125;</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">static</span> <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">yaffs_fops</span> = &#123;</span></span><br><span class="line">+        .owner = THIS_MODULE,</span><br><span class="line">+        .read = yaffs_proc_read,</span><br><span class="line">+        .write = yaffs_proc_write,</span><br><span class="line">+&#125;;</span><br><span class="line">+</span><br><span class="line"> <span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">init_yaffs_fs</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> error = <span class="number">0</span>;</span><br><span class="line">@@ <span class="number">-3401</span>,<span class="number">9</span> +<span class="number">3395</span>,<span class="number">9</span> @@ <span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">init_yaffs_fs</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function">        <span class="title">mutex_init</span><span class="params">(&amp;yaffs_context_lock)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Install the proc_fs entries */</span></span><br><span class="line">+       my_proc_entry = proc_create(<span class="string">"yaffs"</span>,</span><br><span class="line">+                                         S_IRUGO | S_IFREG, YPROC_ROOT, &amp;yaffs_fops);</span><br><span class="line">+<span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">-       my_proc_entry = create_proc_entry(<span class="string">"yaffs"</span>,</span><br><span class="line">-                                         S_IRUGO | S_IFREG, YPROC_ROOT);</span><br><span class="line">-</span><br><span class="line">        <span class="keyword">if</span> (my_proc_entry) &#123;</span><br><span class="line">                my_proc_entry-&gt;write_proc = yaffs_proc_write;</span><br><span class="line">                my_proc_entry-&gt;read_proc = yaffs_proc_read;</span><br><span class="line">@@ <span class="number">-3411</span>,<span class="number">7</span> +<span class="number">3405</span>,<span class="number">7</span> @@ <span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">init_yaffs_fs</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line">        &#125; else &#123;</span><br><span class="line">                <span class="keyword">return</span> -ENOMEM;</span><br><span class="line">         &#125;</span><br><span class="line">+<span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">-</span><br><span class="line">        <span class="comment">/* Now add the file system entries */</span></span><br><span class="line"></span><br><span class="line">        fsinst = fs_to_install;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改之后保存，然后再编译就可以成功了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">$ make zImage</span><br><span class="line">  CHK     include/generated/uapi/linux/version.h</span><br><span class="line">  CHK     include/generated/utsrelease.h</span><br><span class="line">make[1]: `include/generated/mach-types.h&apos; is up to date.</span><br><span class="line">  CALL    scripts/checksyscalls.sh</span><br><span class="line">  CC      scripts/mod/devicetable-offsets.s</span><br><span class="line">  GEN     scripts/mod/devicetable-offsets.h</span><br><span class="line">  HOSTCC  scripts/mod/file2alias.o</span><br><span class="line">  HOSTLD  scripts/mod/modpost</span><br><span class="line">  CHK     include/generated/compile.h</span><br><span class="line">  CC      fs/yaffs2/yaffs_vfs.o</span><br><span class="line">fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast</span><br><span class="line">fs/yaffs2/yaffs_vfs.c: At top level:</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3389: warning: initialization from incompatible pointer type</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer type</span><br><span class="line">  CC      fs/yaffs2/yaffs_guts.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_checkptrw.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_packedtags1.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_packedtags2.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_nand.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_tagscompat.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_tagsmarshall.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_mtdif.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_nameval.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_attribs.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_allocator.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_yaffs1.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_yaffs2.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_bitmap.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_summary.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_verify.o</span><br><span class="line">  LD      fs/yaffs2/yaffs.o</span><br><span class="line">  LD      fs/yaffs2/built-in.o</span><br><span class="line">  LD      fs/built-in.o</span><br><span class="line">  LINK    vmlinux</span><br><span class="line">  LD      vmlinux.o</span><br><span class="line">  MODPOST vmlinux.o</span><br><span class="line">  GEN     .version</span><br><span class="line">  CHK     include/generated/compile.h</span><br><span class="line">  UPD     include/generated/compile.h</span><br><span class="line">  CC      init/version.o</span><br><span class="line">  LD      init/built-in.o</span><br><span class="line">  KSYM    .tmp_kallsyms1.o</span><br><span class="line">  KSYM    .tmp_kallsyms2.o</span><br><span class="line">  LD      vmlinux</span><br><span class="line">  SORTEX  vmlinux</span><br><span class="line">  SYSMAP  System.map</span><br><span class="line">  OBJCOPY arch/arm/boot/Image</span><br><span class="line">  Kernel: arch/arm/boot/Image is ready</span><br><span class="line">  GZIP    arch/arm/boot/compressed/piggy.gzip</span><br><span class="line">  AS      arch/arm/boot/compressed/piggy.gzip.o</span><br><span class="line">  LD      arch/arm/boot/compressed/vmlinux</span><br><span class="line">  OBJCOPY arch/arm/boot/zImage</span><br><span class="line">  Kernel: arch/arm/boot/zImage is ready</span><br></pre></td></tr></table></figure></li>
+</ol>
 
-2\. 然后在linux的源代码fs中多了一个yaffs2的文件夹，到此yaffs2文件系统就已经添加到linux3.10中了。在Linux内核源代码根目录运行：make menuconfig，移动上下按键进行配置：
-
-&lt;pre&gt;`File Systems
-    ---&gt; Miscellaneous filesystems
-        ---&gt; [*]YAFFS2 file system support`&lt;/pre&gt; 并按空格选中它，这样我们就在内核中添加了yaffs2文件系统的支持，按“Exit”退出内核配置。 
-
-3\. 编译linux源代码。
-
-&lt;pre&gt;`$ make zImage
-scripts/kconfig/conf --silentoldconfig Kconfig
-  CHK     include/generated/uapi/linux/version.h
-  CHK     include/generated/utsrelease.h
-make[1]: `include/generated/mach-types.h&apos; is up to date.
-  CALL    scripts/checksyscalls.sh
-  CC      scripts/mod/devicetable-offsets.s
-  GEN     scripts/mod/devicetable-offsets.h
-  HOSTCC  scripts/mod/file2alias.o
-  HOSTLD  scripts/mod/modpost
-  CHK     include/generated/compile.h
-  CC      fs/yaffs2/yaffs_ecc.o
-  CC      fs/yaffs2/yaffs_vfs.o
-fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:
-fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast
-fs/yaffs2/yaffs_vfs.c: In function &apos;init_yaffs_fs&apos;:
-fs/yaffs2/yaffs_vfs.c:3398: error: implicit declaration of function &apos;create_proc_entry&apos;
-fs/yaffs2/yaffs_vfs.c:3399: warning: assignment makes pointer from integer without a cast
-fs/yaffs2/yaffs_vfs.c:3402: error: dereferencing pointer to incomplete type
-fs/yaffs2/yaffs_vfs.c:3403: error: dereferencing pointer to incomplete type
-fs/yaffs2/yaffs_vfs.c:3404: error: dereferencing pointer to incomplete type
-make[2]: *** [fs/yaffs2/yaffs_vfs.o] Error 1
-make[1]: *** [fs/yaffs2] Error 2
-make: *** [fs] Error 2`&lt;/pre&gt; 
-
-编译fs/yaffs2/yaffs_vfs.c时出现错误，function &apos;create_proc_entry&apos;没有申明。Google之后才知道原来这个接口在linux-3.10被删除了，应该使用proc_create代替。
-
-参考：[What&apos;s coming in 3.10, part 2](https://lwn.net/Articles/549737/)
-
-4\. 修改fs/yaffs2/yaffs_vfs.c
-
-&lt;pre&gt;`@@ -3384,12 +3384,6 @@ static struct file_system_to_install fs_to_install[] = {
-        {NULL, 0}
- };
-
-+static const struct file_operations yaffs_fops = {
-+        .owner = THIS_MODULE,
-+        .read = yaffs_proc_read,
-+        .write = yaffs_proc_write,
-+};
-+
- static int __init init_yaffs_fs(void)
- {
-        int error = 0;
-@@ -3401,9 +3395,9 @@ static int __init init_yaffs_fs(void)
-        mutex_init(&amp;yaffs_context_lock);
-
-        /* Install the proc_fs entries */
-+       my_proc_entry = proc_create(&quot;yaffs&quot;,
-+                                         S_IRUGO | S_IFREG, YPROC_ROOT, &amp;yaffs_fops);
-+#if 0
--       my_proc_entry = create_proc_entry(&quot;yaffs&quot;,
--                                         S_IRUGO | S_IFREG, YPROC_ROOT);
--
-        if (my_proc_entry) {
-                my_proc_entry-&gt;write_proc = yaffs_proc_write;
-                my_proc_entry-&gt;read_proc = yaffs_proc_read;
-@@ -3411,7 +3405,7 @@ static int __init init_yaffs_fs(void)
-        } else {
-                return -ENOMEM;
-         }
-+#endif
--
-        /* Now add the file system entries */
-
-        fsinst = fs_to_install;`&lt;/pre&gt; 
-
-5\. 修改之后保存，然后再编译就可以成功了。
-
-&lt;pre&gt;`$ make zImage
-  CHK     include/generated/uapi/linux/version.h
-  CHK     include/generated/utsrelease.h
-make[1]: `include/generated/mach-types.h&apos; is up to date.
-  CALL    scripts/checksyscalls.sh
-  CC      scripts/mod/devicetable-offsets.s
-  GEN     scripts/mod/devicetable-offsets.h
-  HOSTCC  scripts/mod/file2alias.o
-  HOSTLD  scripts/mod/modpost
-  CHK     include/generated/compile.h
-  CC      fs/yaffs2/yaffs_vfs.o
-fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:
-fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast
-fs/yaffs2/yaffs_vfs.c: At top level:
-fs/yaffs2/yaffs_vfs.c:3389: warning: initialization from incompatible pointer type
-fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer type
-  CC      fs/yaffs2/yaffs_guts.o
-  CC      fs/yaffs2/yaffs_checkptrw.o
-  CC      fs/yaffs2/yaffs_packedtags1.o
-  CC      fs/yaffs2/yaffs_packedtags2.o
-  CC      fs/yaffs2/yaffs_nand.o
-  CC      fs/yaffs2/yaffs_tagscompat.o
-  CC      fs/yaffs2/yaffs_tagsmarshall.o
-  CC      fs/yaffs2/yaffs_mtdif.o
-  CC      fs/yaffs2/yaffs_nameval.o
-  CC      fs/yaffs2/yaffs_attribs.o
-  CC      fs/yaffs2/yaffs_allocator.o
-  CC      fs/yaffs2/yaffs_yaffs1.o
-  CC      fs/yaffs2/yaffs_yaffs2.o
-  CC      fs/yaffs2/yaffs_bitmap.o
-  CC      fs/yaffs2/yaffs_summary.o
-  CC      fs/yaffs2/yaffs_verify.o
-  LD      fs/yaffs2/yaffs.o
-  LD      fs/yaffs2/built-in.o
-  LD      fs/built-in.o
-  LINK    vmlinux
-  LD      vmlinux.o
-  MODPOST vmlinux.o
-  GEN     .version
-  CHK     include/generated/compile.h
-  UPD     include/generated/compile.h
-  CC      init/version.o
-  LD      init/built-in.o
-  KSYM    .tmp_kallsyms1.o
-  KSYM    .tmp_kallsyms2.o
-  LD      vmlinux
-  SORTEX  vmlinux
-  SYSMAP  System.map
-  OBJCOPY arch/arm/boot/Image
-  Kernel: arch/arm/boot/Image is ready
-  GZIP    arch/arm/boot/compressed/piggy.gzip
-  AS      arch/arm/boot/compressed/piggy.gzip.o
-  LD      arch/arm/boot/compressed/vmlinux
-  OBJCOPY arch/arm/boot/zImage
-  Kernel: arch/arm/boot/zImage is ready
-</code></pre>
       
     </div>
     
@@ -561,7 +468,7 @@ fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer ty
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>

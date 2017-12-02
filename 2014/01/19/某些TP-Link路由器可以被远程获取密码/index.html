@@ -101,7 +101,7 @@
 <meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif">
 <meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19175938_gdlc.jpg">
 <meta property="og:image" content="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif">
-<meta property="og:updated_time" content="2017-11-25T16:33:08.893Z">
+<meta property="og:updated_time" content="2017-12-02T07:35:47.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="某些TP-Link路由器可以被远程获取密码">
 <meta name="twitter:description" content="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES wo">
@@ -288,6 +288,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全/" itemprop="url" rel="index">
+                    <span itemprop="name">安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -315,9 +337,9 @@
       
 
       
-        <h4 id="HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE"><a href="#HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE" class="headerlink" title="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )"></a>HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )</h4><p>Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES won’t attack your home/business network .</p>
+        <h1 id="HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE"><a href="#HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE" class="headerlink" title="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )"></a>HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )</h1><p>Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES won’t attack your home/business network .</p>
 <p>Well, in Algeria the main ISP ( Algerie Telecom ) provide you with a router when you pay for an internet plan. So you can conclude that every subscriber is using that router . TD-W8951ND is one of them, I did some ip scanning and I found that every router is using ZYXEL embedded firmware.</p>
-<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis :"></a><strong>Analysis :</strong></h3><p>Let’s download an update and take a look at it and try to find some vulnerabilities. ( <a href="http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar" target="_blank" rel="noopener">http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar </a>)</p>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis :"></a><strong>Analysis :</strong></h1><p>Let’s download an update and take a look at it and try to find some vulnerabilities. ( <a href="http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar" target="_blank" rel="noopener">http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar </a>)</p>
 <p><a href="http://static.oschina.net/uploads/img/201401/19175934_8zu4.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175934_qaNU.jpg" alt="lif" title="lif"></a></p>
 <p>The ras file is in LIF format !! …<br>Hmmm let’s put that file for Binwalk test for God’s sake ! ( check :<a href="http://code.google.com/p/binwalk/wiki/Installation" target="_blank" rel="noopener">http://code.google.com/p/binwalk/wiki/Installation</a> for more informations on how to install it ).</p>
 <p>This is what Binwalk told me about that file :<br><a href="http://static.oschina.net/uploads/img/201401/19175934_veKb.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175934_svCo.jpg" alt="zynos" title="zynos"></a></p>
@@ -370,7 +392,7 @@
 <p>Demo :</p>
 <p><a href="http://static.oschina.net/uploads/img/201401/19175937_xoJZ.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175937_vATX.jpg" alt="demo" title="demo"></a></p>
 <p><strong>PS : I OWN ALL THE IP RANGE I WAS SCANNING ” FOR SURE <img src="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif" alt=";)"> “</strong></p>
-<h3 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention :"></a>Prevention :</h3><p>Now ! how do you prevent attackers from downloading your rom-0 configuration file and manipulating your router ? This is pretty simple if you think about it ..<br>You just have to forward port 80 on the router to and inused IP address on your network :<br><a href="http://static.oschina.net/uploads/img/201401/19175937_XPrm.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175938_gdlc.jpg" alt="forward" title="forward"></a></p>
+<h1 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention :"></a>Prevention :</h1><p>Now ! how do you prevent attackers from downloading your rom-0 configuration file and manipulating your router ? This is pretty simple if you think about it ..<br>You just have to forward port 80 on the router to and inused IP address on your network :<br><a href="http://static.oschina.net/uploads/img/201401/19175937_XPrm.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175938_gdlc.jpg" alt="forward" title="forward"></a></p>
 <p><strong>THATS ALL, </strong>or if you want to play a little with attackers that are using scripts too .. just forward port 80 to you local http server and put a LARGE file in the root directory and name it rom-0 .. just let them download like 1GB rom-0 file haha haha .. I have also automated the process of port forwarding and I’m running the scripts daily just to prevent hackers from attacking weak users …</p>
 <p>In the next post I’ll demonstrate how would a malicious hacker exploit this to hack TONS of networks and get a meterpreter/reverse_shell on every PC on the target network ..</p>
 <p>Hope you enjoyed this analysis, if you have anything to add or any questions to ask don’t hesitate to contact me ! <strong>BE THEIR HERO, HAPPY HACKING <img src="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif" alt=";)"></strong></p>
@@ -504,7 +526,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -557,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE"><span class="nav-number">1.</span> <span class="nav-text">HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Analysis"><span class="nav-number"></span> <span class="nav-text">Analysis :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prevention"><span class="nav-number"></span> <span class="nav-text">Prevention :</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE"><span class="nav-number">1.</span> <span class="nav-text">HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Analysis"><span class="nav-number">2.</span> <span class="nav-text">Analysis :</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Prevention"><span class="nav-number">3.</span> <span class="nav-text">Prevention :</span></a></li></ol></div>
             
 
           </div>

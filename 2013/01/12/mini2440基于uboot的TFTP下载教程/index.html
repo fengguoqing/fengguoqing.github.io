@@ -81,19 +81,21 @@
 
 
 
-<meta name="description" content="由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式： 1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。  2. 使用U盘/SD卡加载程序，需要先将程序拷贝到">
+<meta name="description" content="由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：  使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。  使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD">
 <meta name="keywords" content="教程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mini2440基于uboot的TFTP下载教程">
 <meta property="og:url" content="https://fengguoqing.github.io/2013/01/12/mini2440基于uboot的TFTP下载教程/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式： 1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。  2. 使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。  3. 使用TFTP/NF">
+<meta property="og:description" content="由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：  使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。  使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。  使用TFTP/NFS网络服务加载程序">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://static.oschina.net/uploads/img/201301/12140642_0b2n.jpg">
-<meta property="og:updated_time" content="2017-11-29T13:23:03.959Z">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201301/12140642_yJ31.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201301/12201708_ADi0.jpg">
+<meta property="og:updated_time" content="2017-12-02T07:15:59.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mini2440基于uboot的TFTP下载教程">
-<meta name="twitter:description" content="由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式： 1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。  2. 使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。  3. 使用TFTP/NF">
+<meta name="twitter:description" content="由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：  使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。  使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。  使用TFTP/NFS网络服务加载程序">
 <meta name="twitter:image" content="http://static.oschina.net/uploads/img/201301/12140642_0b2n.jpg">
 
 
@@ -277,6 +279,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -304,16 +328,18 @@
       
 
       
-        <p> 由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：</p>
-<p>1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。 </p>
-<p>2. 使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。 </p>
-<p>3. 使用TFTP/NFS网络服务加载程序，配置好终端和服务器，使用起来比较方便，而且速度很快。 </p>
-<p> 在这里我讲一下TFTP方式的配置过程，以及使用方式。首先需要将U-boot下载到Nand Flash中，但是由于友善之臂提供的USB驱动在WIN7及其不稳定，所以我费了九牛二虎之力才将其使用DNW下载进去。使用的是由<a href="http://blog.chinaunix.net/space.php?uid=20543672&amp;do=blog&amp;id=94376" target="_blank" rel="noopener">Tekkaman Ninja</a>移植的U-boot，可以通过git来下载源代码，下载方式是：git clone <a href="https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git" target="_blank" rel="noopener">https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git</a>。关于GIT的用法，参考<a href="http://www.arm9home.net/read.php?tid-5266.html" target="_blank" rel="noopener">http://www.arm9home.net/read.php?tid-5266.html</a>。下载完成之后需要重新编译，编译步骤如下：</p>
+        <p>由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：</p>
+<ol>
+<li>使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。 </li>
+<li>使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。 </li>
+<li>使用TFTP/NFS网络服务加载程序，配置好终端和服务器，使用起来比较方便，而且速度很快。 </li>
+</ol>
+<p>在这里我讲一下TFTP方式的配置过程，以及使用方式。首先需要将U-boot下载到Nand Flash中，但是由于友善之臂提供的USB驱动在WIN7及其不稳定，所以我费了九牛二虎之力才将其使用DNW下载进去。使用的是由<a href="http://blog.chinaunix.net/space.php?uid=20543672&amp;do=blog&amp;id=94376" target="_blank" rel="noopener">Tekkaman Ninja</a>移植的U-boot，可以通过git来下载源代码，下载方式是：git clone <a href="https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git。关于GIT的用法，参考" target="_blank" rel="noopener">https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git。关于GIT的用法，参考</a><a href="http://www.arm9home.net/read.php?tid-5266.html" target="_blank" rel="noopener">http://www.arm9home.net/read.php?tid-5266.html</a>。下载完成之后需要重新编译，编译步骤如下：</p>
 <blockquote>
 <p>$cd u-boot-2010.03-tekkaman<br>$export PATH=$PATH:/opt/FriendlyARM/toolschain/4.4.3/bin/<br>$make ARCH=arm CROSS_COMPILE=/opt/FriendlyARM/toolschain/4.4.3/bin/arm-linux- mini2440_config<br>$make ARCH=arm CROSS_COMPILE=/opt/FriendlyARM/toolschain/4.4.3/bin/arm-linux- all </p>
 </blockquote>
 <p>如果你在编译的过程中碰到了invalid option的问题，那是因为git下载的文件编码格式不正确，应该使用utf-8的格式下载文件，或者使用在linux中通过git下载源代码编译，保证文件格式是正确的。最终生成的u-boot.bin可以通过supervivi菜单项里的”[a] Absolute User Application”选项 + DNW工具下载到NAND Flash中。</p>
-<p> 将mini2440设置成nand flash启动模式，链接串口和网线，网线分为交叉网线和直连网线，mini2440赠送的是直连网线，不过网卡可以自动识别。启动串口之后就可以看到以下内容：</p>
+<p>将mini2440设置成nand flash启动模式，链接串口和网线，网线分为交叉网线和直连网线，mini2440赠送的是直连网线，不过网卡可以自动识别。启动串口之后就可以看到以下内容：</p>
 <blockquote>
 <p>U-Boot 2010.03 (Dec 27 2012 - 06:32:26)</p>
 <p>modified by tekkamanninja (tekkamanninja@163.com)<br>Love Linux forever!!</p>
@@ -330,7 +356,7 @@
 </blockquote>
 <p>虽然mini2440与PC通过网线连接起来的，但是PC机上的本地连接仍旧是断开的，这是因为我们使用的是直连网线，只有等到ping的时候才可以正常连接，并且只能通过mini2440 ping PC，无法通过PC来ping mini2440。</p>
 <p>接下来需要下载TFTP服务软件，下载地址：<a href="http://tftpd32.jounin.net/tftpd32_download.html" target="_blank" rel="noopener">http://tftpd32.jounin.net/tftpd32_download.html</a>。请选择合适的版本下载，安装之后打开软件配置，主要是配置Current Directory，这个路径下主要是存放你需要下载的文件的。同时需要关闭防火墙和杀毒软件，如果不想关闭它们可以通过设置允许TFTP通过windows防火墙通信来避免通信被阻挡。</p>
-<p><a href="http://static.oschina.net/uploads/img/201301/12140641_tHaI.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201301/12140642_0b2n.jpg" alt="F6C6EC91A9B04510B809DE6E37574824" title="F6C6EC91A9B04510B809DE6E37574824"></a>[![ZD<em>J}37H`RH{O12</em>(][<a href="http://static.oschina.net/uploads/img/201301/12140642_yJ31.jpg" title="ZD_J}37H`RH{O12_(][[A" target="_blank" rel="noopener">A</a>](<a href="http://static.oschina.net/uploads/img/201301/12140642_gnRw.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/12140642_gnRw.jpg</a>)</p>
+<p><img src="http://static.oschina.net/uploads/img/201301/12140642_0b2n.jpg" alt="F6C6EC91A9B04510B809DE6E37574824" title="Tftpd32配置"><br><img src="http://static.oschina.net/uploads/img/201301/12140642_yJ31.jpg" alt=""></p>
 <p>比如我的mini2440 IP为192.168.3.8，PC机的本地连接IP为192.168.3.5。可以在uboot上通过ping 192.168.3.5来测试网络是否连接好了。如果可以ping通，那么会出现：</p>
 <blockquote>
 <p>[u-boot@MINI2440]# ping 192.168.3.5<br>dm9000 i/o: 0x20000300, id: 0x90000a46<br>DM9000: running in 16 bit mode<br>MAC: 08:08:11:18:12:27<br>operating at 100M full duplex mode<br>Using dm9000 device<br>host 192.168.3.5 is alive </p>
@@ -355,14 +381,15 @@
 <h2 id="Booting-kernel-from-Legacy-Image-at-30008000-…"><a href="#Booting-kernel-from-Legacy-Image-at-30008000-…" class="headerlink" title="Booting kernel from Legacy Image at 30008000 …"></a>Booting kernel from Legacy Image at 30008000 …</h2><p> Image Name: tekkaman<br> Created: 2010-03-29 12:59:51 UTC<br> Image Type: ARM Linux Kernel Image (uncompressed)<br> Data Size: 2277476 Bytes = 2.2 MB<br> Load Address: 30008000<br> Entry Point: 30008040<br> Verifying Checksum … OK<br> XIP Kernel Image … OK<br>OK </p>
 <p>Starting kernel … </p>
 </blockquote>
-<p>如果我们需要调试的是一般程序，那么通过tftp下载之后，可以使用go 30008000来运行，注意由于友善之臂提供的代码入口地址都是0x30000000，所以不能运行，我们自己编写的程序入口地址应该设置为0x30008000.</p>
-<p>[![A}ID4%JT@RKTF2EJ<a href="http://static.oschina.net/uploads/img/201301/12201708_ADi0.jpg" title="A}ID4%JT@RKTF2EJ[~%N{FL" target="_blank" rel="noopener">~%N{FL</a>](<a href="http://static.oschina.net/uploads/img/201301/12201707_i9O9.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/12201707_i9O9.jpg</a>)</p>
+<p>如果我们需要调试的是一般程序，那么通过tftp下载之后，可以使用go 30008000来运行，注意由于友善之臂提供的代码入口地址都是0x30000000，所以不能运行，我们自己编写的程序入口地址应该设置为0x30008000.<br><img src="http://static.oschina.net/uploads/img/201301/12201708_ADi0.jpg" alt=""></p>
 <p>下面介绍一个简单的调试方法，因为我们每次调试代码都需要不断的下载新的编译程序。</p>
-<p>1. 首先设置tftp 的Current Directory为工程生成bin文件的目录。</p>
-<p>2. 设置环境变量bootcmd和bootdelay：</p>
-<blockquote>
+<ol>
+<li>首先设置tftp 的Current Directory为工程生成bin文件的目录。</li>
+<li>设置环境变量bootcmd和bootdelay：<blockquote>
 <p>[u-boot@MINI2440]# setenv bootdelay 1<br>[u-boot@MINI2440]# setenv bootcmd “tftp 2440test.bin;go 0x30008000”<br>[u-boot@MINI2440]# saveenv<br>Saving Environment to NAND…<br>Erasing Nand…<br>Erasing at 0x6000000000002 – 0% complete.<br>Writing to Nand… done </p>
 </blockquote>
+</li>
+</ol>
 <p>注意2440test.bin为项目最终生成的bin文件名字，你的项目生成的是什么名字，这里就填写什么名字。</p>
 <p>以后每次你打开mini2440，它就会自动下载最新的bin文件，并且执行它，你就可以立即看到结果，根本不需要你动手去下载，是不是很方便。</p>
 <blockquote>
@@ -507,7 +534,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>

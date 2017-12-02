@@ -446,8 +446,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/其他/" itemprop="url" rel="index">
-                    <span itemprop="name">其他</span>
+                  <a href="/categories/项目管理/" itemprop="url" rel="index">
+                    <span itemprop="name">项目管理</span>
                   </a>
                 </span>
 
@@ -782,6 +782,28 @@ domain: example.com
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -904,6 +926,28 @@ domain: example.com
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全/" itemprop="url" rel="index">
+                    <span itemprop="name">安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -933,9 +977,9 @@ domain: example.com
       
         
           
-            <h4 id="HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE"><a href="#HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE" class="headerlink" title="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )"></a>HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )</h4><p>Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES won’t attack your home/business network .</p>
+            <h1 id="HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE"><a href="#HOW-I-SAVED-YOUR-A-FROM-THE-ZYNOS-ROM-0-ATTACK-FULL-DISCLOSURE" class="headerlink" title="HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )"></a>HOW I SAVED YOUR A** FROM THE ZYNOS (ROM-0) ATTACK !! ( FULL DISCLOSURE )</h1><p>Hello everyone, I just wanted to discuss some vulnerability I found and exploited for GOODNESS .. just so that SCRIPT KIDIES won’t attack your home/business network .</p>
 <p>Well, in Algeria the main ISP ( Algerie Telecom ) provide you with a router when you pay for an internet plan. So you can conclude that every subscriber is using that router . TD-W8951ND is one of them, I did some ip scanning and I found that every router is using ZYXEL embedded firmware.</p>
-<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis :"></a><strong>Analysis :</strong></h3><p>Let’s download an update and take a look at it and try to find some vulnerabilities. ( <a href="http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar" target="_blank" rel="noopener">http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar </a>)</p>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis :"></a><strong>Analysis :</strong></h1><p>Let’s download an update and take a look at it and try to find some vulnerabilities. ( <a href="http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar" target="_blank" rel="noopener">http://www.tp-link.com/Resources/software/TD-W8951ND_V3.0_110729_FI.rar </a>)</p>
 <p><a href="http://static.oschina.net/uploads/img/201401/19175934_8zu4.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175934_qaNU.jpg" alt="lif" title="lif"></a></p>
 <p>The ras file is in LIF format !! …<br>Hmmm let’s put that file for Binwalk test for God’s sake ! ( check :<a href="http://code.google.com/p/binwalk/wiki/Installation" target="_blank" rel="noopener">http://code.google.com/p/binwalk/wiki/Installation</a> for more informations on how to install it ).</p>
 <p>This is what Binwalk told me about that file :<br><a href="http://static.oschina.net/uploads/img/201401/19175934_veKb.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175934_svCo.jpg" alt="zynos" title="zynos"></a></p>
@@ -988,7 +1032,7 @@ domain: example.com
 <p>Demo :</p>
 <p><a href="http://static.oschina.net/uploads/img/201401/19175937_xoJZ.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175937_vATX.jpg" alt="demo" title="demo"></a></p>
 <p><strong>PS : I OWN ALL THE IP RANGE I WAS SCANNING ” FOR SURE <img src="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif" alt=";)"> “</strong></p>
-<h3 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention :"></a>Prevention :</h3><p>Now ! how do you prevent attackers from downloading your rom-0 configuration file and manipulating your router ? This is pretty simple if you think about it ..<br>You just have to forward port 80 on the router to and inused IP address on your network :<br><a href="http://static.oschina.net/uploads/img/201401/19175937_XPrm.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175938_gdlc.jpg" alt="forward" title="forward"></a></p>
+<h1 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention :"></a>Prevention :</h1><p>Now ! how do you prevent attackers from downloading your rom-0 configuration file and manipulating your router ? This is pretty simple if you think about it ..<br>You just have to forward port 80 on the router to and inused IP address on your network :<br><a href="http://static.oschina.net/uploads/img/201401/19175937_XPrm.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201401/19175938_gdlc.jpg" alt="forward" title="forward"></a></p>
 <p><strong>THATS ALL, </strong>or if you want to play a little with attackers that are using scripts too .. just forward port 80 to you local http server and put a LARGE file in the root directory and name it rom-0 .. just let them download like 1GB rom-0 file haha haha .. I have also automated the process of port forwarding and I’m running the scripts daily just to prevent hackers from attacking weak users …</p>
 <p>In the next post I’ll demonstrate how would a malicious hacker exploit this to hack TONS of networks and get a meterpreter/reverse_shell on every PC on the target network ..</p>
 <p>Hope you enjoyed this analysis, if you have anything to add or any questions to ask don’t hesitate to contact me ! <strong>BE THEIR HERO, HAPPY HACKING <img src="http://static.oschina.net/uploads/img/201401/19180126_0Zrk.gif" alt=";)"></strong></p>
@@ -1081,6 +1125,28 @@ domain: example.com
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT素养/" itemprop="url" rel="index">
+                    <span itemprop="name">IT素养</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1258,6 +1324,28 @@ $patch-p1&lt;Project.patch`&lt;/pre&gt;
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1287,13 +1375,8 @@ $patch-p1&lt;Project.patch`&lt;/pre&gt;
       
         
           
-            <p> 使用虚拟机安装ubuntu之后感觉机器有点吃力，为了缓解这种压力，直接启动到文本界面，然后使用Xshell或者putty等工具登录，相当的happy。设置方法如下： </p>
-<pre><code>$ sudo vim /etc/default/grub
-- GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash&quot;
-+ GRUB_CMDLINE_LINUX_DEFAULT=&quot;text&quot;
-$ sudo update-grub
-$ sudo reboot
-</code></pre><p> 重启完之后就直接进入了文件界面，虚拟机的开销就会减小很多了。 </p>
+            <p> 使用虚拟机安装ubuntu之后感觉机器有点吃力，为了缓解这种压力，直接启动到文本界面，然后使用Xshell或者putty等工具登录，相当的happy。设置方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/default/grub</span><br><span class="line">- GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash&quot;</span><br><span class="line">+ GRUB_CMDLINE_LINUX_DEFAULT=&quot;text&quot;</span><br><span class="line">$ sudo update-grub</span><br><span class="line">$ sudo reboot</span><br></pre></td></tr></table></figure></p>
+<p> 重启完之后就直接进入了文件界面，虚拟机的开销就会减小很多了。 </p>
 
           
         
@@ -1384,6 +1467,28 @@ $ sudo reboot
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1414,144 +1519,29 @@ $ sudo reboot
         
           
             <p>最近想起来还有一块mini2440的开发板很久没有使用了，所以想移植一个基于linux3.10的linux系统，但是在移植yaffs2文件系统的时候出现了一些问题，我将其记录下来给其他同学解决同样的问题提供帮助。</p>
-<p>1. 首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。</p>
-<pre><code>$ git clone git://www.aleph1.co.uk/yaffs2
-$ cd yaffs2/
-$ ./patch-ker.sh c m ../linux3.10-mini2440`&lt;/pre&gt; 
+<ol>
+<li><p>首先通过git下载yaffs2代码。然后进入yaffs2文件夹中执行patch-ker.sh，给linux源代码打上patch。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git://www.aleph1.co.uk/yaffs2</span><br><span class="line">$ cd yaffs2/</span><br><span class="line">$ ./patch-ker.sh c m ../linux3.10-mini2440</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后在linux的源代码fs中多了一个yaffs2的文件夹，到此yaffs2文件系统就已经添加到linux3.10中了。在Linux内核源代码根目录运行：make menuconfig，移动上下按键进行配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`File Systems</span><br><span class="line">	---&gt; Miscellaneous filesystems</span><br><span class="line">		---&gt; [*]YAFFS2 file system support</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>并按空格选中它，这样我们就在内核中添加了yaffs2文件系统的支持，按“Exit”退出内核配置。 </p>
+<ol>
+<li>编译linux源代码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ make zImage</span><br><span class="line">scripts/kconfig/conf --silentoldconfig Kconfig</span><br><span class="line">  CHK     include/generated/uapi/linux/version.h</span><br><span class="line">  CHK     include/generated/utsrelease.h</span><br><span class="line">make[1]: `include/generated/mach-types.h&apos; is up to date.</span><br><span class="line">  CALL    scripts/checksyscalls.sh</span><br><span class="line">  CC      scripts/mod/devicetable-offsets.s</span><br><span class="line">  GEN     scripts/mod/devicetable-offsets.h</span><br><span class="line">  HOSTCC  scripts/mod/file2alias.o</span><br><span class="line">  HOSTLD  scripts/mod/modpost</span><br><span class="line">  CHK     include/generated/compile.h</span><br><span class="line">  CC      fs/yaffs2/yaffs_ecc.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_vfs.o</span><br><span class="line">fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast</span><br><span class="line">fs/yaffs2/yaffs_vfs.c: In function &apos;init_yaffs_fs&apos;:</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3398: error: implicit declaration of function &apos;create_proc_entry&apos;</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3399: warning: assignment makes pointer from integer without a cast</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3402: error: dereferencing pointer to incomplete type</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3403: error: dereferencing pointer to incomplete type</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3404: error: dereferencing pointer to incomplete type</span><br><span class="line">make[2]: *** [fs/yaffs2/yaffs_vfs.o] Error 1</span><br><span class="line">make[1]: *** [fs/yaffs2] Error 2</span><br><span class="line">make: *** [fs] Error 2`&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>编译fs/yaffs2/yaffs_vfs.c时出现错误，function ‘create_proc_entry’没有申明。Google之后才知道原来这个接口在linux-3.10被删除了，应该使用proc_create代替。</p>
+<p>参考：<a href="https://lwn.net/Articles/549737/" target="_blank" rel="noopener">What’s coming in 3.10, part 2</a></p>
+<ol>
+<li><p>修改fs/yaffs2/yaffs_vfs.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">@@ <span class="number">-3384</span>,<span class="number">12</span> +<span class="number">3384</span>,<span class="number">6</span> @@ <span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_system_to_install</span> <span class="title">fs_to_install</span>[] = &#123;</span></span><br><span class="line">        &#123;<span class="literal">NULL</span>, <span class="number">0</span>&#125;</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line">+<span class="keyword">static</span> <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">yaffs_fops</span> = &#123;</span></span><br><span class="line">+        .owner = THIS_MODULE,</span><br><span class="line">+        .read = yaffs_proc_read,</span><br><span class="line">+        .write = yaffs_proc_write,</span><br><span class="line">+&#125;;</span><br><span class="line">+</span><br><span class="line"> <span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">init_yaffs_fs</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> error = <span class="number">0</span>;</span><br><span class="line">@@ <span class="number">-3401</span>,<span class="number">9</span> +<span class="number">3395</span>,<span class="number">9</span> @@ <span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">init_yaffs_fs</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function">        <span class="title">mutex_init</span><span class="params">(&amp;yaffs_context_lock)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Install the proc_fs entries */</span></span><br><span class="line">+       my_proc_entry = proc_create(<span class="string">"yaffs"</span>,</span><br><span class="line">+                                         S_IRUGO | S_IFREG, YPROC_ROOT, &amp;yaffs_fops);</span><br><span class="line">+<span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">-       my_proc_entry = create_proc_entry(<span class="string">"yaffs"</span>,</span><br><span class="line">-                                         S_IRUGO | S_IFREG, YPROC_ROOT);</span><br><span class="line">-</span><br><span class="line">        <span class="keyword">if</span> (my_proc_entry) &#123;</span><br><span class="line">                my_proc_entry-&gt;write_proc = yaffs_proc_write;</span><br><span class="line">                my_proc_entry-&gt;read_proc = yaffs_proc_read;</span><br><span class="line">@@ <span class="number">-3411</span>,<span class="number">7</span> +<span class="number">3405</span>,<span class="number">7</span> @@ <span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">init_yaffs_fs</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line">        &#125; else &#123;</span><br><span class="line">                <span class="keyword">return</span> -ENOMEM;</span><br><span class="line">         &#125;</span><br><span class="line">+<span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">-</span><br><span class="line">        <span class="comment">/* Now add the file system entries */</span></span><br><span class="line"></span><br><span class="line">        fsinst = fs_to_install;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改之后保存，然后再编译就可以成功了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">$ make zImage</span><br><span class="line">  CHK     include/generated/uapi/linux/version.h</span><br><span class="line">  CHK     include/generated/utsrelease.h</span><br><span class="line">make[1]: `include/generated/mach-types.h&apos; is up to date.</span><br><span class="line">  CALL    scripts/checksyscalls.sh</span><br><span class="line">  CC      scripts/mod/devicetable-offsets.s</span><br><span class="line">  GEN     scripts/mod/devicetable-offsets.h</span><br><span class="line">  HOSTCC  scripts/mod/file2alias.o</span><br><span class="line">  HOSTLD  scripts/mod/modpost</span><br><span class="line">  CHK     include/generated/compile.h</span><br><span class="line">  CC      fs/yaffs2/yaffs_vfs.o</span><br><span class="line">fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast</span><br><span class="line">fs/yaffs2/yaffs_vfs.c: At top level:</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3389: warning: initialization from incompatible pointer type</span><br><span class="line">fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer type</span><br><span class="line">  CC      fs/yaffs2/yaffs_guts.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_checkptrw.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_packedtags1.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_packedtags2.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_nand.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_tagscompat.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_tagsmarshall.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_mtdif.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_nameval.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_attribs.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_allocator.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_yaffs1.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_yaffs2.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_bitmap.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_summary.o</span><br><span class="line">  CC      fs/yaffs2/yaffs_verify.o</span><br><span class="line">  LD      fs/yaffs2/yaffs.o</span><br><span class="line">  LD      fs/yaffs2/built-in.o</span><br><span class="line">  LD      fs/built-in.o</span><br><span class="line">  LINK    vmlinux</span><br><span class="line">  LD      vmlinux.o</span><br><span class="line">  MODPOST vmlinux.o</span><br><span class="line">  GEN     .version</span><br><span class="line">  CHK     include/generated/compile.h</span><br><span class="line">  UPD     include/generated/compile.h</span><br><span class="line">  CC      init/version.o</span><br><span class="line">  LD      init/built-in.o</span><br><span class="line">  KSYM    .tmp_kallsyms1.o</span><br><span class="line">  KSYM    .tmp_kallsyms2.o</span><br><span class="line">  LD      vmlinux</span><br><span class="line">  SORTEX  vmlinux</span><br><span class="line">  SYSMAP  System.map</span><br><span class="line">  OBJCOPY arch/arm/boot/Image</span><br><span class="line">  Kernel: arch/arm/boot/Image is ready</span><br><span class="line">  GZIP    arch/arm/boot/compressed/piggy.gzip</span><br><span class="line">  AS      arch/arm/boot/compressed/piggy.gzip.o</span><br><span class="line">  LD      arch/arm/boot/compressed/vmlinux</span><br><span class="line">  OBJCOPY arch/arm/boot/zImage</span><br><span class="line">  Kernel: arch/arm/boot/zImage is ready</span><br></pre></td></tr></table></figure></li>
+</ol>
 
-2\. 然后在linux的源代码fs中多了一个yaffs2的文件夹，到此yaffs2文件系统就已经添加到linux3.10中了。在Linux内核源代码根目录运行：make menuconfig，移动上下按键进行配置：
-
-&lt;pre&gt;`File Systems
-    ---&gt; Miscellaneous filesystems
-        ---&gt; [*]YAFFS2 file system support`&lt;/pre&gt; 并按空格选中它，这样我们就在内核中添加了yaffs2文件系统的支持，按“Exit”退出内核配置。 
-
-3\. 编译linux源代码。
-
-&lt;pre&gt;`$ make zImage
-scripts/kconfig/conf --silentoldconfig Kconfig
-  CHK     include/generated/uapi/linux/version.h
-  CHK     include/generated/utsrelease.h
-make[1]: `include/generated/mach-types.h&apos; is up to date.
-  CALL    scripts/checksyscalls.sh
-  CC      scripts/mod/devicetable-offsets.s
-  GEN     scripts/mod/devicetable-offsets.h
-  HOSTCC  scripts/mod/file2alias.o
-  HOSTLD  scripts/mod/modpost
-  CHK     include/generated/compile.h
-  CC      fs/yaffs2/yaffs_ecc.o
-  CC      fs/yaffs2/yaffs_vfs.o
-fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:
-fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast
-fs/yaffs2/yaffs_vfs.c: In function &apos;init_yaffs_fs&apos;:
-fs/yaffs2/yaffs_vfs.c:3398: error: implicit declaration of function &apos;create_proc_entry&apos;
-fs/yaffs2/yaffs_vfs.c:3399: warning: assignment makes pointer from integer without a cast
-fs/yaffs2/yaffs_vfs.c:3402: error: dereferencing pointer to incomplete type
-fs/yaffs2/yaffs_vfs.c:3403: error: dereferencing pointer to incomplete type
-fs/yaffs2/yaffs_vfs.c:3404: error: dereferencing pointer to incomplete type
-make[2]: *** [fs/yaffs2/yaffs_vfs.o] Error 1
-make[1]: *** [fs/yaffs2] Error 2
-make: *** [fs] Error 2`&lt;/pre&gt; 
-
-编译fs/yaffs2/yaffs_vfs.c时出现错误，function &apos;create_proc_entry&apos;没有申明。Google之后才知道原来这个接口在linux-3.10被删除了，应该使用proc_create代替。
-
-参考：[What&apos;s coming in 3.10, part 2](https://lwn.net/Articles/549737/)
-
-4\. 修改fs/yaffs2/yaffs_vfs.c
-
-&lt;pre&gt;`@@ -3384,12 +3384,6 @@ static struct file_system_to_install fs_to_install[] = {
-        {NULL, 0}
- };
-
-+static const struct file_operations yaffs_fops = {
-+        .owner = THIS_MODULE,
-+        .read = yaffs_proc_read,
-+        .write = yaffs_proc_write,
-+};
-+
- static int __init init_yaffs_fs(void)
- {
-        int error = 0;
-@@ -3401,9 +3395,9 @@ static int __init init_yaffs_fs(void)
-        mutex_init(&amp;yaffs_context_lock);
-
-        /* Install the proc_fs entries */
-+       my_proc_entry = proc_create(&quot;yaffs&quot;,
-+                                         S_IRUGO | S_IFREG, YPROC_ROOT, &amp;yaffs_fops);
-+#if 0
--       my_proc_entry = create_proc_entry(&quot;yaffs&quot;,
--                                         S_IRUGO | S_IFREG, YPROC_ROOT);
--
-        if (my_proc_entry) {
-                my_proc_entry-&gt;write_proc = yaffs_proc_write;
-                my_proc_entry-&gt;read_proc = yaffs_proc_read;
-@@ -3411,7 +3405,7 @@ static int __init init_yaffs_fs(void)
-        } else {
-                return -ENOMEM;
-         }
-+#endif
--
-        /* Now add the file system entries */
-
-        fsinst = fs_to_install;`&lt;/pre&gt; 
-
-5\. 修改之后保存，然后再编译就可以成功了。
-
-&lt;pre&gt;`$ make zImage
-  CHK     include/generated/uapi/linux/version.h
-  CHK     include/generated/utsrelease.h
-make[1]: `include/generated/mach-types.h&apos; is up to date.
-  CALL    scripts/checksyscalls.sh
-  CC      scripts/mod/devicetable-offsets.s
-  GEN     scripts/mod/devicetable-offsets.h
-  HOSTCC  scripts/mod/file2alias.o
-  HOSTLD  scripts/mod/modpost
-  CHK     include/generated/compile.h
-  CC      fs/yaffs2/yaffs_vfs.o
-fs/yaffs2/yaffs_vfs.c: In function &apos;yaffs_proc_debug_write&apos;:
-fs/yaffs2/yaffs_vfs.c:3304: warning: comparison of distinct pointer types lacks a cast
-fs/yaffs2/yaffs_vfs.c: At top level:
-fs/yaffs2/yaffs_vfs.c:3389: warning: initialization from incompatible pointer type
-fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer type
-  CC      fs/yaffs2/yaffs_guts.o
-  CC      fs/yaffs2/yaffs_checkptrw.o
-  CC      fs/yaffs2/yaffs_packedtags1.o
-  CC      fs/yaffs2/yaffs_packedtags2.o
-  CC      fs/yaffs2/yaffs_nand.o
-  CC      fs/yaffs2/yaffs_tagscompat.o
-  CC      fs/yaffs2/yaffs_tagsmarshall.o
-  CC      fs/yaffs2/yaffs_mtdif.o
-  CC      fs/yaffs2/yaffs_nameval.o
-  CC      fs/yaffs2/yaffs_attribs.o
-  CC      fs/yaffs2/yaffs_allocator.o
-  CC      fs/yaffs2/yaffs_yaffs1.o
-  CC      fs/yaffs2/yaffs_yaffs2.o
-  CC      fs/yaffs2/yaffs_bitmap.o
-  CC      fs/yaffs2/yaffs_summary.o
-  CC      fs/yaffs2/yaffs_verify.o
-  LD      fs/yaffs2/yaffs.o
-  LD      fs/yaffs2/built-in.o
-  LD      fs/built-in.o
-  LINK    vmlinux
-  LD      vmlinux.o
-  MODPOST vmlinux.o
-  GEN     .version
-  CHK     include/generated/compile.h
-  UPD     include/generated/compile.h
-  CC      init/version.o
-  LD      init/built-in.o
-  KSYM    .tmp_kallsyms1.o
-  KSYM    .tmp_kallsyms2.o
-  LD      vmlinux
-  SORTEX  vmlinux
-  SYSMAP  System.map
-  OBJCOPY arch/arm/boot/Image
-  Kernel: arch/arm/boot/Image is ready
-  GZIP    arch/arm/boot/compressed/piggy.gzip
-  AS      arch/arm/boot/compressed/piggy.gzip.o
-  LD      arch/arm/boot/compressed/vmlinux
-  OBJCOPY arch/arm/boot/zImage
-  Kernel: arch/arm/boot/zImage is ready
-</code></pre>
           
         
       
@@ -1641,6 +1631,28 @@ fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer ty
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目管理/" itemprop="url" rel="index">
+                    <span itemprop="name">项目管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1671,146 +1683,30 @@ fs/yaffs2/yaffs_vfs.c:3390: warning: initialization from incompatible pointer ty
         
           
             <p>在开发的过程中往往需要一个git服务器来管理和保存代码，如何自己架设一个git服务器呢，方法很简单，这里介绍一下如何架设git服务器，搭建gitweb和push代码之后发送邮件通知组内成员。</p>
-<h4 id="1-架设Git服务器"><a href="#1-架设Git服务器" class="headerlink" title="1. 架设Git服务器"></a>1. 架设Git服务器</h4><p>我们以Ubuntu为例。首先，在git服务器上创建一个名为 ‘git’ 的用户，并为其创建一个.ssh目录。并将其权限设置为仅git用户有读写权限 </p>
-<pre><code>$sudoaddusergit
-$sugit
-$cd
-$mkdir.ssh
-$chmod700.ssh`&lt;/pre&gt; 
-
-接下来，把开发者的 SSH 公钥添加到这个用户的authorized_keys文件中。假设你通过电邮收到了几个公钥并存到了临时文件里。重复一下，公钥大致看起来是这个样子：
-
-&lt;pre&gt;`$cat/tmp/id_rsa.john.pub
-ssh-rsaAAAAB3NzaC1yc2EAAAADAQABAAABAQCB007n/ww+ouN4gSLKssMxXnBOvf9LGt4L
-ojG6rs6hPB09j9R/T17/x4lhJA0F3FR1rP6kYBRsWj2aThGw6HXLm9/5zytK6Ztg3RPKK+4k
-Yjh6541NYsnEAZuXz0jTTyAUfrtU3Z5E003C4oxOj6H0rfIF1kKI9MAQLMdpGW1GYEIgS9Ez
-Sdfd8AcCIicTDWbqLAcU4UpkaX8KyGlLwsNuuGztobF8m72ALC/nLF6JLtPofwFBlgc+myiv
-O7TCUSBdLQlgMVOFq1I2uPWQOkOWQAHukEOmfjy2jctxSDBQ220ymjaNsHT4kgtZg2AYYgPq
-dAv8JggJICUvax2T9va5gsg-keypair`&lt;/pre&gt; 
-
-只要把它们逐个追加到authorized_keys文件尾部即可，同时将authorized_keys设置为仅git用户有读写权限。
-
-&lt;pre&gt;`$cat/tmp/id_rsa.john.pub&gt;&gt;~/.ssh/authorized_keys
-$cat/tmp/id_rsa.josie.pub&gt;&gt;~/.ssh/authorized_keys
-$cat/tmp/id_rsa.jessica.pub&gt;&gt;~/.ssh/authorized_keys
-$chmod600~/.ssh/authorized_keys`&lt;/pre&gt; 
-
-现在可以用--bare选项运行git init来建立一个裸仓库，这会初始化一个不包含工作目录的仓库。
-
-&lt;pre&gt;`$cd/opt/git
-$mkdirproject.git
-$cdproject.git
-$git--bareinit`&lt;/pre&gt; 
-
-这时，Join，Josie 或者 Jessica 就可以把它加为远程仓库，推送一个分支，从而把第一个版本的项目文件上传到仓库里了。值得注意的是，每次添加一个新项目都需要通过 shell 登入主机并创建一个裸仓库目录。我们不妨以gitserver作为git用户及项目仓库所在的主机名。如果在网络内部运行该主机，并在 DNS 中设定gitserver指向该主机，那么以下这些命令都是可用的：
-
-&lt;pre&gt;`#在John的电脑上
-$cdmyproject
-$gitinit
-$gitadd.
-$gitcommit-m&apos;initialcommit&apos;
-$gitremoteaddorigingit@gitserver:/opt/git/project.git
-$gitpushoriginmaster`&lt;/pre&gt; 
-
-这样，其他人的克隆和推送也一样变得很简单：
-
-&lt;pre&gt;`$gitclonegit@gitserver:/opt/git/project.git
-$vimREADME
-$gitcommit-am&apos;fixfortheREADMEfile&apos;
-$gitpushoriginmaster`&lt;/pre&gt; 
-
-用这个方法可以很快捷地为少数几个开发者架设一个可读写的 Git 服务。
-
-作为一个额外的防范措施，你可以用 Git 自带的git-shell工具限制git用户的活动范围。只要把它设为git用户登入的 shell，那么该用户就无法使用普通的 bash 或者 csh 什么的 shell 程序。编辑/etc/passwd文件：
-
-&lt;pre&gt;`$sudovim/etc/passwd`&lt;/pre&gt; 
-
-在文件末尾，你应该能找到类似这样的行：
-
-&lt;pre&gt;`git:x:1000:1000::/home/git:/bin/sh`&lt;/pre&gt; 
-
-把bin/sh改为/usr/bin/git-shell（或者用which git-shell查看它的实际安装路径）。该行修改后的样子如下：
-
-&lt;pre&gt;`git:x:1000:1000::/home/git:/usr/bin/git-shell`&lt;/pre&gt; 
-
-现在git用户只能用 SSH 连接来推送和获取 Git 仓库，而不能直接使用主机 shell。尝试普通 SSH 登录的话，会看到下面这样的拒绝信息：
-
-&lt;pre&gt;`$sshgit@gitserver
-fatal:WhatdoyouthinkIam?Ashell?
-Connectiontogitserverclosed.`&lt;/pre&gt; 
-
-这里提供的方法，组内所有成员对project都有读写权限，也就是说每个分支都可以push代码，如果需要更加细致的权限控制，请使用[Gitosis](http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-Gitosis)或者[Gitolite](http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-Gitolite)。
-
-&lt;span id=&quot;OSC_h4_2&quot;&gt;&lt;/span&gt;
-
-#### 2\. 搭建Gitweb
-
-安装gitweb之后就可以通过网站访问我们的项目了。就像&lt;span style=&quot;font-family: Courier,monospace; font-size: 14px; line-height: 18px;&quot;&gt;[http://git.kernel.org](http://git.kernel.org)一样显示了&lt;/span&gt; 
-
-首先需要安装Gitweb，如果没有安装apache，那么直接安装Gitweb，也会将apache2安装的。
-
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$sudoapt-getinstallgitwebapache2`&lt;/pre&gt; 
-
-安装完成之后，我们只需要修改一下配置文件，将/etc/gitweb.conf文件中的$projectroot修改为放工程文件的目录。
-
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/etc/gitweb.conf
-#pathtogitprojects(&lt;project&gt;.git)
-$projectroot=&quot;/opt/git&quot;;`&lt;/pre&gt; 
-
-至此gitweb就可以使用了，现在可以通过http://[git_server_IP]/gitweb访问了。
-
-&lt;span id=&quot;OSC_h4_3&quot;&gt;&lt;/span&gt;
-
-#### 3\. Push之后发送邮件通知
-
-当组内成员push代码到服务器上之后，会自动发送邮件通知组内所有人员，该次push的具体内容是什么。具体配置方法：
-
-一般在安装Git的时候发送邮件的脚本/usr/share/git-core/contrib/hooks/post-receive-email已经存在了，首先要修改所有者和执行权限，并且安装sendmail。
-
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$sudochowngit:gitpost-receive-email
-$sudochmod755post-receive-email
-$sudoapt-getinstallsendmail`&lt;/pre&gt; 
-
-然后到切换到工程目录下的hooks中，添加 post-receive软链接指向 /usr/share/git-core/contrib/hooks/ post-receive-email。
-
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$cd/opt/git/project.git/hooks
-$ln-s/usr/share/git-core/contrib/hooks/post-receive-emailpost-receive`&lt;/pre&gt; 
-
-最后修改工程目录中的config文件即可。mailinglist是邮件列表， &lt;span style=&quot;line-height: 1.5; font-size: 10pt;&quot;&gt;envelopesender是发件人的邮箱，&lt;/span&gt; 
-
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/opt/git/project.git/config
-[core]
-repositoryformatversion=0
-filemode=true
-bare=true
-
-[hooks]
-mailinglist=&quot;example@gmail.com,example2@gmail.com&quot;#收件人列表
-envelopesender=project.git@example.com#送件人地址
-emailprefix=&quot;[Projectcommit]&quot;#邮件标题前缀
-showrev=&quot;gitshow-C%s;echo&quot;#不只显示有变化的文件，同时也显示改变的内容`&lt;/pre&gt; 
-
-为了使邮件显示的更清楚，还要修改一下工程目录当中的description文件，在description文件中，默认第一行是项目名称，所以要在第一行填入该项目的名称，这个在邮件中会有显示。
-
-&lt;pre class=&quot;brush:cpp; toolbar: true; auto-links: false;&quot;&gt;`$vim/opt/git/project.git/description
-Project_A`&lt;/pre&gt; 
-
-我们收到邮件的标题是这样的：
-
-&lt;pre class=&quot;brush:html; toolbar: true; auto-links: false;&quot;&gt;`[Projectcommit]Project_Abranchmasterupdated.8811b83e1afb373cbe30d5bc25683d74ace2917c`&lt;/pre&gt; 
-
-有时候我们会发现启动和发送sendmail都相当慢，甚至要等两三分钟，完全不能忍，最后通过不断的测试，解决了这个问题，主要是要修改/etc/hosts。例如我的发件人的域是example.com，hostname是desktop，那么就应该这样修改：
-
-&lt;pre class=&quot;brush:xml;toolbar: true; auto-links: false;&quot;&gt;`127.0.0.1example.comlocalhostdesktop`&lt;/pre&gt; 
-
-改完之后重启sendmail服务:
-
-&lt;pre class=&quot;brush:shell;toolbar: true; auto-links: false;&quot;&gt;`servicesendmailrestart
-</code></pre><p>然后你就会发现邮件发的那是刷刷滴！</p>
-<p>至此，我们的Git服务器就已经搭建完成了，和你的小伙伴一起快乐的coding吧！</p>
-<p><span id="OSC_h4_4"></span></p>
-<h4 id="4-参考链接"><a href="#4-参考链接" class="headerlink" title="4. 参考链接"></a>4. 参考链接</h4><p><a href="http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8" target="_blank" rel="noopener">http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8</a> </p>
-<p><a href="http://josephj.com/entry.php?id=346" target="_blank" rel="noopener">http://josephj.com/entry.php?id=346</a> </p>
+<h1 id="1-架设Git服务器"><a href="#1-架设Git服务器" class="headerlink" title="1. 架设Git服务器"></a>1. 架设Git服务器</h1><p>我们以Ubuntu为例。首先，在git服务器上创建一个名为 ‘git’ 的用户，并为其创建一个.ssh目录。并将其权限设置为仅git用户有读写权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo adduser git</span><br><span class="line">$ su git</span><br><span class="line">$ cd</span><br><span class="line">$ mkdir .ssh</span><br><span class="line">$ chmod 700 .ssh</span><br></pre></td></tr></table></figure></p>
+<p>接下来，把开发者的 SSH 公钥添加到这个用户的authorized_keys文件中。假设你通过电邮收到了几个公钥并存到了临时文件里。重复一下，公钥大致看起来是这个样子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ cat /tmp/id_rsa.john.pub</span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCB007n/ww+ouN4gSLKssMxXnBOvf9LGt4L</span><br><span class="line">ojG6rs6hPB09j9R/T17/x4lhJA0F3FR1rP6kYBRsWj2aThGw6HXLm9/5zytK6Ztg3RPKK+4k</span><br><span class="line">Yjh6541NYsnEAZuXz0jTTyAUfrtU3Z5E003C4oxOj6H0rfIF1kKI9MAQLMdpGW1GYEIgS9Ez</span><br><span class="line">Sdfd8AcCIicTDWbqLAcU4UpkaX8KyGlLwsNuuGztobF8m72ALC/nLF6JLtPofwFBlgc+myiv</span><br><span class="line">O7TCUSBdLQlgMVOFq1I2uPWQOkOWQAHukEOmfjy2jctxSDBQ220ymjaNsHT4kgtZg2AYYgPq</span><br><span class="line">dAv8JggJICUvax2T9va5 gsg-keypair</span><br></pre></td></tr></table></figure></p>
+<p>只要把它们逐个追加到authorized_keys文件尾部即可，同时将authorized_keys设置为仅git用户有读写权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat /tmp/id_rsa.john.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">$ cat /tmp/id_rsa.josie.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">$ cat /tmp/id_rsa.jessica.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">$ chmod 600 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure></p>
+<p>现在可以用–bare选项运行git init来建立一个裸仓库，这会初始化一个不包含工作目录的仓库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cd /opt/git</span><br><span class="line">$ mkdir project.git</span><br><span class="line">$ cd project.git</span><br><span class="line">$ git --bare init</span><br></pre></td></tr></table></figure></p>
+<p>这时，Join，Josie 或者 Jessica 就可以把它加为远程仓库，推送一个分支，从而把第一个版本的项目文件上传到仓库里了。值得注意的是，每次添加一个新项目都需要通过 shell 登入主机并创建一个裸仓库目录。我们不妨以gitserver作为git用户及项目仓库所在的主机名。如果在网络内部运行该主机，并在 DNS 中设定gitserver指向该主机，那么以下这些命令都是可用的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 在 John 的电脑上</span><br><span class="line">$ cd myproject</span><br><span class="line">$ git init</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m &apos;initial commit&apos;</span><br><span class="line">$ git remote add origin git@gitserver:/opt/git/project.git</span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure></p>
+<p>这样，其他人的克隆和推送也一样变得很简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@gitserver:/opt/git/project.git</span><br><span class="line">$ vim README</span><br><span class="line">$ git commit -am &apos;fix for the README file&apos;</span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure></p>
+<p>用这个方法可以很快捷地为少数几个开发者架设一个可读写的 Git 服务。</p>
+<p>作为一个额外的防范措施，你可以用 Git 自带的git-shell工具限制git用户的活动范围。只要把它设为git用户登入的 shell，那么该用户就无法使用普通的 bash 或者 csh 什么的 shell 程序。编辑/etc/passwd文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/passwd</span><br></pre></td></tr></table></figure></p>
+<p>在文件末尾，你应该能找到类似这样的行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git:x:1000:1000::/home/git:/bin/sh</span><br></pre></td></tr></table></figure></p>
+<p>把bin/sh改为/usr/bin/git-shell（或者用which git-shell查看它的实际安装路径）。该行修改后的样子如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git:x:1000:1000::/home/git:/usr/bin/git-shell</span><br></pre></td></tr></table></figure></p>
+<p>现在git用户只能用 SSH 连接来推送和获取 Git 仓库，而不能直接使用主机 shell。尝试普通 SSH 登录的话，会看到下面这样的拒绝信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh git@gitserver</span><br><span class="line">fatal: What do you think I am? A shell?</span><br><span class="line">Connection to gitserver closed.</span><br></pre></td></tr></table></figure></p>
+<p>这里提供的方法，组内所有成员对project都有读写权限，也就是说每个分支都可以push代码，如果需要更加细致的权限控制，请使用<a href="http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-Gitosis" target="_blank" rel="noopener">Gitosis</a>或者<a href="http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-Gitolite" target="_blank" rel="noopener">Gitolite</a>。</p>
+<h1 id="2-搭建Gitweb"><a href="#2-搭建Gitweb" class="headerlink" title="2. 搭建Gitweb"></a>2. 搭建Gitweb</h1><p>安装gitweb之后就可以通过网站访问我们的项目了。就像<a href="http://git.kernel.org" target="_blank" rel="noopener">http://git.kernel.org</a>一样显示了<br>首先需要安装Gitweb，如果没有安装apache，那么直接安装Gitweb，也会将apache2安装的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install gitweb apache2</span><br></pre></td></tr></table></figure></p>
+<p>安装完成之后，我们只需要修改一下配置文件，将/etc/gitweb.conf文件中的$projectroot修改为放工程文件的目录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/gitweb.conf</span><br><span class="line"># path to git projects (&lt;project&gt;.git)</span><br><span class="line">$projectroot = &quot;/opt/git&quot;;</span><br></pre></td></tr></table></figure></p>
+<p>至此gitweb就可以使用了，现在可以通过<a href="http://[git_server_IP]/gitweb访问了。" target="_blank" rel="noopener">http://[git_server_IP]/gitweb访问了。</a></p>
+<h1 id="3-Push之后发送邮件通知"><a href="#3-Push之后发送邮件通知" class="headerlink" title="3. Push之后发送邮件通知"></a>3. Push之后发送邮件通知</h1><p>当组内成员push代码到服务器上之后，会自动发送邮件通知组内所有人员，该次push的具体内容是什么。具体配置方法：<br>一般在安装Git的时候发送邮件的脚本/usr/share/git-core/contrib/hooks/post-receive-email已经存在了，首先要修改所有者和执行权限，并且安装sendmail。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chown git:git post-receive-email</span><br><span class="line">$ sudo chmod 755 post-receive-email</span><br><span class="line">$ sudo apt-get install sendmail</span><br></pre></td></tr></table></figure></p>
+<p>然后到切换到工程目录下的hooks中，添加 post-receive软链接指向 /usr/share/git-core/contrib/hooks/ post-receive-email。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /opt/git/project.git/hooks</span><br><span class="line">$ ln -s /usr/share/git-core/contrib/hooks/post-receive-email post-receive</span><br></pre></td></tr></table></figure></p>
+<p>最后修改工程目录中的config文件即可。mailinglist是邮件列表，envelopesender是发件人的邮箱<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ vim /opt/git/project.git/config</span><br><span class="line">[core]</span><br><span class="line">        repositoryformatversion = 0</span><br><span class="line">        filemode = true</span><br><span class="line">        bare = true</span><br><span class="line"></span><br><span class="line">[hooks]</span><br><span class="line">        mailinglist = &quot;example@gmail.com, example2@gmail.com&quot;     # 收件人列表</span><br><span class="line">        envelopesender = project.git@example.com  # 送件人地址</span><br><span class="line">        emailprefix = &quot;[Project commit] &quot;   # 邮件标题前缀</span><br><span class="line">        showrev = &quot;git show -C %s; echo&quot;    # 不只显示有变化的文件，同时也显示改变的内容</span><br></pre></td></tr></table></figure></p>
+<p>为了使邮件显示的更清楚，还要修改一下工程目录当中的description文件，在description文件中，默认第一行是项目名称，所以要在第一行填入该项目的名称，这个在邮件中会有显示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vim /opt/git/project.git/description</span><br><span class="line">Project_A</span><br></pre></td></tr></table></figure></p>
+<p>我们收到邮件的标题是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Project commit] Project_A branch master updated. 8811b83e1afb373cbe30d5bc25683d74ace2917c</span><br></pre></td></tr></table></figure></p>
+<p>有时候我们会发现启动和发送sendmail都相当慢，甚至要等两三分钟，完全不能忍，最后通过不断的测试，解决了这个问题，主要是要修改/etc/hosts。例如我的发件人的域是example.com，hostname是desktop，那么就应该这样修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1  example.com localhost desktop</span><br></pre></td></tr></table></figure></p>
+<p>改完之后重启sendmail服务:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service sendmail restart</span><br></pre></td></tr></table></figure></p>
+<p>然后你就会发现邮件发的那是刷刷滴！<br>至此，我们的Git服务器就已经搭建完成了，和你的小伙伴一起快乐的coding吧！</p>
+<h1 id="4-参考链接http-git-scm-com-book-zh-E6-9C-8D-E5-8A-A1-E5-99-A8-E4-B8-8A-E7-9A-84-Git-E6-9E-B6-E8-AE-BE-E6-9C-8D-E5-8A-A1-E5-99-A8"><a href="#4-参考链接http-git-scm-com-book-zh-E6-9C-8D-E5-8A-A1-E5-99-A8-E4-B8-8A-E7-9A-84-Git-E6-9E-B6-E8-AE-BE-E6-9C-8D-E5-8A-A1-E5-99-A8" class="headerlink" title="4. 参考链接http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8"></a>4. 参考链接<a href="http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8" target="_blank" rel="noopener">http://git-scm.com/book/zh/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8</a></h1><p><a href="http://josephj.com/entry.php?id=346" target="_blank" rel="noopener">http://josephj.com/entry.php?id=346</a> </p>
 
           
         
@@ -1901,6 +1797,28 @@ Project_A`&lt;/pre&gt;
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1931,17 +1849,14 @@ Project_A`&lt;/pre&gt;
         
           
             <p>前一段时间在学习怎么建立一个属于自己的网站，现在将这个过程分享给大家，其实建立网站也是很简单的。</p>
-<p><span id="OSC_h3_1"></span></p>
-<h3 id="1-申请域名"><a href="#1-申请域名" class="headerlink" title="1. 申请域名"></a>1. 申请域名</h3><p> 域名就是你网站的网址，取一个比较简洁易记有意义的域名，然后到<a href="https://mya.godaddy.com/" target="_blank" rel="noopener">https://mya.godaddy.com/</a>上注册一个账号，就可以在上面申请属于你的域名了。申请顶级域名是需要付费的，一般价格如下表所示，也有部分比较好的域名价格很贵。如果你无法直接在该网站购买域名，那么你先挑选好域名之后到淘宝上请别人帮你购买。</p>
-<p><a href="http://static.oschina.net/uploads/img/201306/22202218_SPHf.png" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201306/22202219_Z1xc.png" alt="image" title="image"></a></p>
-<p><span id="OSC_h3_2"></span></p>
-<h3 id="2-空间"><a href="#2-空间" class="headerlink" title="2. 空间"></a>2. 空间</h3><p> 空间就是放置网站代码和数据的地方。可以到淘宝上买空间，国外的空间访问可能会比较慢，最好买香港的空间，这样就不需要备案，买空间的时候注意该空间支持的服务器脚本语言，数据库，以及空间大小和数据库大小。 可以先买一个小空间（比如100M）用着，以后比较熟悉了再换。</p>
-<p><a href="http://static.oschina.net/uploads/img/201306/22202219_cWa9.png" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201306/22202220_sK8S.png" alt="image" title="image"></a></p>
-<h3 id="3-CMS"><a href="#3-CMS" class="headerlink" title="3. CMS"></a>3. CMS</h3><p> 利用CMS可以帮你快速建立网站，推荐的CMS有：<a href="http://www.phome.net/" target="_blank" rel="noopener">帝国CMS</a>，<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">Wordpress</a>，<a href="http://www.dedecms.com/" target="_blank" rel="noopener">织梦CMS</a>，<a href="https://drupal.org/home" target="_blank" rel="noopener">Drupal</a>等，建议先安装帝国CMS，因为它会帮你直接将apache和php5安装。如果你要建立个人博客网站，那么<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">Wordpress</a>是一个不错的选择。</p>
-<p><a href="http://static.oschina.net/uploads/img/201306/22202423_9znZ.png" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201306/22202423_NfFT.png" alt="image" title="image"></a><br> 帝国CMS安装目录<br><a href="http://static.oschina.net/uploads/img/201306/22202423_xfyb.png" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201306/22202424_feG4.png" alt="image" title="image"></a><br> Wordpress后台管理界面</p>
-<h3 id="4-上传网站代码"><a href="#4-上传网站代码" class="headerlink" title="4. 上传网站代码"></a>4. 上传网站代码</h3><p> 利用FTP上传利器filezilla将网站代码上传到刚刚购买的空间中。FTP的地址账号密码会在买空间时提供给你。</p>
-<h3 id="5-空间和域名绑定"><a href="#5-空间和域名绑定" class="headerlink" title="5. 空间和域名绑定"></a>5. 空间和域名绑定</h3><p> 将我们申请的域名和空间绑定，也就是DNS解析。具体过程可以参考下面这片文章： <a href="http://www.yidaomi.com/godaddy/7.html" target="_blank" rel="noopener">http://www.yidaomi.com/godaddy/7.html</a>，一段时间之后你就可以在浏览器中通过域名就可以访问你的网站了。</p>
-<h3 id="6-安装网站"><a href="#6-安装网站" class="headerlink" title="6. 安装网站"></a>6. 安装网站</h3><p> 访问你的网站，按照提示一步一步安装你的网站。最后大功告成，一个属于你网站就建成了。</p>
+<h1 id="1-申请域名"><a href="#1-申请域名" class="headerlink" title="1. 申请域名"></a>1. 申请域名</h1><p>域名就是你网站的网址，取一个比较简洁易记有意义的域名，然后到<a href="https://mya.godaddy.com/" target="_blank" rel="noopener">https://mya.godaddy.com/</a>上注册一个账号，就可以在上面申请属于你的域名了。申请顶级域名是需要付费的，一般价格如下表所示，也有部分比较好的域名价格很贵。如果你无法直接在该网站购买域名，那么你先挑选好域名之后到淘宝上请别人帮你购买。<br><img src="http://static.oschina.net/uploads/img/201306/22202219_Z1xc.png" alt="image" title="image"></p>
+<h1 id="2-空间"><a href="#2-空间" class="headerlink" title="2. 空间"></a>2. 空间</h1><p>空间就是放置网站代码和数据的地方。可以到淘宝上买空间，国外的空间访问可能会比较慢，最好买香港的空间，这样就不需要备案，买空间的时候注意该空间支持的服务器脚本语言，数据库，以及空间大小和数据库大小。 可以先买一个小空间（比如100M）用着，以后比较熟悉了再换。<br><img src="http://static.oschina.net/uploads/img/201306/22202220_sK8S.png" alt="image" title="image"></p>
+<h1 id="3-CMS"><a href="#3-CMS" class="headerlink" title="3. CMS"></a>3. CMS</h1><p>利用CMS可以帮你快速建立网站，推荐的CMS有：<a href="http://www.phome.net/" target="_blank" rel="noopener">帝国CMS</a>，<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">Wordpress</a>，<a href="http://www.dedecms.com/" target="_blank" rel="noopener">织梦CMS</a>，<a href="https://drupal.org/home" target="_blank" rel="noopener">Drupal</a>等，建议先安装帝国CMS，因为它会帮你直接将apache和php5安装。如果你要建立个人博客网站，那么<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">Wordpress</a>是一个不错的选择。</p>
+<p><img src="http://static.oschina.net/uploads/img/201306/22202423_NfFT.png" alt="image" title="帝国CMS安装目录"></p>
+<p><img src="http://static.oschina.net/uploads/img/201306/22202424_feG4.png" alt="image" title="Wordpress后台管理界面"></p>
+<h1 id="4-上传网站代码"><a href="#4-上传网站代码" class="headerlink" title="4. 上传网站代码"></a>4. 上传网站代码</h1><p>利用FTP上传利器filezilla将网站代码上传到刚刚购买的空间中。FTP的地址账号密码会在买空间时提供给你。</p>
+<h1 id="5-空间和域名绑定"><a href="#5-空间和域名绑定" class="headerlink" title="5. 空间和域名绑定"></a>5. 空间和域名绑定</h1><p>将我们申请的域名和空间绑定，也就是DNS解析。具体过程可以参考下面这片文章： <a href="http://www.yidaomi.com/godaddy/7.html" target="_blank" rel="noopener">http://www.yidaomi.com/godaddy/7.html</a>，一段时间之后你就可以在浏览器中通过域名就可以访问你的网站了。</p>
+<h1 id="6-安装网站"><a href="#6-安装网站" class="headerlink" title="6. 安装网站"></a>6. 安装网站</h1><p>访问你的网站，按照提示一步一步安装你的网站。最后大功告成，一个属于你网站就建成了。</p>
 
           
         
@@ -2038,7 +1953,7 @@ Project_A`&lt;/pre&gt;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>

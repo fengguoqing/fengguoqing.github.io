@@ -537,7 +537,7 @@ sleep-inside-spinlockchecking（自旋锁内睡眠选项）
 <p>清单 11. 反汇编的 fork<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">000022b0 &lt;do_fork&gt;:</span><br><span class="line">   22b0:       55                      push   %ebp</span><br><span class="line">   22b1:       89 e5                   mov    %esp,%ebp</span><br><span class="line">   22b3:       57                      push   %edi</span><br><span class="line">   22b4:       89 c7                   mov    %eax,%edi</span><br><span class="line">   22b6:       56                      push   %esi</span><br><span class="line">   22b7:       89 d6                   mov    %edx,%esi</span><br><span class="line">   22b9:       53                      push   %ebx</span><br><span class="line">   22ba:       83 ec 38                sub    $0x38,%esp</span><br><span class="line">   22bd:       c7 45 d0 00 00 00 00    movl   $0x0,0xffffffd0(%ebp)</span><br><span class="line">   22c4:       89 cb                   mov    %ecx,%ebx</span><br><span class="line">   22c6:       89 44 24 04             mov    %eax,0x4(%esp)</span><br><span class="line">   22ca:       c7 04 24 0a 00 00 00    movl   $0xa,(%esp)</span><br><span class="line">   22d1:       e8 fc ff ff ff          call   22d2 &lt;do_fork+0x22&gt;</span><br><span class="line">   22d6:       b8 00 e0 ff ff          mov    $0xffffe000,%eax</span><br><span class="line">   22db:       21 e0                   and    %esp,%eax</span><br><span class="line">   22dd:       8b 00                   mov    (%eax),%eax</span><br></pre></td></tr></table></figure></p>
 <p>要在偏移位置 0x22c4 插入探测器，先要得到与例程的开始处相对的偏移量 0x22c4 - 0x22b0 = 0x14 ，然后将这个偏移量添加到 do_fork 的地址 0xc01441d0 + 0x14 。（运行 $cat /proc/kallsyms | grep do_fork 命令以获得 do_fork 的地址。）<br>您还可以将 do_fork 的相对偏移量 0x22c4 - 0x22b0 = 0x14 添加到 kallsyms_lookup_name(“do_fork”); 的输入，即：0x14 + kallsyms_lookup_name(“do_fork”); </p>
 <p>2.3  转储内核数据结构<br>现在，让我们使用修改过的用来转储数据结构的 Kprobe post_handler 来转储运行在系统上的所有作业的一些组成部分： </p>
-<p>清单 12. 用来转储数据结构的修改过的 Kprope post_handler<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handler_post</span><span class="params">(struct kprobe *p, struct pt_regs *regs, <span class="keyword">unsigned</span> <span class="keyword">long</span> flags)</span> </span>&#123;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">task</span>;</span></span><br><span class="line">read_lock(&amp;tasklist_lock);</span><br><span class="line">for_each_process(task) &#123;</span><br><span class="line">printk(<span class="string">"pid =%x task-info_ptr=%lx\n"</span>, task-&gt;pid,</span><br><span class="line">task-&gt;thread_info);</span><br><span class="line">printk(<span class="string">"thread-info element status=%lx,flags=%lx, cpu=%lx\n"</span>,</span><br><span class="line">task-&gt;thread_info-&gt;status, task-&gt;thread_info-&gt;flags,</span><br><span class="line">task-&gt;thread_info-&gt;cpu);</span><br><span class="line">&#125;</span><br><span class="line">read_unlock(&amp;tasklist_lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>清单 12. 用来转储数据结构的修改过的 Kprope post_handler<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handler_post</span><span class="params">(struct kprobe *p, struct pt_regs *regs, <span class="keyword">unsigned</span> <span class="keyword">long</span> flags)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">task</span>;</span></span><br><span class="line">    read_lock(&amp;tasklist_lock);</span><br><span class="line">    for_each_process(task) &#123;</span><br><span class="line">    printk(<span class="string">"pid =%x task-info_ptr=%lx\n"</span>, task-&gt;pid,</span><br><span class="line">    task-&gt;thread_info);</span><br><span class="line">    printk(<span class="string">"thread-info element status=%lx,flags=%lx, cpu=%lx\n"</span>,</span><br><span class="line">    task-&gt;thread_info-&gt;status, task-&gt;thread_info-&gt;flags,</span><br><span class="line">    task-&gt;thread_info-&gt;cpu);</span><br><span class="line">&#125;</span><br><span class="line">    read_unlock(&amp;tasklist_lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这个模块应该插入到 do_fork 的偏移位置。 </p>
 <p>清单 13. pid 1508 和 1509 的结构体 thread_info 的输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$tail -10 /var/log/messages</span><br><span class="line">Jun 22 18:14:25 llm05 kernel: thread-info element status=0,flags=0, cpu=1</span><br><span class="line">Jun 22 18:14:25 llm05 kernel: pid =5e4 task-info_ptr=f5948000</span><br><span class="line">Jun 22 18:14:25 llm05 kernel: thread-info element status=0,flags=8, cpu=0</span><br><span class="line">Jun 22 18:14:25 llm05 kernel: pid =5e5 task-info_ptr=f5eca000</span><br></pre></td></tr></table></figure></p>
 <h3 id="2-4-启用奇妙的-SysRq-键"><a href="#2-4-启用奇妙的-SysRq-键" class="headerlink" title="2.4  启用奇妙的 SysRq 键"></a>2.4  启用奇妙的 SysRq 键</h3><p>为了支持 SysRq 键，我们已经进行了编译。这样来启用它： </p>
@@ -548,7 +548,7 @@ sleep-inside-spinlockchecking（自旋锁内睡眠选项）
 <p>清单 14. /var/log/messages 显示出在 do_fork 插入了一个 Kprobe<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Jun 23 10:24:48 linux-udp4749545uds kernel: SysRq : Show kprobes</span><br><span class="line">Jun 23 10:24:48 linux-udp4749545uds kernel:</span><br><span class="line">Jun 23 10:24:48 linux-udp4749545uds kernel: [&lt;c011ea60&gt;] do_fork+0x0/0x1de</span><br></pre></td></tr></table></figure></p>
 <h2 id="3-使用-Kprobes-更好地进行调试"><a href="#3-使用-Kprobes-更好地进行调试" class="headerlink" title="3  使用 Kprobes 更好地进行调试"></a>3  使用 Kprobes 更好地进行调试</h2><p>由于探测器事件处理器是作为系统断点中断处理器的扩展来运行，所以它们很少或者根本不依赖于系统 工具 —— 这样可以被植入到大部分不友好的环境中（从中断时间和任务时间到禁用的上下文间切换和支持 SMP 的代码路径）—— 都不会对系统性能带来负面影响。<br>使用 Kprobes 的好处有很多。不需要重新编译和重新引导内核就可以插入 printk。为了进行调试可以记录 处理器寄存器的日志，甚至进行修改 —— 不会干扰系统。类似地，同样可以无干扰地记录 Linux 内核数据结构的日志，甚至 进行修改。您甚至可以使用 Kprobes 调试 SMP 系统上的竞态条件 —— 避免了您自己重新编译和重新引导的所有 麻烦。您将发现内核调试比以往更为快速和简单。 </p>
 <p>参考：<br><a href="http://www.ibm.com/developerworks/cn/linux/l-kprobes.html" target="_blank" rel="noopener">使用 Kprobes 调试内核</a> </p>
-<p>本文参考： </p>
+<p>本文参考：</p>
 <ol>
 <li>Linux内核设计与实现   P243 第十八章 调试 </li>
 <li><a href="http://www.360doc.com/content/10/1215/15/1378815_78374144.shtml" target="_blank" rel="noopener">linux内核调试指南</a></li>
@@ -643,6 +643,28 @@ sleep-inside-spinlockchecking（自旋锁内睡眠选项）
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -672,9 +694,11 @@ sleep-inside-spinlockchecking（自旋锁内睡眠选项）
       
         
           
-            <p> 因为家里没有网络，但是回家之后想上上网，所以想到了可以使用手机流量，用android手机自带的网络共享与便携热点功能建立一个无线网络，这样笔记本就可以找到该热点并连接上了。但是这样只能上QQ无法上网，经过研究发现了如下两种方法可以解决该问题。 </p>
-<p> 1. 将手机的APN由CMWAP修改为CMNET。 </p>
-<p> 2. 使用代理，HTTP 代理10.0.0.172,端口80.对所有协议均使用相同的代理服务器. </p>
+            <p>因为家里没有网络，但是回家之后想上上网，所以想到了可以使用手机流量，用android手机自带的网络共享与便携热点功能建立一个无线网络，这样笔记本就可以找到该热点并连接上了。但是这样只能上QQ无法上网，经过研究发现了如下两种方法可以解决该问题。 </p>
+<ol>
+<li>将手机的APN由CMWAP修改为CMNET。 </li>
+<li>使用代理，HTTP 代理10.0.0.172,端口80.对所有协议均使用相同的代理服务器. </li>
+</ol>
 
           
         
@@ -1104,6 +1128,28 @@ acpi.debug_layer= ACPI_TABLES | ACPI_NAMESPACE，
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1133,16 +1179,18 @@ acpi.debug_layer= ACPI_TABLES | ACPI_NAMESPACE，
       
         
           
-            <p> 由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：</p>
-<p>1. 使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。 </p>
-<p>2. 使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。 </p>
-<p>3. 使用TFTP/NFS网络服务加载程序，配置好终端和服务器，使用起来比较方便，而且速度很快。 </p>
-<p> 在这里我讲一下TFTP方式的配置过程，以及使用方式。首先需要将U-boot下载到Nand Flash中，但是由于友善之臂提供的USB驱动在WIN7及其不稳定，所以我费了九牛二虎之力才将其使用DNW下载进去。使用的是由<a href="http://blog.chinaunix.net/space.php?uid=20543672&amp;do=blog&amp;id=94376" target="_blank" rel="noopener">Tekkaman Ninja</a>移植的U-boot，可以通过git来下载源代码，下载方式是：git clone <a href="https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git" target="_blank" rel="noopener">https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git</a>。关于GIT的用法，参考<a href="http://www.arm9home.net/read.php?tid-5266.html" target="_blank" rel="noopener">http://www.arm9home.net/read.php?tid-5266.html</a>。下载完成之后需要重新编译，编译步骤如下：</p>
+            <p>由于mini2440在WIN7上下载，USB驱动无法兼容，总是出现蓝屏重启的现象，导致不得不想其他方式来下载，首先就考虑了使用U-Boot来下载，因为它支持多种下载方式：</p>
+<ol>
+<li>使用串口下载，它支持kermit/xmodem/ymodem等模式，但是下载速度比较慢。 </li>
+<li>使用U盘/SD卡加载程序，需要先将程序拷贝到U盘/SD卡中，然后再通过相应的命令读取到内存中。 </li>
+<li>使用TFTP/NFS网络服务加载程序，配置好终端和服务器，使用起来比较方便，而且速度很快。 </li>
+</ol>
+<p>在这里我讲一下TFTP方式的配置过程，以及使用方式。首先需要将U-boot下载到Nand Flash中，但是由于友善之臂提供的USB驱动在WIN7及其不稳定，所以我费了九牛二虎之力才将其使用DNW下载进去。使用的是由<a href="http://blog.chinaunix.net/space.php?uid=20543672&amp;do=blog&amp;id=94376" target="_blank" rel="noopener">Tekkaman Ninja</a>移植的U-boot，可以通过git来下载源代码，下载方式是：git clone <a href="https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git。关于GIT的用法，参考" target="_blank" rel="noopener">https://github.com/tekkamanninja/u-boot-2010.03-tekkaman.git。关于GIT的用法，参考</a><a href="http://www.arm9home.net/read.php?tid-5266.html" target="_blank" rel="noopener">http://www.arm9home.net/read.php?tid-5266.html</a>。下载完成之后需要重新编译，编译步骤如下：</p>
 <blockquote>
 <p>$cd u-boot-2010.03-tekkaman<br>$export PATH=$PATH:/opt/FriendlyARM/toolschain/4.4.3/bin/<br>$make ARCH=arm CROSS_COMPILE=/opt/FriendlyARM/toolschain/4.4.3/bin/arm-linux- mini2440_config<br>$make ARCH=arm CROSS_COMPILE=/opt/FriendlyARM/toolschain/4.4.3/bin/arm-linux- all </p>
 </blockquote>
 <p>如果你在编译的过程中碰到了invalid option的问题，那是因为git下载的文件编码格式不正确，应该使用utf-8的格式下载文件，或者使用在linux中通过git下载源代码编译，保证文件格式是正确的。最终生成的u-boot.bin可以通过supervivi菜单项里的”[a] Absolute User Application”选项 + DNW工具下载到NAND Flash中。</p>
-<p> 将mini2440设置成nand flash启动模式，链接串口和网线，网线分为交叉网线和直连网线，mini2440赠送的是直连网线，不过网卡可以自动识别。启动串口之后就可以看到以下内容：</p>
+<p>将mini2440设置成nand flash启动模式，链接串口和网线，网线分为交叉网线和直连网线，mini2440赠送的是直连网线，不过网卡可以自动识别。启动串口之后就可以看到以下内容：</p>
 <blockquote>
 <p>U-Boot 2010.03 (Dec 27 2012 - 06:32:26)</p>
 <p>modified by tekkamanninja (tekkamanninja@163.com)<br>Love Linux forever!!</p>
@@ -1159,7 +1207,7 @@ acpi.debug_layer= ACPI_TABLES | ACPI_NAMESPACE，
 </blockquote>
 <p>虽然mini2440与PC通过网线连接起来的，但是PC机上的本地连接仍旧是断开的，这是因为我们使用的是直连网线，只有等到ping的时候才可以正常连接，并且只能通过mini2440 ping PC，无法通过PC来ping mini2440。</p>
 <p>接下来需要下载TFTP服务软件，下载地址：<a href="http://tftpd32.jounin.net/tftpd32_download.html" target="_blank" rel="noopener">http://tftpd32.jounin.net/tftpd32_download.html</a>。请选择合适的版本下载，安装之后打开软件配置，主要是配置Current Directory，这个路径下主要是存放你需要下载的文件的。同时需要关闭防火墙和杀毒软件，如果不想关闭它们可以通过设置允许TFTP通过windows防火墙通信来避免通信被阻挡。</p>
-<p><a href="http://static.oschina.net/uploads/img/201301/12140641_tHaI.jpg" target="_blank" rel="noopener"><img src="http://static.oschina.net/uploads/img/201301/12140642_0b2n.jpg" alt="F6C6EC91A9B04510B809DE6E37574824" title="F6C6EC91A9B04510B809DE6E37574824"></a>[![ZD<em>J}37H`RH{O12</em>(][<a href="http://static.oschina.net/uploads/img/201301/12140642_yJ31.jpg" title="ZD_J}37H`RH{O12_(][[A" target="_blank" rel="noopener">A</a>](<a href="http://static.oschina.net/uploads/img/201301/12140642_gnRw.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/12140642_gnRw.jpg</a>)</p>
+<p><img src="http://static.oschina.net/uploads/img/201301/12140642_0b2n.jpg" alt="F6C6EC91A9B04510B809DE6E37574824" title="Tftpd32配置"><br><img src="http://static.oschina.net/uploads/img/201301/12140642_yJ31.jpg" alt=""></p>
 <p>比如我的mini2440 IP为192.168.3.8，PC机的本地连接IP为192.168.3.5。可以在uboot上通过ping 192.168.3.5来测试网络是否连接好了。如果可以ping通，那么会出现：</p>
 <blockquote>
 <p>[u-boot@MINI2440]# ping 192.168.3.5<br>dm9000 i/o: 0x20000300, id: 0x90000a46<br>DM9000: running in 16 bit mode<br>MAC: 08:08:11:18:12:27<br>operating at 100M full duplex mode<br>Using dm9000 device<br>host 192.168.3.5 is alive </p>
@@ -1184,14 +1232,15 @@ acpi.debug_layer= ACPI_TABLES | ACPI_NAMESPACE，
 <h2 id="Booting-kernel-from-Legacy-Image-at-30008000-…"><a href="#Booting-kernel-from-Legacy-Image-at-30008000-…" class="headerlink" title="Booting kernel from Legacy Image at 30008000 …"></a>Booting kernel from Legacy Image at 30008000 …</h2><p> Image Name: tekkaman<br> Created: 2010-03-29 12:59:51 UTC<br> Image Type: ARM Linux Kernel Image (uncompressed)<br> Data Size: 2277476 Bytes = 2.2 MB<br> Load Address: 30008000<br> Entry Point: 30008040<br> Verifying Checksum … OK<br> XIP Kernel Image … OK<br>OK </p>
 <p>Starting kernel … </p>
 </blockquote>
-<p>如果我们需要调试的是一般程序，那么通过tftp下载之后，可以使用go 30008000来运行，注意由于友善之臂提供的代码入口地址都是0x30000000，所以不能运行，我们自己编写的程序入口地址应该设置为0x30008000.</p>
-<p>[![A}ID4%JT@RKTF2EJ<a href="http://static.oschina.net/uploads/img/201301/12201708_ADi0.jpg" title="A}ID4%JT@RKTF2EJ[~%N{FL" target="_blank" rel="noopener">~%N{FL</a>](<a href="http://static.oschina.net/uploads/img/201301/12201707_i9O9.jpg" target="_blank" rel="noopener">http://static.oschina.net/uploads/img/201301/12201707_i9O9.jpg</a>)</p>
+<p>如果我们需要调试的是一般程序，那么通过tftp下载之后，可以使用go 30008000来运行，注意由于友善之臂提供的代码入口地址都是0x30000000，所以不能运行，我们自己编写的程序入口地址应该设置为0x30008000.<br><img src="http://static.oschina.net/uploads/img/201301/12201708_ADi0.jpg" alt=""></p>
 <p>下面介绍一个简单的调试方法，因为我们每次调试代码都需要不断的下载新的编译程序。</p>
-<p>1. 首先设置tftp 的Current Directory为工程生成bin文件的目录。</p>
-<p>2. 设置环境变量bootcmd和bootdelay：</p>
-<blockquote>
+<ol>
+<li>首先设置tftp 的Current Directory为工程生成bin文件的目录。</li>
+<li>设置环境变量bootcmd和bootdelay：<blockquote>
 <p>[u-boot@MINI2440]# setenv bootdelay 1<br>[u-boot@MINI2440]# setenv bootcmd “tftp 2440test.bin;go 0x30008000”<br>[u-boot@MINI2440]# saveenv<br>Saving Environment to NAND…<br>Erasing Nand…<br>Erasing at 0x6000000000002 – 0% complete.<br>Writing to Nand… done </p>
 </blockquote>
+</li>
+</ol>
 <p>注意2440test.bin为项目最终生成的bin文件名字，你的项目生成的是什么名字，这里就填写什么名字。</p>
 <p>以后每次你打开mini2440，它就会自动下载最新的bin文件，并且执行它，你就可以立即看到结果，根本不需要你动手去下载，是不是很方便。</p>
 <blockquote>
@@ -1469,7 +1518,7 @@ acpi.debug_layer= ACPI_TABLES | ACPI_NAMESPACE，
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
