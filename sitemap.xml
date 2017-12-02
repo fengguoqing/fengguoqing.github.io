@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fengguoqing.github.io/2014/04/14/Linux-kernel-make-menuconfig-%E6%97%B6%E5%87%BA%E9%94%99%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2017-12-02T13:36:07.177Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fengguoqing.github.io/2013/11/02/%E5%9F%BA%E4%BA%8Elinux-3-10%E7%9A%84yaffs2%E7%A7%BB%E6%A4%8D/</loc>
     
     <lastmod>2017-12-02T08:13:26.449Z</lastmod>
@@ -89,13 +96,6 @@
     <loc>https://fengguoqing.github.io/2013/03/12/Linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
     
     <lastmod>2017-12-02T07:09:18.449Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fengguoqing.github.io/2014/04/14/Linux-kernel-make-menuconfig-%E6%97%B6%E5%87%BA%E9%94%99%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/</loc>
-    
-    <lastmod>2017-12-02T05:16:44.167Z</lastmod>
     
   </url>
   
